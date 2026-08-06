@@ -106,21 +106,25 @@ design-system/     — implementation-ready design values
   ICONS.md         — icon language
   CSS_ARCHITECTURE.md — CSS implementation guidance
 
-docs/              — structural and process documentation
+governance/        — project governance of the design system
   DECISIONS.md     — architectural history and decision record
   ROADMAP.md       — direction and phases
   CHANGELOG.md     — historical log of changes
+  DOCUMENTATION_STYLE.md — writing and documentation standards
+
+site/              — the website the design system serves
   SITEMAP.md       — information architecture
   USER_JOURNEYS.md — experience layer
   CONTENT_STRATEGY.md — content and writing direction
-  DOCUMENTATION_STYLE.md — writing and documentation standards
 
+templates/         — reusable page-level compositions
+references/        — visual research library (non-canonical)
 css/               — stylesheet assets (tokens, base, utilities)
 mockups/           — high-fidelity visual mockups
 wireframes/        — low-fidelity layout sketches
-website/           — ecosystem web presence assets
-.ai/               — agent-facing context (optional)
 ```
+
+The repository structure is declared **stable**. New work fits into these folders; the layout is no longer reorganized.
 
 ---
 

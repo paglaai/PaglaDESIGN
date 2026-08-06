@@ -172,7 +172,7 @@ Accessibility is written into the CSS, not bolted on:
 - Components — `../components/COMPONENTS.md`
 - Motion — `MOTION.md`
 - Accessibility — `ACCESSIBILITY.md`
-- Decision history — `../docs/DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

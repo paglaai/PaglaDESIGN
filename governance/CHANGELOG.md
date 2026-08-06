@@ -23,6 +23,16 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.9 — Repository Structure Refinement
+
+- **Renamed** `docs/` → `governance/` — decisions, roadmap, changelog, documentation style (project governance, not documentation).
+- **Renamed** `website/` → `site/`.
+- **Moved** `SITEMAP.md`, `USER_JOURNEYS.md`, `CONTENT_STRATEGY.md` from `governance/` to `site/`.
+- **Added** `templates/` — reusable page-level compositions.
+- **Added** `references/` — visual research library (non-canonical).
+- **Removed** `.ai/` — no agent-specific content yet.
+- **Declared** the repository structure stable (D-012).
+
 ## v0.8 — Repository Reorganization
 
 - **Reorganized** the repository into a canonical folder structure per `VISION.md`: `brand/`, `design-system/`, `components/`, `docs/`, `css/`, `mockups/`, `wireframes/`, `website/`, `.ai/`.

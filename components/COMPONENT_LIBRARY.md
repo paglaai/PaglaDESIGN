@@ -44,9 +44,9 @@ A component enters the library through the decision workflow.
 
 1. A recurring need is identified.
 2. The design is documented.
-3. The change is recorded in `../docs/DECISIONS.md`.
+3. The change is recorded in `../governance/DECISIONS.md`.
 4. The component is registered here.
-5. The version moves in `../docs/CHANGELOG.md`.
+5. The version moves in `../governance/CHANGELOG.md`.
 
 No component is added by accident.
 
@@ -178,7 +178,7 @@ A component that fails a gate is not registered.
 - Color — `../design-system/COLOR_SYSTEM.md`
 - Motion — `../design-system/MOTION.md`
 - Accessibility — `../design-system/ACCESSIBILITY.md`
-- Decisions — `../docs/DECISIONS.md`
+- Decisions — `../governance/DECISIONS.md`
 
 ---
 

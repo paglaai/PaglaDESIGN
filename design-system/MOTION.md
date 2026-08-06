@@ -146,7 +146,7 @@ If motion is present without purpose, it is noise.
 - Tokens and easing — `DESIGN_TOKENS.md`
 - Interaction states — `COLOR_SYSTEM.md`
 - Component behavior — `../components/COMPONENTS.md`
-- Decision history — `../docs/DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

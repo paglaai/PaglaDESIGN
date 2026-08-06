@@ -184,7 +184,7 @@ Product-specific names without a shared role are not library members.
 - Appearance and color — `../design-system/DESIGN_TOKENS.md`, `../design-system/COLOR_SYSTEM.md`
 - Typography in components — `../design-system/TYPOGRAPHY.md`
 - Behavior — this document
-- Decision history — `../docs/DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

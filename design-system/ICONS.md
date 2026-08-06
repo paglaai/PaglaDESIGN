@@ -122,7 +122,7 @@ If no, it does not belong.
 - Color semantics — `COLOR_SYSTEM.md`
 - Component usage — `../components/COMPONENTS.md`
 - Accessibility — `ACCESSIBILITY.md`
-- Decision history — `../docs/DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

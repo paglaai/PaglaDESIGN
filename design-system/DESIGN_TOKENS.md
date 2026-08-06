@@ -365,7 +365,7 @@ The accent is single-purpose: meaning only, never a background fill (`COLOR_SYST
 
 Values are locked. They change only through the decision workflow.
 
-A change to any locked value is recorded in `../docs/DECISIONS.md` and `../docs/CHANGELOG.md`.
+A change to any locked value is recorded in `../governance/DECISIONS.md` and `../governance/CHANGELOG.md`.
 
 ---
 
@@ -374,8 +374,8 @@ A change to any locked value is recorded in `../docs/DECISIONS.md` and `../docs/
 - Philosophy & hierarchy — `TYPOGRAPHY.md`
 - Color semantics — `COLOR_SYSTEM.md`
 - Brand usage — `../brand/BRAND.md`
-- Decide how a value was chosen — `../docs/DECISIONS.md`
-- Historical file log — `../docs/CHANGELOG.md`
+- Decide how a value was chosen — `../governance/DECISIONS.md`
+- Historical file log — `../governance/CHANGELOG.md`
 
 ---
 
