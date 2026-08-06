@@ -23,6 +23,10 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.5 — Component Registry
+
+- **Added** `COMPONENT_LIBRARY.md` — registry of shared components, lifecycle, ownership, and quality gate.
+
 ## v0.4 — Implementation Reference
 
 - **Added** `CSS_ARCHITECTURE.md` — layer model, tokens-as-properties, theming, and class naming.
