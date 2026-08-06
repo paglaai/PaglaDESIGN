@@ -23,6 +23,14 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v1.0 — Reference CSS Implementation
+
+- **Added** `css/tokens.css` — canonical token layer; every locked value from `DESIGN_TOKENS.md` as CSS custom properties on `:root` (light) and `[data-theme="dark"]`.
+- **Added** `css/base.css` — reset, element defaults, typography, focus states, reduced motion, responsive type scaling.
+- **Added** `css/utilities.css` — single-purpose, token-driven helpers.
+- **Updated** `css/README.md` — states these are reference implementation; consumers import or graft from here.
+- **Recorded** the decision as D-013 (design authority owns canonical tokens; frameworks live in consumer repos).
+
 ## v0.9 — Repository Structure Refinement
 
 - **Renamed** `docs/` → `governance/` — decisions, roadmap, changelog, documentation style (project governance, not documentation).

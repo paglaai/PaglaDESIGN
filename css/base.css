@@ -1,0 +1,153 @@
+/* ==========================================================================
+   PaglaAI Base — Reference Implementation
+   Element defaults and resets. Layer 2 of CSS_ARCHITECTURE.md.
+   Depends on tokens.css. No magic numbers, no repeated values.
+   ========================================================================== */
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Root ---- */
+:root {
+  font-size: 16px;
+  color-scheme: light dark;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ---- Document ---- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: "PaglaAI Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body);
+  letter-spacing: var(--font-tracking-body);
+  color: var(--color-base-ink);
+  background-color: var(--color-base-paper);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Typography ---- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-heading);
+  letter-spacing: var(--font-tracking-heading);
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-4);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-h4); }
+
+p {
+  margin-bottom: var(--space-4);
+  max-width: var(--font-max-width-body);
+}
+
+small {
+  font-size: var(--font-size-small);
+}
+
+/* ---- Inline code and code blocks ---- */
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+    monospace;
+  font-size: var(--font-size-code);
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--space-4);
+  background-color: var(--color-base-surface);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+}
+
+/* ---- Links ---- */
+a {
+  color: var(--color-accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--motion-duration-fast) var(--motion-easing-default);
+}
+
+a:hover {
+  color: var(--color-state-focus);
+}
+
+/* ---- Lists ---- */
+ul,
+ol {
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+li {
+  margin-bottom: var(--space-2);
+}
+
+/* ---- Forms and interactive elements ---- */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---- Accessibility: visible focus ---- */
+:focus-visible {
+  outline: 2px solid var(--color-state-focus);
+  outline-offset: 2px;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 25%, transparent);
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: var(--motion-reduced) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--motion-reduced) !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Responsive typography scaling ---- */
+@media (max-width: var(--breakpoint-medium)) {
+  :root {
+    font-size: 15px;
+  }
+}

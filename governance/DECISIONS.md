@@ -286,6 +286,48 @@ The structure is the contract. New content lands in an existing folder, or a doc
 
 ---
 
+# D-013 · The Design Authority Owns Canonical Tokens; Frameworks Live in Consumers
+
+**Context:** With `DESIGN_TOKENS.md` locked (D-010) and the ecosystem about to
+produce real surfaces (`PaglaAI.space`, product front-ends), the system had to
+decide how implementation is shared. Re-typing token values in every consumer
+risks drift; shipping a whole UI framework here risks a second, competing
+implementation and maintenance burden.
+
+**Decision**
+
+PaglaDESIGN ships the **token + base + utilities** CSS layers as a reference
+implementation in `css/`:
+
+- `css/tokens.css` — the canonical translation of `DESIGN_TOKENS.md` into CSS
+  custom properties (`:root` + `[data-theme="dark"]`).
+- `css/base.css` — element defaults, typography, focus, reduced motion.
+- `css/utilities.css` — single-purpose, token-driven helpers.
+
+These are marked **reference**, not a shipped UI kit. No UI framework, component
+package, or rendered HTML surface (including a `brandkit.html`) lives in this
+repository. Frameworks and rendered surfaces belong to their consumer repos
+(e.g. `PaglaAI.space`, PaglaROUTER portal), which inherit from these tokens.
+
+**Alternatives considered**
+
+- Docs-only: keep `css/` empty and let each consumer re-type values. Rejected —
+  removes the single source of truth for actual values.
+- Ship a full component framework (React/Vue, build, tests). Rejected — creates
+  a second, competing implementation and a maintenance burden.
+- Publish the reference as a reusable package. Deferred — the ecosystem has no
+  package registry need yet.
+
+**Trade-offs:** the system gains one authoritative `tokens.css`, at the cost of
+maintaining base/utilities here as living reference. Frameworks stay in
+products, preserving the design-first authority relationship.
+
+**Result:** `PaglaAI.space` and future products consume `css/tokens.css` instead
+of re-inventing token values. The authority relationship is enforced by
+construction.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

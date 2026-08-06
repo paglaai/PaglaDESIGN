@@ -1,0 +1,119 @@
+/* ==========================================================================
+   PaglaAI Design Tokens — Reference Implementation
+   Source of truth: design-system/DESIGN_TOKENS.md
+   Naming: category-role-modifier (CSS_ARCHITECTURE.md)
+   Values are locked. Change only through the decision workflow (D-010).
+   ========================================================================== */
+
+:root {
+  /* ---- Spacing (base 0.25rem) ---- */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* ---- Typography sizes ---- */
+  --font-size-display: 4rem;
+  --font-size-h1: 3rem;
+  --font-size-h2: 2.25rem;
+  --font-size-h3: 1.75rem;
+  --font-size-h4: 1.375rem;
+  --font-size-body-large: 1.125rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-caption: 0.75rem;
+  --font-size-code: 0.875rem;
+
+  /* ---- Typography weights ---- */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ---- Line heights ---- */
+  --font-line-height-body: 1.5;
+  --font-line-height-heading: 1.2;
+  --font-line-height-display: 1.05;
+
+  /* ---- Letter spacing ---- */
+  --font-tracking-body: 0;
+  --font-tracking-heading: -0.01em;
+  --font-tracking-display: -0.02em;
+  --font-tracking-uppercase: 0.08em;
+
+  /* ---- Reading measure ---- */
+  --font-max-width-body: 65ch;
+
+  /* ---- Color — Light theme (default) ---- */
+  --color-base-ink: #0a0a0b;
+  --color-base-paper: #ffffff;
+  --color-base-surface: #f5f5f3;
+  --color-base-border: #e8e8e6;
+  --color-base-muted: #6b707e;
+
+  /* ---- Semantic accent (meaning only, never a fill) ---- */
+  --color-accent-primary: #6b7eff;
+  --color-accent-secondary: #a8b5ff;
+  --color-accent-success: #3e9b6e;
+  --color-accent-warning: #e0a23c;
+  --color-accent-error: #c94a4a;
+  --color-accent-info: #4a90c9;
+
+  /* ---- State (theme-aware via color-mix) ---- */
+  --color-state-default: transparent;
+  --color-state-hover: var(--color-base-border);
+  --color-state-focus: var(--color-accent-primary);
+  --color-state-active: color-mix(in srgb, var(--color-base-ink) 8%, transparent);
+  --color-state-disabled: color-mix(in srgb, var(--color-base-muted) 40%, transparent);
+
+  /* ---- UI ---- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-pill: 9999rem;
+
+  --icon-sm: 1rem;
+  --icon-md: 1.5rem;
+  --icon-lg: 2rem;
+
+  --interactive-min-target: 2.75rem;
+
+  /* ---- Motion ---- */
+  --motion-duration-fast: 100ms;
+  --motion-duration-base: 200ms;
+  --motion-duration-slow: 400ms;
+  --motion-easing-default: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-reduced: 0ms;
+
+  /* ---- Breakpoints (intent-named) ---- */
+  --breakpoint-small: 40rem;
+  --breakpoint-medium: 48rem;
+  --breakpoint-large: 64rem;
+  --breakpoint-xlarge: 80rem;
+
+  /* ---- Layout ---- */
+  --layout-max-width: 75rem;
+  --layout-content-padding: 1rem;
+  --layout-content-padding-wide: 2rem;
+}
+
+/* ---- Color — Dark theme (same semantics, new values) ---- */
+[data-theme="dark"] {
+  --color-base-ink: #f5f5f3;
+  --color-base-paper: #0a0a0b;
+  --color-base-surface: #17171a;
+  --color-base-border: #2a2a2e;
+  --color-base-muted: #9aa0ae;
+
+  /* accent and state resolve from the reassigned base tokens */
+}
