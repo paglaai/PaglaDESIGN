@@ -23,6 +23,15 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v1.1 — Agent Tooling (MCP + RAG)
+
+- **Added** `.ai/` — agent infrastructure (re-added after v0.9 removal, D-014).
+- **Added** `.ai/mcp/server.py` — MCP server exposing the design authority to coding agents: `search`, `get_doc`, `list_docs`, `lookup_token`, `search_tokens`, `get_context`.
+- **Added** `.ai/mcp/rag.py` — heading-chunked BM25 retrieval over the canonical Markdown + `css/tokens.css`; deterministic, pure-stdlib, no API key.
+- **Added** `.ai/mcp/run.cmd` — Windows launcher resolving the shared PaglaAI venv.
+- **Added** `.opencode/opencode.json` — registers `pagladesign` as a local MCP server.
+- **Recorded** the decision as D-014 (agent tooling returns `.ai/`).
+
 ## v1.0 — Reference CSS Implementation
 
 - **Added** `css/tokens.css` — canonical token layer; every locked value from `DESIGN_TOKENS.md` as CSS custom properties on `:root` (light) and `[data-theme="dark"]`.

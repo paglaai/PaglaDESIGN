@@ -279,6 +279,7 @@ The objective is to build a design system that can support the PaglaAI ecosystem
 Verified environment details that agents commonly miss:
 
 - The repo lives at `D:\PaglaAI\PaglaDESIGN` — this **is** the opencode working directory. Canonical folder layout (stable): constitution files at the root (`README`, `VISION`, `DESIGN`, `PRINCIPLES`, `AGENTS`, `LICENSE`); documentation grouped under `brand/`, `components/`, `design-system/`, `governance/`, `site/`, `templates/`, `references/`, with asset folders `css/`, `mockups/`, `wireframes/`. See `README.md` → Repository Structure. The layout is declared stable — do not rename or restructure folders.
+- `.ai/` exists for **agent infrastructure only** (D-014): an MCP server with RAG retrieval in `.ai/mcp/`. Ground UI work in the design authority via the `pagladesign` MCP server (registered in `.opencode/opencode.json`, launched with `D:\PaglaAI\.venv\Scripts\python.exe .ai\mcp\server.py`). `.ai/` is excluded from the RAG index.
 - `git` is **not on PATH** in the default Windows shell here — use a full path (e.g. `"$env:ProgramFiles\Git\cmd\git.exe"`) or a shell that has it.
 - `main` is the only branch; `origin` = `https://github.com/paglaai/PaglaDESIGN.git`. No CI, branch protection, or PR pipeline yet — nothing to run or check before pushing.
 - `* text=auto` in `.gitattributes`: keep LF normalization.

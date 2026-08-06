@@ -122,6 +122,9 @@ references/        — visual research library (non-canonical)
 css/               — stylesheet assets (tokens, base, utilities)
 mockups/           — high-fidelity visual mockups
 wireframes/        — low-fidelity layout sketches
+
+.ai/               — agent infrastructure (MCP + RAG server, D-014)
+  mcp/             — PaglaDESIGN MCP server exposing the authority to agents
 ```
 
 The repository structure is declared **stable**. New work fits into these folders; the layout is no longer reorganized.

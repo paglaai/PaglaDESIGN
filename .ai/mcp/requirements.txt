@@ -1,0 +1,4 @@
+# PaglaDESIGN MCP server dependencies
+# Install into the PaglaAI venv (or a dedicated venv):
+#   python -m pip install -r requirements.txt
+mcp>=2.0

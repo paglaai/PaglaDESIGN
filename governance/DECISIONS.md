@@ -328,6 +328,51 @@ construction.
 
 ---
 
+# D-014 · Agent Tooling (MCP + RAG) Returns `.ai/`
+
+**Context:** D-012 removed `.ai/` because it held no real content, reasoning it
+would return "when there is real agent-specific content." The ecosystem now
+needs coding agents (opencode, Claude Code, Cursor, PaglaAI launcher CLIs) to
+ground UI work in the canonical design system instead of guessing token values
+or re-reading the whole repository.
+
+**Decision**
+
+Re-introduce `.ai/` as **agent infrastructure**, specifically a Model Context
+Protocol (MCP) server with dependency-free RAG retrieval:
+
+- `.ai/mcp/server.py` — MCP server (`MCPServer`, MCP SDK 2.x) over stdio,
+  registering `search`, `get_doc`, `list_docs`, `lookup_token`,
+  `search_tokens`, and `get_context` tools.
+- `.ai/mcp/rag.py` — heading-chunked BM25 retrieval over `**/*.md` and
+  `css/tokens.css`. Deterministic, pure-stdlib, no model, no network, no API
+  key — matching the zero-cost, open-source ethos.
+- Registered as a local MCP server in `.opencode/opencode.json`.
+
+`.ai/` is excluded from the RAG index so agent tooling never retrieves itself.
+
+**Alternatives considered**
+
+- Keep `.ai/` removed and rely on coding agents reading files manually.
+  Rejected — agents cannot afford to load the whole authority in context, and
+  guessing token values drifts from the truth.
+- Ship a hosted/embedding RAG pipeline. Deferred — adds cost and a network and
+  API-key dependency for no retrieval-quality win at this scale (a design
+  authority is lexical by nature).
+- Build agent tooling outside this repo. Rejected — it is intrinsic to the
+  authority; the design system and its tooling belong together.
+
+**Trade-offs:** retrieval is lexical (BM25) and deterministic, so it may miss
+paraphrased queries that an embedding model would catch; the system is
+embeddings-ready if a future decision wants semantic retrieval. A maintenance
+surface (the MCP server + indexer) is added to the repo.
+
+**Result:** coding agents can ground UI work in the canonical design authority,
+values are looked up exactly from `css/tokens.css`, and `.ai/` has real,
+versioned content.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.
