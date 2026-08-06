@@ -56,7 +56,7 @@ Every interactive component supports the same state set:
 - Disabled
 - Loading
 
-States are consistent across the ecosystem (`COLOR_SYSTEM.md`).
+States are consistent across the ecosystem (`../design-system/COLOR_SYSTEM.md`).
 
 A user should never have to learn a new interaction just because they switched products.
 
@@ -81,7 +81,7 @@ Buttons signal a clear next step.
 
 A field that captures a single piece of information.
 
-Always accompanied by a clear label. Helps a user enter correct data (`ACCESSIBILITY.md`).
+Always accompanied by a clear label. Helps a user enter correct data (`../design-system/ACCESSIBILITY.md`).
 
 ## Chip
 
@@ -141,7 +141,7 @@ A placeholder that communicates loading state without motion-spam.
 
 ## Sizing and spacing
 
-Follow the `DESIGN_TOKENS.md` scale.
+Follow the `../design-system/DESIGN_TOKENS.md` scale.
 
 Spacing between components comes from the shared space tokens, not component-specific glue.
 
@@ -159,13 +159,13 @@ A disabled button communicates that the action is not available; it does not exp
 
 ## Responsive
 
-Components inform the breakpoints of `DESIGN_TOKENS.md`.
+Components inform the breakpoints of `../design-system/DESIGN_TOKENS.md`.
 
 They should scale without completely separate mobile structures.
 
 ## Motion
 
-Any motion a component uses comes from `MOTION.md`, and respects the reduced-motion toggle.
+Any motion a component uses comes from `../design-system/MOTION.md`, and respects the reduced-motion toggle.
 
 ---
 
@@ -181,10 +181,10 @@ Product-specific names without a shared role are not library members.
 
 # Relationship to Documents
 
-- Appearance and color — `DESIGN_TOKENS.md`, `COLOR_SYSTEM.md`
-- Typography in components — `TYPOGRAPHY.md`
+- Appearance and color — `../design-system/DESIGN_TOKENS.md`, `../design-system/COLOR_SYSTEM.md`
+- Typography in components — `../design-system/TYPOGRAPHY.md`
 - Behavior — this document
-- Decision history — `DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

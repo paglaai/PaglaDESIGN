@@ -224,6 +224,68 @@ Locking commits the system to these numbers. It also lets every product implemen
 
 ---
 
+# D-011 · Canonical Repository Layout
+
+**Context:** The vision recommended a nested, discoverable layout, but content had accreted as flat files at the repository root. Several documents crossed the whole ecosystem (`BRAND.md`, `DESIGN_TOKENS.md`, `COMPONENTS.md`, `DECISIONS.md`) and were hard for contributors and automation to locate.
+
+**Decision**
+
+Reorganize the repository into a canonical folder structure without changing file contents:
+
+- `brand/` — identity, mark, brand usage, brandkit, assets
+- `design-system/` — tokens, color, typography, motion, accessibility, icons, css architecture
+- `components/` — component language and registry
+- `governance/` — decisions, roadmap, changelog, documentation style
+- `site/` — sitemap, user journeys, content strategy (the website the system serves)
+- `templates/` — reusable page-level compositions
+- `references/` — visual research library (non-canonical)
+- `css/`, `mockups/`, `wireframes/` — supporting artifact folders with index READMEs
+- Constitution files (`README.md`, `VISION.md`, `DESIGN.md`, `PRINCIPLES.md`, `AGENTS.md`, `LICENSE`) stay at the root
+
+Internal references were updated to relative paths; no content was altered.
+
+**Alternatives considered**
+
+- Keeping the flat layout to avoid churn.
+- Moving the constitution files into `governance/` as well.
+
+**Trade-offs**
+
+Rewriting commit paths causes one coordinated migration. It is done once and improves discoverability and automation. Keeping the constitution at the root preserves on-boarding clarity.
+
+**Result**
+
+The repository now matches the vision's intended structure. Cross-document references resolve relative to each file's location, and each directory carries an index README. The layout was refined by D-012 and is now declared stable.
+
+---
+
+# D-012 · Repository Structure Declared Stable
+
+**Context:** The reorganization (D-011) settled the folder layout. The repository is the canonical design authority, and continued structural churn would erode contributor trust and automation stability.
+
+**Decision**
+
+Declare the repository structure stable:
+
+- No further moving or renaming of top-level folders.
+- `docs/` was renamed to `governance/`, and `website/` to `site/`; `templates/` and `references/` were added; `.ai/` was removed until there is real agent-specific content.
+- All future contributions fit into the existing structure: `brand/`, `components/`, `design-system/`, `governance/`, `site/`, `templates/`, `references/`, `css/`, `mockups/`, `wireframes/`.
+
+**Alternatives considered**
+
+- Continuing to refine the hierarchy for marginal naming improvements.
+- Keeping `.ai/` as an empty placeholder.
+
+**Trade-offs**
+
+Stability outranks perfection. The cost of restructuring now outweighs its benefit; the system matures through real use rather than further reorganization.
+
+**Result**
+
+The structure is the contract. New content lands in an existing folder, or a documented decision creates a new one.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

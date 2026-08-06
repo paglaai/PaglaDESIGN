@@ -169,10 +169,10 @@ Accessibility is written into the CSS, not bolted on:
 - Values — `DESIGN_TOKENS.md`
 - Color semantics — `COLOR_SYSTEM.md`
 - Type — `TYPOGRAPHY.md`
-- Components — `COMPONENTS.md`
+- Components — `../components/COMPONENTS.md`
 - Motion — `MOTION.md`
 - Accessibility — `ACCESSIBILITY.md`
-- Decision history — `DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

@@ -23,6 +23,27 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.9 — Repository Structure Refinement
+
+- **Renamed** `docs/` → `governance/` — decisions, roadmap, changelog, documentation style (project governance, not documentation).
+- **Renamed** `website/` → `site/`.
+- **Moved** `SITEMAP.md`, `USER_JOURNEYS.md`, `CONTENT_STRATEGY.md` from `governance/` to `site/`.
+- **Added** `templates/` — reusable page-level compositions.
+- **Added** `references/` — visual research library (non-canonical).
+- **Removed** `.ai/` — no agent-specific content yet.
+- **Declared** the repository structure stable (D-012).
+
+## v0.8 — Repository Reorganization
+
+- **Reorganized** the repository into a canonical folder structure per `VISION.md`: `brand/`, `design-system/`, `components/`, `docs/`, `css/`, `mockups/`, `wireframes/`, `website/`, `.ai/`.
+- **Moved** brand docs (`BRAND.md`, `BRANDKIT.md`) into `brand/`.
+- **Moved** design values (`DESIGN_TOKENS.md`, `COLOR_SYSTEM.md`, `TYPOGRAPHY.md`, `MOTION.md`, `ACCESSIBILITY.md`, `ICONS.md`, `CSS_ARCHITECTURE.md`) into `design-system/`.
+- **Moved** component docs (`COMPONENTS.md`, `COMPONENT_LIBRARY.md`) into `components/`.
+- **Moved** structural docs (`DECISIONS.md`, `ROADMAP.md`, `CHANGELOG.md`, `SITEMAP.md`, `USER_JOURNEYS.md`, `CONTENT_STRATEGY.md`, `DOCUMENTATION_STYLE.md`) into `docs/`.
+- **Added** index READMEs to each folder.
+- **Updated** internal references to resolve relative to each file's location.
+- **Recorded** the decision as D-011.
+
 ## v0.7 — Brand & Identity Pack
 
 - **Added** `BRANDKIT.md` — the canonical brand identity pack sourcing from `BRAND.md` and `DESIGN_TOKENS.md`.

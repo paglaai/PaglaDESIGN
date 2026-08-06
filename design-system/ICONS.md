@@ -120,9 +120,9 @@ If no, it does not belong.
 
 - Sizes and tokens — `DESIGN_TOKENS.md`
 - Color semantics — `COLOR_SYSTEM.md`
-- Component usage — `COMPONENTS.md`
+- Component usage — `../components/COMPONENTS.md`
 - Accessibility — `ACCESSIBILITY.md`
-- Decision history — `DECISIONS.md`
+- Decision history — `../governance/DECISIONS.md`
 
 ---
 

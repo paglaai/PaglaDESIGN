@@ -1,6 +1,6 @@
 # PAGLAAI BRANDKIT
 
-> *The canonical identity pack. Sources from `BRAND.md` and `DESIGN_TOKENS.md`.*
+> *The canonical identity pack. Sources from `BRAND.md` and `design-system/DESIGN_TOKENS.md`.*
 
 ---
 
@@ -202,8 +202,8 @@ For legal inquiries, contact legal@paglaai.space.
 This BrandKit sources from:
 
 - `BRAND.md` — identity and usage
-- `DESIGN_TOKENS.md` — concrete values
-- `COLOR_SYSTEM.md` — color semantics
-- `TYPOGRAPHY.md` — typography philosophy
+- `design-system/DESIGN_TOKENS.md` — concrete values
+- `design-system/COLOR_SYSTEM.md` — color semantics
+- `design-system/TYPOGRAPHY.md` — typography philosophy
 
 If this BrandKit and its source documents ever disagree, the source documents win.
