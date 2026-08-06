@@ -31,27 +31,14 @@ The foundation and Design System Core are in place:
 - Constitutional layer — `VISION.md`, `DESIGN.md`, `PRINCIPLES.md`, `DECISIONS.md`
 - Semantics layer — `TYPOGRAPHY.md`, `COLOR_SYSTEM.md`, `BRAND.md`, `DESIGN_TOKENS.md`
 - Experience layer — `SITEMAP.md`, `USER_JOURNEYS.md`, `CONTENT_STRATEGY.md`
+- Foundation layer — `COMPONENTS.md`, `MOTION.md`, `ACCESSIBILITY.md`
+- Implementation reference — `CSS_ARCHITECTURE.md`, `ICONS.md`, `DOCUMENTATION_STYLE.md`, `COMPONENT_LIBRARY.md`
 
-Current phase: stabilizing the design authority and its governance.
+Current phase: the system is fully documented and token values are locked.
 
 ---
 
 # Next
-
-### Phase 1 — Design System Foundation
-
-- Finalize and lock concrete token values in `DESIGN_TOKENS.md` (marked `to be locked`).
-- Establish `COMPONENTS.md` — the component language and interaction patterns.
-- Establish `MOTION.md` — the motion and transition grammar.
-- Establish `ACCESSIBILITY.md` — the mandatory baseline and checklists.
-- Record each change in `DECISIONS.md`.
-
-### Phase 2 — Implementation Reference
-
-- `CSS_ARCHITECTURE.md` — how the design tokens become CSS custom properties.
-- `ICONS.md` — icon language and naming.
-- `DOCUMENTATION_STYLE.md` — documentation patterns and navigation.
-- `COMPONENT_LIBRARY.md` — the reusable component registry for the ecosystem.
 
 ### Phase 3 — Brand & Identity Pack
 

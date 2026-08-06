@@ -195,6 +195,35 @@ Consolidate the strongest ideas once, in `BRAND.md`, and remove duplicates.
 
 ---
 
+# D-010 · Locking the Token Values
+
+**Context:** The philosophy and semantics layers were complete. Until now, literal values were deliberately deferred (`D-005`) so the design language could settle before implementation numbers were fixed.
+
+**Decision**
+
+Lock the token values in `DESIGN_TOKENS.md`:
+
+- `rem`-based sizing so the system respects user zoom.
+- Monochrome-first neutrals (`#0A0A0B` ink / `#FFFFFF` paper) as the identity requires.
+- A single accent family led by `#6B7EFF` — reserved for meaning, never a background fill.
+- Light and dark themes share one semantic structure; only values change between them.
+- Spacing on the `0.25rem` base unit.
+
+**Alternatives considered**
+
+- Keeping values deferred indefinitely.
+- Defining a broader, brighter palette before the identity was final.
+
+**Trade-offs**
+
+Locking commits the system to these numbers. It also lets every product implement from one source without inventing values.
+
+**Result**
+
+`DESIGN_TOKENS.md` is now the binding source of values. Future changes go through the documented decision workflow.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

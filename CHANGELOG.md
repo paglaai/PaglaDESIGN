@@ -23,6 +23,10 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.6 — Token Lock
+
+- **Updated** `DESIGN_TOKENS.md` — all literal values locked: spacing, typography, color (light + dark), accent, state, UI, motion, breakpoints, layout.
+
 ## v0.5 — Component Registry
 
 - **Added** `COMPONENT_LIBRARY.md` — registry of shared components, lifecycle, ownership, and quality gate.

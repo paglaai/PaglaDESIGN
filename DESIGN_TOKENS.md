@@ -97,8 +97,6 @@ Weight is used for emphasis, never for decoration.
 - `font.weight.semibold`
 - `font.weight.bold`
 
-Weight is used for emphasis, never for decoration.
-
 ## Line height
 
 Body text uses generous line height. Headings are compact.
@@ -208,14 +206,166 @@ Layout adapts at defined breakpoints. Names follow intent, not width.
 
 # Value Reference
 
-This section holds the literal switching values currently in force.
+These are the locked literal values in force.
 
-> These are deliberately minimal. Final reference values are resolved after the visual identity is fully frozen, and are tuned per the philosophy in `D-005` of `DECISIONS.md`.
+Every token listed here is binding. A value not listed here is not in use.
 
-- Base unit `space.base` = `0.25rem`
-- Typography, accent, and layout literal values — to be locked upon identity sign-off
+Values use `rem` so the system scales with user zoom (see `TYPOGRAPHY.md`). Root size is `1rem = 16px` unless the user changes it.
 
-When values are moved from `to be locked` to a real number, the change is recorded in `DECISIONS.md` and `CHANGELOG.md`.
+## Spacing
+
+Base unit `space.base` = `0.25rem`.
+
+| Token | Value |
+| --- | --- |
+| `space.0` | `0` |
+| `space.1` | `0.25rem` |
+| `space.2` | `0.5rem` |
+| `space.3` | `0.75rem` |
+| `space.4` | `1rem` |
+| `space.5` | `1.25rem` |
+| `space.6` | `1.5rem` |
+| `space.8` | `2rem` |
+| `space.12` | `3rem` |
+| `space.16` | `4rem` |
+| `space.24` | `6rem` |
+
+## Typography
+
+| Token | Value |
+| --- | --- |
+| `font.size.display` | `4rem` |
+| `font.size.h1` | `3rem` |
+| `font.size.h2` | `2.25rem` |
+| `font.size.h3` | `1.75rem` |
+| `font.size.h4` | `1.375rem` |
+| `font.size.bodyLarge` | `1.125rem` |
+| `font.size.body` | `1rem` |
+| `font.size.small` | `0.875rem` |
+| `font.size.caption` | `0.75rem` |
+| `font.size.code` | `0.875rem` |
+
+| Token | Value |
+| --- | --- |
+| `font.weight.light` | `300` |
+| `font.weight.regular` | `400` |
+| `font.weight.medium` | `500` |
+| `font.weight.semibold` | `600` |
+| `font.weight.bold` | `700` |
+
+| Token | Value |
+| --- | --- |
+| `font.lineHeight.body` | `1.5` |
+| `font.lineHeight.heading` | `1.2` |
+| `font.lineHeight.display` | `1.05` |
+
+| Token | Value |
+| --- | --- |
+| `font.tracking.body` | `0` |
+| `font.tracking.heading` | `-0.01em` |
+| `font.tracking.display` | `-0.02em` |
+| `font.tracking.uppercase` | `0.08em` |
+
+| Token | Value |
+| --- | --- |
+| `font.maxWidth.body` | `65ch` |
+
+## Color — Light theme
+
+| Token | Value |
+| --- | --- |
+| `color.base.ink` | `#0A0A0B` |
+| `color.base.paper` | `#FFFFFF` |
+| `color.base.surface` | `#F5F5F3` |
+| `color.base.border` | `#E8E8E6` |
+| `color.base.muted` | `#6B707E` |
+
+## Color — Dark theme
+
+| Token | Value |
+| --- | --- |
+| `color.base.ink` | `#F5F5F3` |
+| `color.base.paper` | `#0A0A0B` |
+| `color.base.surface` | `#17171A` |
+| `color.base.border` | `#2A2A2E` |
+| `color.base.muted` | `#9AA0AE` |
+
+## Semantic accent
+
+The accent is single-purpose: meaning only, never a background fill (`COLOR_SYSTEM.md`).
+
+| Token | Value |
+| --- | --- |
+| `color.accent.primary` | `#6B7EFF` |
+| `color.accent.secondary` | `#A8B5FF` |
+| `color.accent.success` | `#3E9B6E` |
+| `color.accent.warning` | `#E0A23C` |
+| `color.accent.error` | `#C94A4A` |
+| `color.accent.info` | `#4A90C9` |
+
+## State
+
+| Token | Value |
+| --- | --- |
+| `color.state.default` | `transparent` |
+| `color.state.hover` | `color.base.border` |
+| `color.state.focus` | `color.accent.primary` |
+| `color.state.active` | `color.base.ink` at `8%` overlay |
+| `color.state.disabled` | `color.base.muted` at `40%` opacity |
+
+## UI
+
+| Token | Value |
+| --- | --- |
+| `radius.sm` | `0.25rem` |
+| `radius.md` | `0.5rem` |
+| `radius.lg` | `1rem` |
+| `radius.pill` | `9999rem` (full) |
+
+| Token | Value |
+| --- | --- |
+| `icon.sm` | `1rem` |
+| `icon.md` | `1.5rem` |
+| `icon.lg` | `2rem` |
+
+| Token | Value |
+| --- | --- |
+| `interactive.minTarget` | `2.75rem` |
+
+## Motion
+
+| Token | Value |
+| --- | --- |
+| `motion.duration.fast` | `100ms` |
+| `motion.duration.base` | `200ms` |
+| `motion.duration.slow` | `400ms` |
+| `motion.easing.default` | `cubic-bezier(0.2, 0, 0, 1)` |
+| `motion.easing.entrance` | `cubic-bezier(0.16, 1, 0.3, 1)` |
+| `motion.easing.exit` | `cubic-bezier(0.4, 0, 1, 1)` |
+| `motion.reduced` | `0ms` |
+
+## Breakpoints and layout
+
+| Token | Value |
+| --- | --- |
+| `breakpoint.small` | `40rem` |
+| `breakpoint.medium` | `48rem` |
+| `breakpoint.large` | `64rem` |
+| `breakpoint.xlarge` | `80rem` |
+
+| Token | Value |
+| --- | --- |
+| `layout.maxWidth` | `75rem` |
+| `layout.contentPadding` | `1rem` |
+| `layout.contentPaddingWide` | `2rem` |
+
+---
+
+# Locking
+
+Values are locked. They change only through the decision workflow.
+
+A change to any locked value is recorded in `DECISIONS.md` and `CHANGELOG.md`.
 
 ---
 
