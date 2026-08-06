@@ -23,6 +23,12 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.4 — Implementation Reference
+
+- **Added** `CSS_ARCHITECTURE.md` — layer model, tokens-as-properties, theming, and class naming.
+- **Added** `ICONS.md` — icon language, grid, naming, and usage rules.
+- **Added** `DOCUMENTATION_STYLE.md` — documentation structure, code, and navigation.
+
 ## v0.3 — Cognitive Layer
 
 - **Added** `COMPONENTS.md` — component language, anatomy, shared states, and registry rules.
