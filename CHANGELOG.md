@@ -1,0 +1,51 @@
+# CHANGELOG
+
+> *The record of how the design authority came to be.*
+
+---
+
+# Purpose
+
+CHANGELOG is the historical log of meaningful changes to PaglaDESIGN.
+
+It complements `DECISIONS.md`.
+
+- `DECISIONS.md` records the reasoning behind architectural choices.
+- `CHANGELOG.md` records when things happened.
+
+---
+
+# Format
+
+Each entry notes the change and its location.
+
+Entries are grouped by phase and ordered newest first within a phase.
+
+---
+
+## v0.2 — Design System Core
+
+- **Added** `DECISIONS.md` — architectural history (D-001 → D-009) and governing decision format.
+- **Added** `DESIGN_TOKENS.md` — value layer; naming convention, spacing, typography, color, UI, and theme tokens.
+- **Added** `ROADMAP.md` — Now / Next / Later phases and the Design System Core index.
+- **Updated** `TYPOGRAPHY.md` — primary typeface set to PaglaAI Sans.
+- **Added** `BRAND.md` — consolidated identity, mark, brand voice, usage, and AYNAGHOR back-matter.
+
+## Phase 0 — Foundation
+
+- **Added** `README.md` — repository purpose and structure.
+- **Added** `VISION.md` — why PaglaAI exists.
+- **Added** `DESIGN.md` — design philosophy and pillars.
+- **Added** `PRINCIPLES.md` — standing principles of the system.
+- **Added** `AGENTS.md` — contribution workflow and repository facts.
+- **Added** `SITEMAP.md` — information architecture.
+- **Added** `USER_JOURNEYS.md` — experience layer.
+- **Added** `CONTENT_STRATEGY.md` — content and writing direction.
+- **Added** `COLOR_SYSTEM.md` — color semantics.
+
+---
+
+## Working Notes (not yet versioned)
+
+- `LICENSE` — MIT, © 2026 AYNAGHOR.
+- `.gitattributes` — LF normalization kept.
