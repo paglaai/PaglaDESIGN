@@ -23,6 +23,12 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.7 — Brand & Identity Pack
+
+- **Added** `BRANDKIT.md` — the canonical brand identity pack sourcing from `BRAND.md` and `DESIGN_TOKENS.md`.
+- **Added** `brand/` — registered canonical assets: Pagla Face (black/white), wordmark, mark, display picture.
+- **Updated** `BRAND.md` — added the Brand Assets registry.
+
 ## v0.6 — Token Lock
 
 - **Updated** `DESIGN_TOKENS.md` — all literal values locked: spacing, typography, color (light + dark), accent, state, UI, motion, breakpoints, layout.

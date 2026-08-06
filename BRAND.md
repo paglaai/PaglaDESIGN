@@ -255,6 +255,28 @@ And it does not need to say the rest.
 
 ---
 
+# Brand Assets
+
+The canonical brand assets live in `brand/`.
+
+These files are the only source of truth for the Pagla Face, the wordmark, and the app marks.
+
+| File | Role | Notes |
+| --- | --- | --- |
+| `brand/pagla-face-black.png` | The Pagla Face — black ink | Use on light surfaces |
+| `brand/pagla-face-white.png` | The Pagla Face — white ink | Use on dark surfaces |
+| `brand/paglaai-wordmark.png` | The wordmark | Live-type equivalent, for print only |
+| `brand/paglaai-mark.png` | Full mark composition | 1:1 canvas |
+| `brand/paglaai-dp.png` | Display picture / avatar crop | The face centered in the canvas |
+
+Rules from the Mark and Wordmark sections apply to these assets.
+
+Do not create, retrace, or substitute your own version of any asset.
+
+If an asset is missing, request it through the design authority. Never recreate it.
+
+---
+
 # AYNAGHOR
 
 AYNAGHOR is the House of Mirrors.

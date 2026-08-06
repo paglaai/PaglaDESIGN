@@ -40,15 +40,9 @@ Current phase: the system is fully documented and token values are locked.
 
 # Next
 
-### Phase 3 — Brand & Identity Pack
+The remaining work is maturation:
 
-- Finalize the Pagla Face mark and lock brand assets in `BRAND.md`.
-- Produce the canonical BrandKit deliverable that sources from `BRAND.md`.
-- Version-keyed by `CHANGELOG.md`.
-
----
-
-# Later
+### Later
 
 - Mature the design governance process for every ecosystem product.
 - Codify the design review workflow and contribution rules.
