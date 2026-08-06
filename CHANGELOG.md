@@ -23,6 +23,12 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v0.3 — Cognitive Layer
+
+- **Added** `COMPONENTS.md` — component language, anatomy, shared states, and registry rules.
+- **Added** `MOTION.md` — motion philosophy, gates, durations, and reduced motion.
+- **Added** `ACCESSIBILITY.md` — mandatory baseline, foundations, and testing gates.
+
 ## v0.2 — Design System Core
 
 - **Added** `DECISIONS.md` — architectural history (D-001 → D-009) and governing decision format.
