@@ -8,7 +8,7 @@
 
 DESIGN_TOKENS is the single source of concrete implementation values for the PaglaAI design system.
 
-`TYPOGRAPHY.md`, `COLOR_SYSTEM.md`, `BRAND.md`, and `DESIGN.md` define why and how.
+`TYPOGRAPHY.md`, `COLOR_SYSTEM.md`, `../brand/BRAND.md`, and `../DESIGN.md` define why and how.
 
 This document defines the numbers.
 
@@ -66,7 +66,7 @@ Spacing is generous.
 
 Whitespace is content, not emptiness.
 
-When in doubt, add one step of space between related groups rather than squeezing content together (see `PRINCIPLES.md`, #5).
+When in doubt, add one step of space between related groups rather than squeezing content together (see `../PRINCIPLES.md`, #5).
 
 ---
 
@@ -365,7 +365,7 @@ The accent is single-purpose: meaning only, never a background fill (`COLOR_SYST
 
 Values are locked. They change only through the decision workflow.
 
-A change to any locked value is recorded in `DECISIONS.md` and `CHANGELOG.md`.
+A change to any locked value is recorded in `../docs/DECISIONS.md` and `../docs/CHANGELOG.md`.
 
 ---
 
@@ -373,9 +373,9 @@ A change to any locked value is recorded in `DECISIONS.md` and `CHANGELOG.md`.
 
 - Philosophy & hierarchy — `TYPOGRAPHY.md`
 - Color semantics — `COLOR_SYSTEM.md`
-- Brand usage — `BRAND.md`
-- Decide how a value was chosen — `DECISIONS.md`
-- Historical file log — `CHANGELOG.md`
+- Brand usage — `../brand/BRAND.md`
+- Decide how a value was chosen — `../docs/DECISIONS.md`
+- Historical file log — `../docs/CHANGELOG.md`
 
 ---
 

@@ -44,9 +44,9 @@ A component enters the library through the decision workflow.
 
 1. A recurring need is identified.
 2. The design is documented.
-3. The change is recorded in `DECISIONS.md`.
+3. The change is recorded in `../docs/DECISIONS.md`.
 4. The component is registered here.
-5. The version moves in `CHANGELOG.md`.
+5. The version moves in `../docs/CHANGELOG.md`.
 
 No component is added by accident.
 
@@ -162,9 +162,9 @@ It means one accountable place for decisions about that component.
 
 A component must meet the baseline before it is registered:
 
-- Accessible (`ACCESSIBILITY.md`)
-- Token-driven (`DESIGN_TOKENS.md`)
-- Motion-correct (`MOTION.md`)
+- Accessible (`../design-system/ACCESSIBILITY.md`)
+- Token-driven (`../design-system/DESIGN_TOKENS.md`)
+- Motion-correct (`../design-system/MOTION.md`)
 - Documented (this document)
 
 A component that fails a gate is not registered.
@@ -174,11 +174,11 @@ A component that fails a gate is not registered.
 # Relationship to Documents
 
 - Component language — `COMPONENTS.md`
-- Values — `DESIGN_TOKENS.md`
-- Color — `COLOR_SYSTEM.md`
-- Motion — `MOTION.md`
-- Accessibility — `ACCESSIBILITY.md`
-- Decisions — `DECISIONS.md`
+- Values — `../design-system/DESIGN_TOKENS.md`
+- Color — `../design-system/COLOR_SYSTEM.md`
+- Motion — `../design-system/MOTION.md`
+- Accessibility — `../design-system/ACCESSIBILITY.md`
+- Decisions — `../docs/DECISIONS.md`
 
 ---
 

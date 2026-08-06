@@ -10,11 +10,11 @@ This document defines the PaglaAI brand identity—the face, name, voice, and us
 
 It consolidates the strongest decisions from the brand explorations into one canonical source.
 
-Typography is governed by `TYPOGRAPHY.md`.
+Typography is governed by `design-system/TYPOGRAPHY.md`.
 
-Color is governed by `COLOR_SYSTEM.md`.
+Color is governed by `design-system/COLOR_SYSTEM.md`.
 
-Concrete values live in `DESIGN_TOKENS.md`.
+Concrete values live in `design-system/DESIGN_TOKENS.md`.
 
 This document governs identity and usage.
 
@@ -163,9 +163,9 @@ It is never used as a background fill.
 
 It appears only as a dot, an underline, or as focus.
 
-The full semantic system, including roles and reserved meaning, is defined in `COLOR_SYSTEM.md`.
+The full semantic system, including roles and reserved meaning, is defined in `design-system/COLOR_SYSTEM.md`.
 
-Reserve values are defined in `DESIGN_TOKENS.md`.
+Reserve values are defined in `design-system/DESIGN_TOKENS.md`.
 
 ---
 
@@ -177,7 +177,7 @@ PaglaAI Sans is a light, open, neutral family.
 
 It shares the same humanist skeleton as trusted system families.
 
-It is lighter, more open, and more precise. The design rationale and hierarchy are established in `TYPOGRAPHY.md`.
+It is lighter, more open, and more precise. The design rationale and hierarchy are established in `design-system/TYPOGRAPHY.md`.
 
 ---
 

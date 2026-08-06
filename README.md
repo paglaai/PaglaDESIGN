@@ -82,31 +82,44 @@ The goal is to build a design language that remains useful and recognizable for 
 ```
 PaglaDESIGN/
 
-brand/
-components/
-css/
-design-system/
-docs/
-mockups/
-references/
-website/
-wireframes/
-
-README.md          — repository purpose and structure
+README.md          — repository purpose and structure (index)
 VISION.md          — why PaglaAI exists
 DESIGN.md          — design philosophy and pillars
 PRINCIPLES.md      — standing principles of the system
-DECISIONS.md       — architectural history and decision record
-ROADMAP.md         — direction and phases
-CHANGELOG.md       — historical log of changes
 AGENTS.md          — contribution workflow and repository facts
-TYPOGRAPHY.md      — typography philosophy and hierarchy
-COLOR_SYSTEM.md    — color semantics
-BRAND.md           — identity, mark, and brand usage
-DESIGN_TOKENS.md   — concrete implementation values
-SITEMAP.md         — information architecture
-USER_JOURNEYS.md   — experience layer
-CONTENT_STRATEGY.md— content and writing direction
+LICENSE            — MIT license
+
+brand/             — identity, mark, and brand usage
+  BRAND.md         — identity, mark, and brand usage
+  BRANDKIT.md      — portable identity pack
+
+components/        — component language and registry
+  COMPONENTS.md    — component language and rules
+  COMPONENT_LIBRARY.md — component registry
+
+design-system/     — implementation-ready design values
+  DESIGN_TOKENS.md — concrete implementation values (locked)
+  COLOR_SYSTEM.md  — color semantics
+  TYPOGRAPHY.md    — typography philosophy and hierarchy
+  MOTION.md        — motion principles
+  ACCESSIBILITY.md — accessibility requirements
+  ICONS.md         — icon language
+  CSS_ARCHITECTURE.md — CSS implementation guidance
+
+docs/              — structural and process documentation
+  DECISIONS.md     — architectural history and decision record
+  ROADMAP.md       — direction and phases
+  CHANGELOG.md     — historical log of changes
+  SITEMAP.md       — information architecture
+  USER_JOURNEYS.md — experience layer
+  CONTENT_STRATEGY.md — content and writing direction
+  DOCUMENTATION_STYLE.md — writing and documentation standards
+
+css/               — stylesheet assets (tokens, base, utilities)
+mockups/           — high-fidelity visual mockups
+wireframes/        — low-fidelity layout sketches
+website/           — ecosystem web presence assets
+.ai/               — agent-facing context (optional)
 ```
 
 ---

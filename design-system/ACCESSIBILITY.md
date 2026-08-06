@@ -107,7 +107,7 @@ Reduced motion is honored per `MOTION.md`. Nothing important relies on movement.
 
 ## Writing
 
-Communication is clear and concise, per `CONTENT_STRATEGY.md` and `TYPOGRAPHY.md`.
+Communication is clear and concise, per `../docs/CONTENT_STRATEGY.md` and `TYPOGRAPHY.md`.
 
 ---
 
@@ -155,8 +155,8 @@ Never ship unreviewed.
 
 - Contrast/color — `COLOR_SYSTEM.md`, `DESIGN_TOKENS.md`
 - Type — `TYPOGRAPHY.md`
-- Semantics & interaction — `COMPONENTS.md`
-- Decision history — `DECISIONS.md`
+- Semantics & interaction — `../components/COMPONENTS.md`
+- Decision history — `../docs/DECISIONS.md`
 
 ---
 
