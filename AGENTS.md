@@ -278,7 +278,7 @@ The objective is to build a design system that can support the PaglaAI ecosystem
 
 Verified environment details that agents commonly miss:
 
-- The repo lives at `D:\PaglaAI\PaglaDESIGN` — this **is** the opencode working directory (layout is flat, not nested).
+- The repo lives at `D:\PaglaAI\PaglaDESIGN` — this **is** the opencode working directory. Canonical folder layout: constitution files at the root (`README`, `VISION`, `DESIGN`, `PRINCIPLES`, `AGENTS`, `LICENSE`); documentation grouped under `brand/`, `design-system/`, `components/`, `docs/`, with asset folders `css/`, `mockups/`, `wireframes/`, `website/`, `.ai/`. See `README.md` → Repository Structure.
 - `git` is **not on PATH** in the default Windows shell here — use a full path (e.g. `"$env:ProgramFiles\Git\cmd\git.exe"`) or a shell that has it.
 - `main` is the only branch; `origin` = `https://github.com/paglaai/PaglaDESIGN.git`. No CI, branch protection, or PR pipeline yet — nothing to run or check before pushing.
 - `* text=auto` in `.gitattributes`: keep LF normalization.

@@ -224,6 +224,38 @@ Locking commits the system to these numbers. It also lets every product implemen
 
 ---
 
+# D-011 · Canonical Repository Layout
+
+**Context:** The vision recommended a nested, discoverable layout, but content had accreted as flat files at the repository root. Several documents crossed the whole ecosystem (`BRAND.md`, `DESIGN_TOKENS.md`, `COMPONENTS.md`, `DECISIONS.md`) and were hard for contributors and automation to locate.
+
+**Decision**
+
+Reorganize the repository into a canonical folder structure without changing file contents:
+
+- `brand/` — identity, mark, brand usage, brandkit, assets
+- `design-system/` — tokens, color, typography, motion, accessibility, icons, css architecture
+- `components/` — component language and registry
+- `docs/` — decisions, roadmap, changelog, sitemap, user journeys, content strategy, documentation style
+- `css/`, `mockups/`, `wireframes/`, `website/` — supporting artifact folders with index READMEs
+- Constitution files (`README.md`, `VISION.md`, `DESIGN.md`, `PRINCIPLES.md`, `AGENTS.md`, `LICENSE`) stay at the root
+
+Internal references were updated to relative paths; no content was altered.
+
+**Alternatives considered**
+
+- Keeping the flat layout to avoid churn.
+- Moving the constitution files into `docs/` as well.
+
+**Trade-offs**
+
+Rewriting commit paths causes one coordinated migration. It is done once and improves discoverability and automation. Keeping the constitution at the root preserves on-boarding clarity.
+
+**Result**
+
+The repository now matches the vision's intended structure. Cross-document references resolve relative to each file's location, and each directory carries an index README.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.
