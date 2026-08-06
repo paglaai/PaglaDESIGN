@@ -2,9 +2,32 @@
 
 > The canonical design system, BrandKit, and user experience foundation for the entire PaglaAI ecosystem.
 
+## Quick Links
+
+**Start here:** [VISION.md](VISION.md) — understand why PaglaDESIGN exists.
+
+**Design foundation:**
+- [DESIGN.md](DESIGN.md) — design philosophy
+- [PRINCIPLES.md](PRINCIPLES.md) — 13 standing principles
+- [design-system/](design-system/) — tokens, typography, color, motion
+
+**Workflow & decisions:**
+- [.ai/AGENTS.md](.ai/AGENTS.md) — how agents contribute to this repo
+- [docs/DECISIONS.md](docs/DECISIONS.md) — why key choices were made
+
+**Planning & structure:**
+- [docs/SITEMAP.md](docs/SITEMAP.md) — website information architecture
+- [docs/USER_JOURNEYS.md](docs/USER_JOURNEYS.md) — user experience design
+- [docs/CONTENT_STRATEGY.md](docs/CONTENT_STRATEGY.md) — writing style and messaging
+
+**Brand & components:**
+- [brand/BRAND.md](brand/BRAND.md) — brand identity and usage
+- [components/COMPONENTS.md](components/COMPONENTS.md) — component language
+- [components/COMPONENT_LIBRARY.md](components/COMPONENT_LIBRARY.md) — component registry
+
 ---
 
-## What is PaglaDESIGN?
+
 
 PaglaDESIGN is the central design authority for every product developed under the **PaglaAI** ecosystem.
 
@@ -82,31 +105,52 @@ The goal is to build a design language that remains useful and recognizable for 
 ```
 PaglaDESIGN/
 
-brand/
-components/
-css/
-design-system/
-docs/
-mockups/
-references/
-website/
-wireframes/
-
 README.md          — repository purpose and structure
 VISION.md          — why PaglaAI exists
 DESIGN.md          — design philosophy and pillars
 PRINCIPLES.md      — standing principles of the system
-DECISIONS.md       — architectural history and decision record
-ROADMAP.md         — direction and phases
-CHANGELOG.md       — historical log of changes
-AGENTS.md          — contribution workflow and repository facts
-TYPOGRAPHY.md      — typography philosophy and hierarchy
-COLOR_SYSTEM.md    — color semantics
-BRAND.md           — identity, mark, and brand usage
-DESIGN_TOKENS.md   — concrete implementation values
-SITEMAP.md         — information architecture
-USER_JOURNEYS.md   — experience layer
-CONTENT_STRATEGY.md— content and writing direction
+LICENSE            — MIT license
+
+.ai/
+  AGENTS.md        — contribution workflow and repository facts
+
+brand/
+  BRAND.md         — identity, mark, and brand usage
+  BRANDKIT.md      — brand kit reference
+
+components/
+  COMPONENTS.md    — component language and anatomy
+  COMPONENT_LIBRARY.md — component registry
+
+css/
+  (CSS implementations based on design-system tokens)
+
+design-system/
+  DESIGN_TOKENS.md   — concrete implementation values
+  TYPOGRAPHY.md      — typography philosophy and hierarchy
+  COLOR_SYSTEM.md    — color semantics
+  MOTION.md          — animation and motion language
+  ACCESSIBILITY.md   — accessibility standards and guidance
+  ICONS.md           — icon system and usage
+  CSS_ARCHITECTURE.md — CSS layer model and implementation
+
+docs/
+  SITEMAP.md         — information architecture
+  USER_JOURNEYS.md   — user experience layer
+  CONTENT_STRATEGY.md— content and writing direction
+  DOCUMENTATION_STYLE.md — documentation standards
+  DECISIONS.md       — architectural history and decision record
+  ROADMAP.md         — direction and phases
+  CHANGELOG.md       — historical log of changes
+
+mockups/
+  (Visual mockups and high-fidelity designs)
+
+website/
+  (Website implementation files)
+
+wireframes/
+  (Low-fidelity wireframes and layouts)
 ```
 
 ---
