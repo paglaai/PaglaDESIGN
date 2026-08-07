@@ -23,6 +23,29 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v1.3 — Agent Manual Relocated
+
+- **Added** `.ai/agent-manual/` — the agent operating procedure (D-020).
+- **Rewritten** `AGENT_MANUAL.md` — v2.0.0 inherits tokens, components,
+  templates, and MCP tools from the authority; removed invented palette,
+  fonts, components, and tools.
+- **Added** `.ai/agent-manual/build_docx.py` — regenerates a canonical,
+  monochrome-styled Word copy; duplicate DOCX artifacts removed.
+- **Updated** `.ai/README.md` — registers the agent-manual.
+- **Updated** `.gitignore` — excludes generated `.ai/agent-manual/DOC/`.
+- **Recorded** the decision as D-020.
+
+## v1.2 — Maturation Pass
+
+- **Added** `design-system/UX_PATTERNS.md` — interaction layer: transitions, scroll rhythm, hover, loading/empty/error, 404, search, theme switching (D-015).
+- **Added** `templates/hero.md`, `landing.md`, `product.md`, `docs.md`, `blog.md`, `case-study.md`, `sections.md` — reusable page-level compositions (D-017).
+- **Registered** `Breadcrumbs`, `Code Block`, `Terminal` in `COMPONENT_LIBRARY.md`; extended every registry entry with Structure and Behavior (D-016).
+- **Added** `wireframes/01-home.md` … `08-404.md` — structural layouts (D-018).
+- **Added** `mockups/01-home.md` … `08-404.md` — token-referenced visual specs (D-018).
+- **Updated** `design-system/README.md` — lists `UX_PATTERNS.md`.
+- **Updated** `components/COMPONENTS.md` — component language extended with the three new components.
+- **Recorded** the decisions as D-015, D-016, D-017, D-018, D-019.
+
 ## v1.1 — Agent Tooling (MCP + RAG)
 
 - **Added** `.ai/` — agent infrastructure (re-added after v0.9 removal, D-014).

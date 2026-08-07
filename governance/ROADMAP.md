@@ -26,27 +26,35 @@ It is updated as the ecosystem grows, not frozen.
 
 # Now
 
-The foundation and Design System Core are in place:
+The foundation, Design System Core, and maturation pass are in place:
 
 - Constitutional layer — `VISION.md`, `DESIGN.md`, `PRINCIPLES.md`, `DECISIONS.md`
 - Semantics layer — `TYPOGRAPHY.md`, `COLOR_SYSTEM.md`, `BRAND.md`, `DESIGN_TOKENS.md`
-- Experience layer — `SITEMAP.md`, `USER_JOURNEYS.md`, `CONTENT_STRATEGY.md`
-- Foundation layer — `COMPONENTS.md`, `MOTION.md`, `ACCESSIBILITY.md`
+- Experience layer — `SITEMAP.md`, `USER_JOURNEYS.md`, `CONTENT_STRATEGY.md`, `NAVIGATION.md`
+- Foundation layer — `COMPONENTS.md`, `MOTION.md`, `ACCESSIBILITY.md`, `UX_PATTERNS.md`
 - Implementation reference — `CSS_ARCHITECTURE.md`, `ICONS.md`, `DOCUMENTATION_STYLE.md`, `COMPONENT_LIBRARY.md`
+- Composition layer — `templates/` (hero, landing, product, docs, blog, case-study, sections)
+- Artifacts — `wireframes/` and `mockups/` (8 pages, token-referenced)
+- Research — `references/` captures + `INSPIRATION.md`
 
-Current phase: the system is fully documented and token values are locked.
+Current phase: token values are locked and the maturation artifacts are ready.
+The first consumer surface, `PaglaAI.space`, is being built from them (D-019).
 
 ---
 
 # Next
 
-The remaining work is maturation:
+- Build `PaglaAI.space` as the first consumer surface, inheriting
+  `css/tokens.css` (D-013, D-019).
+- Reconcile and relocate the PaglaAI.space Agent-Manual into `.ai/agent-manual/`.
+- Codify the design review workflow and contribution rules.
+- Integrate the design system into each remaining PaglaAI product surface.
 
-### Later
+---
+
+# Later
 
 - Mature the design governance process for every ecosystem product.
-- Codify the design review workflow and contribution rules.
-- Integrate the design system into each PaglaAI product surface.
 
 ---
 

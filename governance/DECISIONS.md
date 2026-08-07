@@ -373,6 +373,212 @@ versioned content.
 
 ---
 
+# D-015 · Interaction Patterns Added
+
+**Status:** Adopted
+
+**Context:** `MOTION.md` and `ACCESSIBILITY.md` set principles, but the system
+had no document for *reusable interaction behaviors* — transitions, scroll
+rhythm, hover, loading, empty, error, not-found, search, and theme switching.
+Without it, each consumer (starting with `PaglaAI.space`) would invent
+behaviors per product.
+
+**Decision**
+
+Add `design-system/UX_PATTERNS.md` as the interaction layer of the system.
+
+Patterns are token-referenced, pass the gates of `MOTION.md`, and meet the
+baseline of `ACCESSIBILITY.md`. Theme switching defaults to the OS preference,
+persists an explicit choice, and resolves both themes through one semantic
+structure (D-010).
+
+**Alternatives considered**
+
+- Leave behavior to each product. Rejected — recreates the drift the system
+  exists to prevent.
+- Fold behaviors into `COMPONENTS.md`. Rejected — that document is the grammar
+  of parts, not the behavior of states.
+
+**Trade-offs:** one more document to maintain, in exchange for interaction
+that is defined once and inherited everywhere.
+
+**Result:** interaction is a first-class layer of the design system, and the
+site build has a behavior contract to implement.
+
+---
+
+# D-016 · Component Library Deepened and Extended
+
+**Context:** The registry listed eleven components with terse entries. The site
+build needs three shared parts not yet registered — code presentation, CLI
+output, and navigation context — and the existing entries lacked the anatomy
+and behavior needed to build them consistently.
+
+**Decision**
+
+Register **Breadcrumbs**, **Code Block**, and **Terminal** as library
+components, and extend every registry entry with **Structure** and
+**Behavior**. The language is documented in `COMPONENTS.md`; the registry in
+`COMPONENT_LIBRARY.md`.
+
+- Code Block — readable, copyable code presentation at `font.size.code`
+- Terminal — faithful CLI output; real output, never implied capability
+- Breadcrumbs — a trail ending in the current page as text, never a link
+
+**Alternatives considered**
+
+- Model Terminal as a Code Block variant. Rejected — Terminal presents
+  *execution*, Code Block presents *source*; distinct roles, distinct states.
+- Keep the registry terse. Rejected — depth is what the build consumes.
+
+**Trade-offs:** a longer registry, in exchange for contracts clear enough to
+implement from.
+
+**Result:** fourteen registered components, each with anatomy and behavior.
+
+---
+
+# D-017 · Template Compositions Matured
+
+**Context:** `templates/` existed as a concept (a README) with no content. The
+wireframes referenced compositions that did not exist yet.
+
+**Decision**
+
+Author the reusable page-level compositions in `templates/`:
+
+- `hero.md` — opening composition with variants
+- `landing.md` — the progressive home arc
+- `product.md` — the consistent product spine
+- `docs.md` — the learning-path layout
+- `blog.md` — index and article
+- `case-study.md` — problem → decision → outcome
+- `sections.md` — Feature Grid, CTA, Timeline, Footer
+
+Templates compose components; they are not components themselves.
+
+**Alternatives considered**
+
+- Leave templates conceptual until a product exists. Rejected — the build needs
+  the contract now.
+- Duplicate page recipes inside consumer repos. Rejected — that recreates
+  per-product divergence.
+
+**Trade-offs:** a maintenance surface, in exchange for page-level consistency
+across every product surface.
+
+**Result:** the composition layer is documented before the first site is built.
+
+---
+
+# D-018 · Wireframes and Mockups as Token-Referenced Markdown
+
+**Context:** `wireframes/` and `mockups/` each held only a README. The
+ecosystem has no image tooling, and static exports (Figma images, PNGs) would
+drift from the locked tokens the moment a value changes.
+
+**Decision**
+
+Produce the maturation artifacts as maintainable Markdown:
+
+- **Wireframes** — structural: regions, order, and component placement, in
+  ASCII layout plus a region table.
+- **Mockups** — high-fidelity in words: surface maps, typography tokens,
+  spacing rhythm, and dark-theme treatment, every value token-referenced.
+
+Eight pages are covered: Home, Product, Docs, API Reference, BrandKit, Blog,
+About, 404.
+
+**Alternatives considered**
+
+- Static image mockups. Rejected — they rot the instant a token changes.
+- Code-only mockups. Rejected — that begins implementation before design
+  (D-001).
+
+**Trade-offs:** Markdown mockups are not pixel-perfect; they track tokens
+exactly and never drift.
+
+**Result:** the site build has an exact, reviewable visual contract, and the
+folders are no longer placeholders.
+
+---
+
+# D-019 · PaglaAI.space as the First Consumer Surface
+
+**Context:** D-013 declared that frameworks and rendered surfaces belong to
+consumer repos, which inherit `css/tokens.css`. The ecosystem's first consumer
+surface is `PaglaAI.space`, and its stack and theming had to be decided.
+
+**Decision**
+
+Build `PaglaAI.space` as a plain HTML/CSS/JS site:
+
+- Imports `css/tokens.css`, `css/base.css`, and `css/utilities.css` from
+  PaglaDESIGN (D-013).
+- White theme is the default; a dark theme re-resolves the same semantics
+  through `[data-theme="dark"]`.
+- Theme choice defaults to `prefers-color-scheme`, persists an explicit toggle
+  to `localStorage`, and honors reduced motion.
+- Minimal vanilla JavaScript — shared header/footer include, theme toggle,
+  mobile menu, tabs, copy buttons. No framework, no build step.
+
+**Alternatives considered**
+
+- A static site generator. Deferred — adds a build step for no current need.
+- A framework (React/Vue). Rejected — contradicts the D-013 authority
+  relationship and adds weight.
+- Docs-only page. Rejected — the ecosystem needs a real, designed surface.
+
+**Trade-offs:** a small manual-include pattern for shared chrome, in exchange
+for a zero-dependency site grounded in the canonical tokens.
+
+**Result:** the first consumer surface inherits the authority by construction;
+wireframes and mockups (D-018) are its build reference.
+
+---
+
+# D-020 · Agent Manual Relocated into the Authority as Operating Procedure
+
+**Status:** Adopted
+
+**Context:** A previously authored "PaglaOS × Stitch × PaglaDESIGN Agent
+Operating Manual" (v1.0.0) lived in `PaglaAI.space/Agent-Manual/` and
+**defined** the system rather than inheriting it — it carried its own palette
+(`#FF3E00`, `#0A0A0A`, gradients), its own fonts (Inter, JetBrains Mono, Plus
+Jakarta Sans), invented components (Badge, Avatar, Dropdown, Tooltip), a
+fabricated lint CLI, and fabricated MCP tools. These conflicted with the
+canonical tokens (D-010), components, and tooling (D-014). Its DOCX build
+script pointed at paths that did not exist and used non-canonical styling.
+
+**Decision**
+
+- Relocate the manual into the authority: `.ai/agent-manual/`.
+- Rewrite it as **operating procedure only**: token/component/layout/tool
+  facts are inherited from canonical sources, never redefined here.
+- Keep the genuine value-add: the prompt formula, lint severity model, build
+  playbook, and anti-patterns.
+- Document STITCH as an **external, optional** generator — never an authority.
+- Fix `build_docx.py` (correct paths, canonical monochrome styling, UTF-8
+  output) and regenerate the Word copy; remove duplicate DOCX artifacts.
+
+**Alternatives considered**
+
+- Keep the manual in `PaglaAI.space`. Rejected — it would continue to drift
+  from the authority it claims to implement.
+- Patch v1.0.0 in place. Rejected — its defining sections (tokens,
+  components, grid, tools) were structurally wrong; replacement, not patching,
+  was required.
+
+**Trade-offs:** the manual shrinks from ~11,000 words of duplicated definition
+to ~19,000 characters of procedure. It can no longer drift because it no
+longer carries values.
+
+**Result:** the manual and its authority live in one repository. `.ai/`
+now holds real, versioned agent content beyond the MCP server, and the
+previous competing definition is gone.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.
