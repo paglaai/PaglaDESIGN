@@ -125,6 +125,24 @@ A set of actions or links revealed on demand.
 
 A placeholder that communicates loading state without motion-spam.
 
+## Breadcrumbs
+
+A trail of navigation context that shows where the user is and the path back.
+
+Always ends with the current page as text, never a link.
+
+## Code Block
+
+A readable, copyable presentation of a code snippet.
+
+Code is readable before it is pretty (`../governance/DOCUMENTATION_STYLE.md`).
+
+## Terminal
+
+A faithful presentation of CLI output and commands.
+
+Shows real output, never a mock-up that implies capability.
+
 ---
 
 # Rules
