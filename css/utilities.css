@@ -12,7 +12,7 @@
   padding-inline: var(--layout-content-padding);
 }
 
-@media (min-width: var(--breakpoint-medium)) {
+@media (min-width: 48rem) {
   .container {
     padding-inline: var(--layout-content-padding-wide);
   }
