@@ -12,6 +12,8 @@ It is not simply a website project.
 
 It is the single source of truth for the visual language, user experience, interaction patterns, documentation standards, branding, and design philosophy shared across all current and future PaglaAI products.
 
+PaglaDESIGN v2 introduces the Audience Renderer architecture: every doc page declares its intended audience through a standard metadata contract, and three canonical renderers — FERN (human), MACHINE (machine), and ARCHITECT (governance) — produce consistent output for every consumer surface.
+
 Everything visual begins here.
 
 ---
@@ -105,6 +107,10 @@ design-system/     — implementation-ready design values
   ACCESSIBILITY.md — accessibility requirements
   ICONS.md         — icon language
   CSS_ARCHITECTURE.md — CSS implementation guidance
+  RENDERER_API.md  — metadata contract for every documentation page
+  FERN_RENDERER.md — human-facing HTML renderer specification
+  MACHINE_RENDERER.md — JSON, OpenAPI, MCP, and prompt bundle renderer
+  ARCHITECT_RENDERER.md — RFC, ADR, governance, and audit UI renderer
 
 governance/        — project governance of the design system
   DECISIONS.md     — architectural history and decision record
