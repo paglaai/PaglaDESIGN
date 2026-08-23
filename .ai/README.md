@@ -10,10 +10,10 @@ returns in v1.1 (D-014) for a concrete reason: **agent infrastructure**.
 - `mcp/` — PaglaDESIGN MCP server with RAG retrieval over the repository's
   canonical Markdown and token CSS. Lets coding agents ground UI work in the
   design authority instead of guessing values.
-- `agent-manual/` — the agent operating procedure (D-020). Operating rules
-  only; it inherits tokens, components, templates, and MCP tools from the
-  authority instead of redefining them. Includes `build_docx.py`, which
-  generates a styled Word copy of the manual.
+- `AGENT_MANUAL.md` — the canonical agent operating procedure (D-022).
+  Operating rules only; it inherits tokens, components, templates, and MCP
+  tools from the authority instead of redefining them.
+- `AGENTS.md` — contribution workflow and repository facts for AI agents.
 
 ## Convention
 
