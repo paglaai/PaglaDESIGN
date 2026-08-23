@@ -23,6 +23,29 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v1.6 — Agent Manual Rewrite
+
+- **Added** `.ai/AGENT_MANUAL.md` — 12-section operating procedure for AI coding agents (D-022).
+- **Added** `bin/build_docx.py` — python-docx generator with canonical monochrome styling; generates `DOC/AGENT_MANUAL.docx`.
+- **Added** `DOC/AGENT_MANUAL.docx` — generated Word copy from markdown source.
+- **Updated** `governance/DECISIONS.md` — added D-022 (Agent Manual Rewrite with Verified STITCH Integration).
+- **Content:** mission, token lock, component contract, Pagla Sans typeface, STITCH MCP integration, CSS architecture, workflow, quality gates, anti-patterns, governance, quick reference.
+
+## v1.5 — Pagla Sans Font Integration
+
+- **Added** `fonts/` — Pagla Sans typeface files (TTF + WOFF2) for all weights (Light, Regular, Medium, SemiBold, Bold) plus variable font.
+- **Added** `design-system/PAGLA_SANS.md` — complete typeface specification: anatomy, weights, metrics, CSS implementation, usage rules, accessibility.
+- **Updated** `css/tokens.css` — added `@font-face` declarations for all Pagla Sans weights with `font-display: swap`.
+- **Updated** `design-system/DESIGN_TOKENS.md` — added typeface specification section referencing PAGLA_SANS.md.
+- **Font files:** copied from `PaglaAI.space/pagla-sans/fonts/` with SIL OFL license.
+
+## v1.4 — Font Naming and Surface Effects
+
+- **Fixed** `brand/BRAND.md` — normalized "PaglaAI Sans" to "Pagla Sans" (lines 131, 174, 176).
+- **Added** `design-system/DESIGN_TOKENS.md` — surface effect tokens (`surface.glass.*`, `surface.clear.*`) and `layout.reading` (`42rem`).
+- **Added** `css/tokens.css` — surface effect CSS custom properties and `--layout-reading`.
+- **Recorded** the decision as D-021.
+
 ## v1.3 — Agent Manual Relocated
 
 - **Added** `.ai/agent-manual/` — the agent operating procedure (D-020).

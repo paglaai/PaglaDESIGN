@@ -72,6 +72,18 @@ When in doubt, add one step of space between related groups rather than squeezin
 
 # Typography
 
+## Typeface
+
+Pagla Sans is the primary typeface for the PaglaAI ecosystem.
+
+- **Family name:** `"Pagla Sans"`
+- **Base:** Open Sans (SIL OFL 1.1 / Apache License 2.0)
+- **Modification:** Perfect-circle O & P, lighter weight distribution, open apertures
+- **Weights:** Light (300), Regular (400), Medium (500), SemiBold (600), Bold (700)
+- **Variable font:** Available with `wght` 300–700, `wdth` 75–100
+- **Files:** `../fonts/PaglaSans-*.woff2` (web), `../fonts/PaglaSans-*.ttf` (print)
+- **Specification:** `PAGLA_SANS.md`
+
 ## Size scale
 
 The type scale is modular and ratio-based. Sizes are named by role, not by multiple, so the same tokens work across surfaces.
@@ -187,6 +199,17 @@ These tokens keep components and controls consistent without inventing values in
 - `motion.easing.exit`
 - `motion.reduced` — toggle for reduced-motion users
 
+## Surface effects
+
+Surface effects for glass/frosted UI patterns. Inspired by modern transparent interfaces.
+
+- `surface.glass.opacity` — background opacity for glass panels
+- `surface.glass.blur` — backdrop blur radius
+- `surface.glass.border` — border opacity for glass edges
+- `surface.clear.opacity` — background opacity for lighter glass
+- `surface.clear.blur` — backdrop blur radius for lighter glass
+- `surface.clear.border` — border opacity for lighter glass
+
 ---
 
 # Breakpoints and layout
@@ -201,6 +224,7 @@ Layout adapts at defined breakpoints. Names follow intent, not width.
 - `layout.maxWidth` — bounded content column
 - `layout.contentPadding` — outer padding at smallest width
 - `layout.contentPaddingWide`
+- `layout.reading` — comfortable reading measure
 
 ---
 
@@ -344,6 +368,17 @@ The accent is single-purpose: meaning only, never a background fill (`COLOR_SYST
 | `motion.easing.exit` | `cubic-bezier(0.4, 0, 1, 1)` |
 | `motion.reduced` | `0ms` |
 
+## Surface effects
+
+| Token | Value |
+| --- | --- |
+| `surface.glass.opacity` | `0.72` |
+| `surface.glass.blur` | `24px` |
+| `surface.glass.border` | `0.08` |
+| `surface.clear.opacity` | `0.55` |
+| `surface.clear.blur` | `16px` |
+| `surface.clear.border` | `0.06` |
+
 ## Breakpoints and layout
 
 | Token | Value |
@@ -358,6 +393,7 @@ The accent is single-purpose: meaning only, never a background fill (`COLOR_SYST
 | `layout.maxWidth` | `75rem` |
 | `layout.contentPadding` | `1rem` |
 | `layout.contentPaddingWide` | `2rem` |
+| `layout.reading` | `42rem` |
 
 ---
 

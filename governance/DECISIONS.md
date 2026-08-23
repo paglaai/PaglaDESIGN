@@ -579,6 +579,95 @@ previous competing definition is gone.
 
 ---
 
+# D-021 · Font Naming Normalization and Surface Effect Tokens
+
+**Status:** Adopted
+
+**Context:** The design system documentation referenced "PaglaAI Sans" as the
+primary typeface, but the actual CSS font-family name used in `tokens.css` and
+the font files is "Pagla Sans." Additionally, consumer surfaces (notably
+PaglaSHELL) were inventing glass/frosted effects with raw `rgba()` values
+instead of using token-defined properties.
+
+**Decision**
+
+1. Normalize all typeface references to "Pagla Sans" to match the actual
+   font-family name in `css/tokens.css` and the font files.
+2. Add surface effect tokens for glass/frosted UI patterns:
+   - `surface.glass.opacity`, `surface.glass.blur`, `surface.glass.border`
+   - `surface.clear.opacity`, `surface.clear.blur`, `surface.clear.border`
+3. Add `layout.reading` (`42rem`) for comfortable reading measure, consistent
+   with `PaglaAI.space`.
+
+**Alternatives considered**
+
+- Keep "PaglaAI Sans" and rename the CSS. Rejected — the font files are
+  already named "Pagla Sans" and changing them would break `PaglaAI.space`.
+- Leave glass effects to each consumer. Rejected — recreates drift.
+
+**Trade-offs**
+
+Normalizing the name corrects a documentation debt. Adding surface effect
+tokens adds a small maintenance surface in exchange for consistent,
+token-driven glass effects across the ecosystem.
+
+**Result**
+
+`BRAND.md`, `DESIGN_TOKENS.md`, and `css/tokens.css` are aligned. Consumers
+can use `var(--surface-glass-*)` instead of raw `rgba()` values. The font
+family is consistently documented as "Pagla Sans."
+
+---
+
+# D-022 · AGENT_MANUAL.md Rewrite with Verified STITCH Integration
+
+**Status:** Adopted
+
+**Context:** D-020 relocated the agent manual into the authority as operating
+procedure, but the rewrite was never completed. The previous session produced a
+v1.0.0 manual in `PaglaAI.space/Agent-Manual/` that conflated the PaglaDESIGN
+MCP server (6 tools) with STITCH's skill system (28–29 tools), fabricated
+deviceType values (PHONE/TABLET/DESKTOP), fabricated lint rules (12), and
+mixed user-facing copy with internal agent instruction. A deep verification of
+brand assets, Pagla Sans font, and the STITCH documentation confirmed the
+corrections needed.
+
+**Decision**
+
+- Rewrite `.ai/AGENT_MANUAL.md` as a 12-section operating procedure.
+- Separate STITCH integration into its own dedicated section (§6) with
+  verified-only facts: 3 general-purpose skills (create, expand, transform),
+  the real deviceType enum (`MOBILE|DESKTOP|TABLET`), and `designMode`
+  (3 values, not "4 design modes").
+- Note that STITCH model picker has 3 models (GPT-4o, GPT-4o mini, DALL·E 3)
+  — token-gated, not plan-gated.
+- Correct lint rule count to 11 (not 12), with 30 rules across 5 categories.
+- Mark all volatile counts (MCP tool count, skill count) as "verify at install
+  time" — they change with STITCH releases.
+- Add `bin/build_docx.py` (python-docx, canonical monochrome styling) to
+  regenerate `DOC/AGENT_MANUAL.docx` from the markdown source.
+- Record the Pagla Sans typeface specification from
+  `design-system/PAGLA_SANS.md` into the manual.
+
+**Alternatives considered**
+
+- Keep the v1.0.0 manual. Rejected — its fabricated values would continue to
+  drift from reality and mislead agents.
+- Inline STITCH details into every section. Rejected — STITCH is an external
+  optional tool; it gets its own section.
+
+**Trade-offs**
+
+The manual is shorter and more honest. It defers volatile values to runtime
+verification rather than embedding stale numbers.
+
+**Result**
+
+`AGENT_MANUAL.md` is the canonical operating procedure. `DOC/AGENT_MANUAL.docx`
+is generated from it. The previous competing manual is gone.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

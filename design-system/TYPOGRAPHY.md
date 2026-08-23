@@ -35,11 +35,11 @@ Avoid decorative typography that competes with the content.
 
 Primary Typeface
 
-PaglaAI Sans
+Pagla Sans
 
 Reasoning
 
-PaglaAI Sans offers:
+Pagla Sans offers:
 
 - Excellent readability
 - Wide language support

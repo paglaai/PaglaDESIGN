@@ -128,11 +128,11 @@ The wordmark is not a logo.
 
 It is not custom drawing.
 
-It is the name set in PaglaAI Sans Light, precisely spaced.
+It is the name set in Pagla Sans Light, precisely spaced.
 
 ## Rules
 
-- Set in PaglaAI Sans Light 300.
+- Set in Pagla Sans Light 300.
 - Optical tracking.
 - No custom letters.
 - No ligatures.
@@ -171,9 +171,9 @@ Reserve values are defined in `design-system/DESIGN_TOKENS.md`.
 
 # Typography
 
-PaglaAI Sans is the primary brand typeface.
+Pagla Sans is the primary brand typeface.
 
-PaglaAI Sans is a light, open, neutral family.
+Pagla Sans is a light, open, neutral family.
 
 It shares the same humanist skeleton as trusted system families.
 

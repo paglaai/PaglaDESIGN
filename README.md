@@ -101,6 +101,7 @@ design-system/     — implementation-ready design values
   DESIGN_TOKENS.md — concrete implementation values (locked)
   COLOR_SYSTEM.md  — color semantics
   TYPOGRAPHY.md    — typography philosophy and hierarchy
+  PAGLA_SANS.md    — Pagla Sans typeface specification
   MOTION.md        — motion principles
   ACCESSIBILITY.md — accessibility requirements
   ICONS.md         — icon language
@@ -122,9 +123,15 @@ references/        — visual research library (non-canonical)
 css/               — stylesheet assets (tokens, base, utilities)
 mockups/           — high-fidelity visual mockups
 wireframes/        — low-fidelity layout sketches
+fonts/             — Pagla Sans typeface files (TTF, WOFF2, variable)
+DOC/               — generated documents (Word copies)
+
+bin/               — build and utility scripts
+  build_docx.py    — generates DOC/AGENT_MANUAL.docx from markdown
 
 .ai/               — agent infrastructure (MCP + RAG server, D-014)
   mcp/             — PaglaDESIGN MCP server exposing the authority to agents
+  AGENT_MANUAL.md  — canonical agent operating procedure (D-022)
 ```
 
 The repository structure is declared **stable**. New work fits into these folders; the layout is no longer reorganized.
