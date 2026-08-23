@@ -52,7 +52,26 @@ Never treat whitespace as wasted space.
 
 ---
 
-# 6. Consistency Builds Trust
+# 6. Audience Rendering
+
+Documentation serves different audiences. The same source should produce
+consistent, purpose-built output for each.
+
+PaglaDESIGN defines three canonical renderers:
+
+- **FERN** — human readers: rich HTML, navigable, themed
+- **MACHINE** — programmatic consumers: JSON, OpenAPI, MCP tool bundles, prompt bundles
+- **ARCHITECT** — engineers and decision-makers: RFCs, ADRs, governance documents, audit views
+
+Every doc page declares its audience through a standard metadata contract
+(`RENDERER_API.md`). Consumers inherit the renderer logic instead of inventing
+their own.
+
+Inconsistent rendering is a failure of the design system.
+
+---
+
+# 7. Consistency Builds Trust
 
 Interfaces should feel familiar across every PaglaAI product.
 
@@ -62,7 +81,7 @@ Consistency should evolve intentionally, never accidentally.
 
 ---
 
-# 7. Performance Is Part of User Experience
+# 8. Performance Is Part of User Experience
 
 Fast interfaces are easier to use.
 
@@ -72,7 +91,7 @@ Avoid unnecessary complexity that increases visual or technical overhead.
 
 ---
 
-# 8. Accessibility Is Non-Negotiable
+# 9. Accessibility Is Non-Negotiable
 
 Design should be usable by as many people as reasonably possible.
 
@@ -82,7 +101,7 @@ Inclusive design creates better experiences for everyone.
 
 ---
 
-# 9. Motion Must Communicate
+# 10. Motion Must Communicate
 
 Animation should guide, confirm, and orient users.
 
@@ -92,7 +111,7 @@ If removing an animation does not reduce understanding, it probably does not bel
 
 ---
 
-# 10. Documentation Before Implementation
+# 11. Documentation Before Implementation
 
 Every significant design decision should be documented before implementation.
 
@@ -102,7 +121,7 @@ Code implements the design system—it does not define it.
 
 ---
 
-# 11. Think in Ecosystems
+# 12. Think in Ecosystems
 
 Every decision should benefit the broader PaglaAI ecosystem rather than a single project.
 
@@ -112,7 +131,7 @@ Design for tomorrow's products, not only today's requirements.
 
 ---
 
-# 12. Timeless Over Trendy
+# 13. Timeless Over Trendy
 
 Avoid following short-lived design trends.
 
@@ -122,7 +141,7 @@ A timeless interface will outlast fashionable aesthetics.
 
 ---
 
-# 13. Question Everything
+# 14. Question Everything
 
 Every design decision should have a clear reason.
 
