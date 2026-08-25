@@ -104,7 +104,7 @@ Reserved for meaning only. Never a background fill. Only a dot, an underline, or
 
 ## Typeface
 
-PaglaAI Sans — light, open, neutral.
+Pagla Sans — light, open, neutral.
 
 ## Weights
 
