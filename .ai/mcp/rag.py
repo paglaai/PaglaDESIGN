@@ -22,9 +22,7 @@ from dataclasses import dataclass, field
 
 # Root of the PaglaDESIGN repository (parent of this package's parent dir).
 try:
-    REPO_ROOT = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "..", "..")
-    )
+    REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 except NameError:  # pragma: no cover - interactive only
     REPO_ROOT = os.getcwd()
 
@@ -166,7 +164,9 @@ class RetrievalIndex:
                 idf = math.log(1 + (n - df + 0.5) / (df + 0.5))
                 f = tf.get(term, 0)
                 if f:
-                    denom = f + self.k1 * (1 - self.b + self.b * (dl / self._avgdl if self._avgdl else 0.0))
+                    denom = f + self.k1 * (
+                        1 - self.b + self.b * (dl / self._avgdl if self._avgdl else 0.0)
+                    )
                     score += idf * (f * (self.k1 + 1)) / denom
                 if term in htf:  # heading boost
                     score += 2.0 * idf
@@ -195,7 +195,8 @@ class RetrievalIndex:
         except (OSError, UnicodeDecodeError):
             return []
         return [
-            line for line in text.splitlines()
+            line
+            for line in text.splitlines()
             if ":" in line and line.strip().startswith(want)
         ]
 

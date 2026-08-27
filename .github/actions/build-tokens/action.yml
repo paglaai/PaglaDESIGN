@@ -23,62 +23,59 @@ runs:
       shell: bash
       run: |
         echo "=== Compiling Design Tokens to CSS custom properties ==="
-        python -c "
+        python3 << 'PY'
         import re
         from pathlib import Path
-        
-        token_file = Path('${{ inputs.tokens_path }}')
-        output_css = Path('${{ inputs.css_output_path }}')
-        
+        import os
+
+        token_file = Path(os.environ.get("TOKENS_PATH", "design-system/DESIGN_TOKENS.md"))
+        output_css = Path(os.environ.get("CSS_OUTPUT_PATH", "css/tokens.css"))
+
         if not token_file.exists():
-            print(f'Error: Token file {token_file} does not exist!')
-            exit(1)
-            
-        print(f'Reading tokens from {token_file}')
+            print(f"Error: Token file {token_file} does not exist!")
+            raise SystemExit(1)
+
+        print(f"Reading tokens from {token_file}")
         content = token_file.read_text()
-        
-        # Simple extraction example from tokens markdown tables
-        # Looking for structures like: | token-name | value |
+
         variables = []
         for line in content.splitlines():
-            # Matches columns specifying token variable structures
             match = re.search(r'\|\s*`?([a-zA-Z0-9-]+)`?\s*\|\s*`?([^|]+)`?\s*\|', line)
             if match:
                 name, val = match.groups()
                 name = name.strip()
                 val = val.strip()
-                if name.startswith('--') or 'color' in name or 'font' in name:
-                    clean_name = name if name.startswith('--') else f'--{name}'
-                    variables.append(f'  {clean_name}: {val};')
-                    
+                if set(name) == {"-"} or set(val) == {"-"}:
+                    continue
+                if name.startswith("--") or "color" in name or "font" in name:
+                    clean_name = name if name.startswith("--") else f"--{name}"
+                    variables.append(f"  {clean_name}: {val};")
+
         if variables:
-            print(f'Found {len(variables)} variables. Writing to {output_css}')
+            print(f"Found {len(variables)} variables. Writing to {output_css}")
             output_css.parent.mkdir(parents=True, exist_ok=True)
-            css_content = ':root {
-' + '
-'.join(variables) + '
-}
-'
+            css_content = ":root {\n" + "\n".join(variables) + "\n}\n"
             output_css.write_text(css_content)
         else:
-            print('No tokens found. Generating baseline from css/tokens.css fallback check...')
-        "
+            print("No tokens found. Generating baseline from css/tokens.css fallback check...")
+        PY
+      env:
+        TOKENS_PATH: ${{ inputs.tokens_path }}
+        CSS_OUTPUT_PATH: ${{ inputs.css_output_path }}
 
     - name: Validate CSS Structure
       shell: bash
       run: |
         echo "=== Validating compiled CSS for syntax errors ==="
-        # Ensure css/tokens.css and other CSS files do not contain syntax errors or invalid custom property refs
-        python -c "
+        python3 << 'PY'
         from pathlib import Path
-        for css_file in Path('css').glob('*.css'):
+        for css_file in Path("css").glob("*.css"):
             content = css_file.read_text()
-            if '{' in content and '}' not in content:
-                print(f'Validation Error: Unmatched bracket in {css_file}')
-                exit(1)
-            # Check for un-substituted custom properties templates
-            if '{{' in content or '}}' in content:
-                print(f'Validation Error: Unresolved template syntax in {css_file}')
-                exit(1)
-        print('CSS validation passed successfully!')
-        "
+            if "{" in content and "}" not in content:
+                print(f"Validation Error: Unmatched bracket in {css_file}")
+                raise SystemExit(1)
+            if "{{" in content or "}}" in content:
+                print(f"Validation Error: Unresolved template syntax in {css_file}")
+                raise SystemExit(1)
+        print("CSS validation passed successfully!")
+        PY

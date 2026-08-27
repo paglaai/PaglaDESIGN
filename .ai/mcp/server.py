@@ -113,10 +113,7 @@ def list_docs() -> list[dict[str, Any]]:
     counts: dict[str, int] = {}
     for chunk in INDEX.docs:
         counts[chunk.doc] = counts.get(chunk.doc, 0) + 1
-    return [
-        {"doc": doc, "sections": counts[doc]}
-        for doc in INDEX.source_docs
-    ]
+    return [{"doc": doc, "sections": counts[doc]} for doc in INDEX.source_docs]
 
 
 @mcp.tool(
