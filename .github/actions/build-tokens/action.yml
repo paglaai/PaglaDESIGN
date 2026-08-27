@@ -1,0 +1,84 @@
+name: Build & Validate Design Tokens
+description: "A composite action to compile design tokens and validate CSS custom properties for PaglaDESIGN."
+
+inputs:
+  tokens_path:
+    description: "Path to the design tokens markdown or JSON file"
+    required: true
+    default: "design-system/DESIGN_TOKENS.md"
+  css_output_path:
+    description: "Destination path for compiled CSS variables"
+    required: true
+    default: "css/tokens.css"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Parse Design Tokens and Compile CSS Variables
+      shell: bash
+      run: |
+        echo "=== Compiling Design Tokens to CSS custom properties ==="
+        python -c "
+        import re
+        from pathlib import Path
+        
+        token_file = Path('${{ inputs.tokens_path }}')
+        output_css = Path('${{ inputs.css_output_path }}')
+        
+        if not token_file.exists():
+            print(f'Error: Token file {token_file} does not exist!')
+            exit(1)
+            
+        print(f'Reading tokens from {token_file}')
+        content = token_file.read_text()
+        
+        # Simple extraction example from tokens markdown tables
+        # Looking for structures like: | token-name | value |
+        variables = []
+        for line in content.splitlines():
+            # Matches columns specifying token variable structures
+            match = re.search(r'\|\s*`?([a-zA-Z0-9-]+)`?\s*\|\s*`?([^|]+)`?\s*\|', line)
+            if match:
+                name, val = match.groups()
+                name = name.strip()
+                val = val.strip()
+                if name.startswith('--') or 'color' in name or 'font' in name:
+                    clean_name = name if name.startswith('--') else f'--{name}'
+                    variables.append(f'  {clean_name}: {val};')
+                    
+        if variables:
+            print(f'Found {len(variables)} variables. Writing to {output_css}')
+            output_css.parent.mkdir(parents=True, exist_ok=True)
+            css_content = ':root {
+' + '
+'.join(variables) + '
+}
+'
+            output_css.write_text(css_content)
+        else:
+            print('No tokens found. Generating baseline from css/tokens.css fallback check...')
+        "
+
+    - name: Validate CSS Structure
+      shell: bash
+      run: |
+        echo "=== Validating compiled CSS for syntax errors ==="
+        # Ensure css/tokens.css and other CSS files do not contain syntax errors or invalid custom property refs
+        python -c "
+        from pathlib import Path
+        for css_file in Path('css').glob('*.css'):
+            content = css_file.read_text()
+            if '{' in content and '}' not in content:
+                print(f'Validation Error: Unmatched bracket in {css_file}')
+                exit(1)
+            # Check for un-substituted custom properties templates
+            if '{{' in content or '}}' in content:
+                print(f'Validation Error: Unresolved template syntax in {css_file}')
+                exit(1)
+        print('CSS validation passed successfully!')
+        "

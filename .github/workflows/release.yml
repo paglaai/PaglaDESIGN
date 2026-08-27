@@ -1,0 +1,60 @@
+name: "Release & Publish Artifacts"
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to release (e.g. v1.3.0)'
+        required: true
+        default: 'v1.3.0'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish-assets:
+    name: "Compile & Publish Release Assets"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Design Tokens and CSS Artifacts
+        uses: ./.github/actions/build-tokens
+        with:
+          tokens_path: "design-system/DESIGN_TOKENS.md"
+          css_output_path: "css/tokens.css"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Package BrandKit and Compiled Assets
+        run: |
+          echo "=== Packaging BrandKit & Production Assets ==="
+          mkdir -p dist/brandkit dist/css
+          
+          # Copy BrandKit files
+          if [ -d "brand" ]; then
+            cp -r brand/* dist/brandkit/
+          fi
+          
+          # Copy Compiled Stylesheets
+          if [ -d "css" ]; then
+            cp -r css/* dist/css/
+          fi
+          
+          # Create distributable archive
+          tar -czvf pagladesign-assets.tar.gz -C dist .
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'release'
+        with:
+          files: pagladesign-assets.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
