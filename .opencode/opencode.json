@@ -5,7 +5,7 @@
       "type": "local",
       "command": [
         "D:\\PaglaAI\\.venv\\Scripts\\python.exe",
-        "D:\\PaglaAI\\PaglaDESIGN\\.ai\\mcp\\server.py"
+        "D:\\PaglaAI\\pagladesign\\.ai\\mcp\\server.py"
       ],
       "enabled": true,
       "environment": {}

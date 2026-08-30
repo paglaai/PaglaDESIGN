@@ -50,7 +50,7 @@ from any working directory.
 Register as a local MCP server pointing at:
 
 ```bash
-D:\PaglaAI\.venv\Scripts\python.exe D:\PaglaAI\PaglaDESIGN\.ai\mcp\server.py
+D:\PaglaAI\.venv\Scripts\python.exe D:\PaglaAI\pagladesign\.ai\mcp\server.py
 ```
 
 ## Layout
