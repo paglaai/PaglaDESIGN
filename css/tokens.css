@@ -7,36 +7,36 @@
 
 /* ---- Brand typeface: Pagla Sans ---- */
 @font-face {
-  font-family: "Pagla Sans";
-  src: url("../fonts/PaglaSans-Light.woff2") format("woff2");
+  font-family: "PaglaAI Sans";
+  src: url("/fonts/PaglaSans-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Pagla Sans";
-  src: url("../fonts/PaglaSans-Regular.woff2") format("woff2");
+  font-family: "PaglaAI Sans";
+  src: url("/fonts/PaglaSans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Pagla Sans";
-  src: url("../fonts/PaglaSans-Medium.woff2") format("woff2");
+  font-family: "PaglaAI Sans";
+  src: url("/fonts/PaglaSans-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Pagla Sans";
-  src: url("../fonts/PaglaSans-SemiBold.woff2") format("woff2");
+  font-family: "PaglaAI Sans";
+  src: url("/fonts/PaglaSans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Pagla Sans";
-  src: url("../fonts/PaglaSans-Bold.woff2") format("woff2");
+  font-family: "PaglaAI Sans";
+  src: url("/fonts/PaglaSans-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
