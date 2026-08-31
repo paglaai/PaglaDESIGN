@@ -76,14 +76,14 @@
   --font-weight-bold: 700;
 
   /* ---- Line heights ---- */
-  --font-line-height-body: 1.5;
+  --font-line-height-body: 1.625;
   --font-line-height-heading: 1.2;
   --font-line-height-display: 1.05;
 
   /* ---- Letter spacing ---- */
   --font-tracking-body: 0;
-  --font-tracking-heading: -0.01em;
-  --font-tracking-display: -0.02em;
+  --font-tracking-heading: -0.03em;
+  --font-tracking-display: -0.075em;
   --font-tracking-uppercase: 0.08em;
 
   /* ---- Reading measure ---- */

@@ -30,7 +30,7 @@ html {
 }
 
 body {
-  font-family: "PaglaAI Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+  font-family: "Pagla Sans", system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
@@ -50,12 +50,18 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--font-line-height-heading);
   letter-spacing: var(--font-tracking-heading);
   margin-top: var(--space-8);
   margin-bottom: var(--space-4);
   text-wrap: balance;
+}
+
+strong,
+b {
+  font-weight: var(--font-weight-semibold);
+  color: inherit;
 }
 
 h1 { font-size: var(--font-size-h1); }
@@ -148,6 +154,6 @@ textarea {
 /* ---- Responsive typography scaling ---- */
 @media (max-width: 48rem) {
   :root {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
