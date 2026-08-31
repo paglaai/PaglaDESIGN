@@ -48,13 +48,13 @@ def setup_styles(doc: Document) -> None:
     style.font.size = Pt(11)
     style.font.color.rgb = INK
     style.paragraph_format.space_after = Pt(8)
-    style.paragraph_format.line_spacing = 1.5
+    style.paragraph_format.line_spacing = 1.625
 
     # -- Heading 1 --
     h1 = doc.styles["Heading 1"]
     h1.font.name = "Pagla Sans"
     h1.font.size = Pt(28)
-    h1.font.bold = True
+    h1.font.bold = False
     h1.font.color.rgb = INK
     h1.paragraph_format.space_before = Pt(24)
     h1.paragraph_format.space_after = Pt(12)
@@ -64,7 +64,7 @@ def setup_styles(doc: Document) -> None:
     h2 = doc.styles["Heading 2"]
     h2.font.name = "Pagla Sans"
     h2.font.size = Pt(20)
-    h2.font.bold = True
+    h2.font.bold = False
     h2.font.color.rgb = PAGLA_BLUE
     h2.paragraph_format.space_before = Pt(20)
     h2.paragraph_format.space_after = Pt(8)
@@ -74,7 +74,7 @@ def setup_styles(doc: Document) -> None:
     h3 = doc.styles["Heading 3"]
     h3.font.name = "Pagla Sans"
     h3.font.size = Pt(14)
-    h3.font.bold = True
+    h3.font.bold = False
     h3.font.color.rgb = INK
     h3.paragraph_format.space_before = Pt(16)
     h3.paragraph_format.space_after = Pt(6)

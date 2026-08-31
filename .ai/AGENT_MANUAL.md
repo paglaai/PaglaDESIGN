@@ -124,15 +124,15 @@ Base unit `space.base` = `0.25rem`. All spacing distances are multiples of the b
 
 | Token | Value |
 |---|---|
-| `font.lineHeight.body` | `1.5` |
+| `font.lineHeight.body` | `1.625` |
 | `font.lineHeight.heading` | `1.2` |
 | `font.lineHeight.display` | `1.05` |
 
 | Token | Value |
 |---|---|
 | `font.tracking.body` | `0` |
-| `font.tracking.heading` | `-0.01em` |
-| `font.tracking.display` | `-0.02em` |
+| `font.tracking.heading` | `-0.03em` |
+| `font.tracking.display` | `-0.075em` |
 | `font.tracking.uppercase` | `0.08em` |
 
 | Token | Value |
