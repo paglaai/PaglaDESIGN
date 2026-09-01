@@ -33,6 +33,12 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Validate Ecosystem Registry
+        run: |
+          python3 -m json.tool ecosystem.json > /dev/null
+          python3 -m json.tool ecosystem.schema.json > /dev/null
+          echo "ecosystem.json + ecosystem.schema.json: valid JSON"
+
       - name: Package BrandKit and Compiled Assets
         run: |
           echo "=== Packaging BrandKit & Production Assets ==="
@@ -47,7 +53,10 @@ jobs:
           if [ -d "css" ]; then
             cp -r css/* dist/css/
           fi
-          
+
+          # Copy Ecosystem Registry (machine-readable SSOT)
+          cp ecosystem.json ecosystem.schema.json dist/
+
           # Create distributable archive
           tar -czvf pagladesign-assets.tar.gz -C dist .
 

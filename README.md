@@ -44,18 +44,30 @@ This repository governs:
 
 ## Ecosystem
 
-PaglaDESIGN provides the design foundation for projects including:
+PaglaDESIGN is the **single source of truth** for the PaglaAI ecosystem (Audit v2.0 — [`paglaai/pagladesign#3`](https://github.com/paglaai/pagladesign/issues/3)).
 
-- PaglaOS
-- PaglaAPI
-- PaglaCPP
-- PaglaMLX
-- PaglaMTP
-- PaglaROUTER
-- PaglaUI
-- PaglaBRAND
-- PaglaCHAT
-- PaglaGPT
+The machine-readable registry is [`ecosystem.json`](./ecosystem.json) (schema [`ecosystem.schema.json`](./ecosystem.schema.json)) — 16 entries, 9 active · 7 planned.
+
+| Product | Repo | Role | Status | Audience |
+|---|---|---|---|---|
+| **PaglaDESIGN** | `paglaai/pagladesign` | authority | active | human · machine · architect |
+| **PaglaAI.space** | `paglaai/paglaai.space` | surface | active | human |
+| **paglaai-docs** | `paglaai/paglaai-docs` | surface | active | human · machine · architect |
+| **SANCTUM Runtime** | `paglaai/sanctum` | runtime | planned | architect |
+| **PaglaSHELL** | `paglaai/PaglaSHELL` | product | active | human · machine |
+| **B3K4R** | `paglaai/B3K4R` | product | active | human |
+| **PaglaMLX** | `paglaai/PaglaMLX` | product | active | human · machine |
+| **PaglaROUTER** | `paglaai/PaglaROUTER` | product | active | human · machine |
+| **PaglaCHAT** | `paglaai/PaglaCHAT` | product | active | human |
+| **PaglaOS** | `paglaai/KolponaOS` | product | active | human · architect |
+| **PaglaAPI** | `paglaai/paglaapi` | product | planned | machine |
+| **PaglaCPP** | `paglaai/paglacpp` | product | planned | machine · architect |
+| **PaglaMTP** | `paglaai/paglamtp` | product | planned | machine |
+| **PaglaUI** | `paglaai/paglaui` | product | planned | human · machine |
+| **PaglaBRAND** | `paglaai/paglabrand` | product | planned | human |
+| **PaglaGPT** | `paglaai/paglagpt` | product | planned | human · machine |
+
+> `PaglaAI.space` is the first consumer surface — it inherits `css/tokens.css` (D-013) and renders via the `FERN` (human) renderer. `paglaai-docs` is the unified-docs target and `SANCTUM` is the public architecture repo (Phase 2). Every doc page declares its audience via `design-system/RENDERER_API.md`.
 
 Future products should inherit the same visual language and interaction principles defined here.
 
@@ -90,6 +102,9 @@ DESIGN.md          — design philosophy and pillars
 PRINCIPLES.md      — standing principles of the system
 AGENTS.md          — contribution workflow and repository facts
 LICENSE            — MIT license
+
+ecosystem.json     — canonical registry of the PaglaAI ecosystem (Audit v2.0, D-023)
+ecosystem.schema.json — JSON Schema for the registry
 
 brand/             — identity, mark, and brand usage
   BRAND.md         — identity, mark, and brand usage

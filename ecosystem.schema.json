@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://paglaai.space/schemas/ecosystem.schema.json",
+  "title": "PaglaAI Ecosystem Registry",
+  "description": "Canonical registry for the PaglaAI ecosystem. Authority is PaglaDESIGN per Audit v2.0 #3.",
+  "type": "object",
+  "required": ["version", "authority", "ecosystem"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Registry version (semver), aligns with Audit v2.0"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["canonical", "draft", "deprecated"]
+    },
+    "issue": { "type": "string", "format": "uri" },
+    "updated": { "type": "string", "format": "date" },
+    "authority": {
+      "type": "object",
+      "required": ["id", "repo", "role"],
+      "properties": {
+        "id": { "type": "string", "const": "pagladesign" },
+        "displayName": { "type": "string" },
+        "repo": { "type": "string", "pattern": "^paglaai/pagladesign$" },
+        "url": { "type": "string", "format": "uri" },
+        "role": { "type": "string", "const": "authority" },
+        "description": { "type": "string" },
+        "provides": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ecosystem": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "displayName", "repo", "role", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9.-]+$" },
+          "displayName": { "type": "string" },
+          "repo": { "type": "string", "pattern": "^paglaai/[A-Za-z0-9._-]+$" },
+          "alias": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "homepage": { "type": "string", "format": "uri" },
+          "role": {
+            "type": "string",
+            "enum": ["authority", "surface", "product", "runtime"]
+          },
+          "category": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["active", "planned", "deprecated"]
+          },
+          "audience": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["human", "machine", "architect"] }
+          },
+          "provides": { "type": "array", "items": { "type": "string" } },
+          "consumes": { "type": "array", "items": { "type": "string" } },
+          "deploy": { "type": ["object", "null"] },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "documentation": { "type": "object" },
+    "pipelines": { "type": "object" },
+    "roadmap": { "type": "object" }
+  }
+}

@@ -23,6 +23,15 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v2.0 — Ecosystem Registry (Audit v2.0)
+
+- **Added** `ecosystem.json` — canonical registry for the PaglaAI ecosystem (16 entries: 9 active · 7 planned), single source of truth per [`paglaai/pagladesign#3`](https://github.com/paglaai/pagladesign/issues/3). Authority `paglaai/pagladesign`, surfaces `paglaai.space` + `paglaai-docs`, runtime `sanctum` (planned), products `PaglaSHELL`/`B3K4R`/`PaglaMLX`/`PaglaROUTER`/`PaglaCHAT`/`PaglaOS` + planned `PaglaAPI`/`PaglaCPP`/`PaglaMTP`/`PaglaUI`/`PaglaBRAND`/`PaglaGPT`.
+- **Added** `ecosystem.schema.json` — JSON Schema (draft 2020-12) for registry validation.
+- **Updated** `governance/ROADMAP.md` — rewritten from Now/Next/Later to three-phase Audit v2.0 roadmap: Phase 1 Active (v2.0 docs + Human/Machine/Architect renderers + registry), Phase 2 Planned (SANCTUM Runtime + PaglaSHELL CLI roadmap + B3K4R MVP docs), Phase 3 Planned (GitHub Actions automation + Cloudflare Pages + PaglaOS release + `design.updated` dispatch).
+- **Updated** `governance/DECISIONS.md` — added D-023 (Ecosystem Registry and Audit v2.0 Roadmap).
+- **Updated** `README.md` — Ecosystem section now references `ecosystem.json` as the machine-readable source.
+- **pipelines:** `ecosystem.json:pipelines.githubToCloudflare` specifies `validate-tokens` → `validate-ecosystem` → `validate-frontmatter` → `deploy-pages` → `design.updated` dispatch to `paglaai.space`/`paglaai-docs`/`sanctum`; `pipelines.release` publishes `pagladesign-assets.tar.gz` + `ecosystem.json` + `css/tokens.css`.
+
 ## v1.6 — Agent Manual Rewrite
 
 - **Added** `.ai/AGENT_MANUAL.md` — 12-section operating procedure for AI coding agents (D-022).

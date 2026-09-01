@@ -1,0 +1,365 @@
+{
+  "$schema": "./ecosystem.schema.json",
+  "version": "2.0.0",
+  "status": "canonical",
+  "issue": "https://github.com/paglaai/pagladesign/issues/3",
+  "updated": "2026-09-01",
+  "authority": {
+    "id": "pagladesign",
+    "displayName": "PaglaDESIGN",
+    "repo": "paglaai/pagladesign",
+    "url": "https://github.com/paglaai/pagladesign",
+    "role": "authority",
+    "description": "Canonical design system, BrandKit, and UX foundation for the entire PaglaAI ecosystem. Single source of truth for tokens, typography, components, and renderer contracts.",
+    "provides": ["tokens", "brand", "typography", "components", "templates", "renderers", "mcp"],
+    "deploy": null
+  },
+  "ecosystem": [
+    {
+      "id": "pagladesign",
+      "displayName": "PaglaDESIGN",
+      "repo": "paglaai/pagladesign",
+      "url": "https://github.com/paglaai/pagladesign",
+      "role": "authority",
+      "category": "design-system",
+      "status": "active",
+      "audience": ["human", "machine", "architect"],
+      "provides": ["tokens", "brand", "components", "renderers"],
+      "consumes": []
+    },
+    {
+      "id": "paglaai.space",
+      "displayName": "PaglaAI.space",
+      "repo": "paglaai/paglaai.space",
+      "url": "https://github.com/paglaai/paglaai.space",
+      "homepage": "https://paglaai.space",
+      "role": "surface",
+      "category": "website",
+      "status": "active",
+      "audience": ["human"],
+      "provides": ["website"],
+      "consumes": ["pagladesign/tokens", "pagladesign/brand"],
+      "deploy": {
+        "provider": "cloudflare-pages",
+        "project": "paglaai",
+        "productionBranch": "production",
+        "workflow": ".github/workflows/deploy.yml"
+      }
+    },
+    {
+      "id": "paglaai-docs",
+      "displayName": "paglaai-docs",
+      "repo": "paglaai/paglaai-docs",
+      "url": "https://github.com/paglaai/paglaai-docs",
+      "role": "surface",
+      "category": "documentation",
+      "status": "active",
+      "audience": ["human", "machine", "architect"],
+      "provides": ["docs"],
+      "consumes": ["pagladesign/renderers"],
+      "deploy": {
+        "provider": "cloudflare-pages",
+        "workflow": "planned"
+      },
+      "notes": "Unification target per Audit v2.0 — PaglaDESIGN + PaglaAI.space + paglaai-docs via Audience Renderer contract"
+    },
+    {
+      "id": "sanctum",
+      "displayName": "SANCTUM Runtime",
+      "repo": "paglaai/sanctum",
+      "url": "https://github.com/paglaai/sanctum",
+      "role": "runtime",
+      "category": "architecture",
+      "status": "planned",
+      "audience": ["architect"],
+      "provides": ["runtime", "architecture"],
+      "consumes": ["pagladesign/architect-renderer"],
+      "notes": "Public architecture repository — Phase 2 deliverable (Audit v2.0)"
+    },
+    {
+      "id": "paglashell",
+      "displayName": "PaglaSHELL",
+      "repo": "paglaai/PaglaSHELL",
+      "url": "https://github.com/paglaai/PaglaSHELL",
+      "role": "product",
+      "category": "cli",
+      "status": "active",
+      "audience": ["human", "machine"],
+      "provides": ["cli", "execution-kernel"],
+      "consumes": ["pagladesign/tokens", "pagladesign/components"]
+    },
+    {
+      "id": "b3k4r",
+      "displayName": "B3K4R",
+      "repo": "paglaai/B3K4R",
+      "url": "https://github.com/paglaai/B3K4R",
+      "role": "product",
+      "category": "application",
+      "status": "active",
+      "audience": ["human"],
+      "provides": ["job-hunting", "career-intelligence"],
+      "consumes": ["pagladesign/tokens", "pagladesign/components"]
+    },
+    {
+      "id": "paglamlx",
+      "displayName": "PaglaMLX",
+      "repo": "paglaai/PaglaMLX",
+      "url": "https://github.com/paglaai/PaglaMLX",
+      "role": "product",
+      "category": "inference",
+      "status": "active",
+      "audience": ["human", "machine"],
+      "provides": ["local-inference", "mlx-orchestration"],
+      "consumes": ["pagladesign/tokens"]
+    },
+    {
+      "id": "paglarouter",
+      "displayName": "PaglaROUTER",
+      "repo": "paglaai/PaglaROUTER",
+      "url": "https://github.com/paglaai/PaglaROUTER",
+      "role": "product",
+      "category": "gateway",
+      "status": "active",
+      "audience": ["human", "machine"],
+      "provides": ["llm-gateway", "model-routing"],
+      "consumes": ["pagladesign/tokens"]
+    },
+    {
+      "id": "paglachat",
+      "displayName": "PaglaCHAT",
+      "repo": "paglaai/PaglaCHAT",
+      "url": "https://github.com/paglaai/PaglaCHAT",
+      "role": "product",
+      "category": "chat",
+      "status": "active",
+      "audience": ["human"],
+      "provides": ["conversational-interface"],
+      "consumes": ["pagladesign/tokens", "pagladesign/components"]
+    },
+    {
+      "id": "paglaos",
+      "displayName": "PaglaOS",
+      "repo": "paglaai/KolponaOS",
+      "alias": "KolponaOS",
+      "url": "https://github.com/paglaai/KolponaOS",
+      "role": "product",
+      "category": "operating-system",
+      "status": "active",
+      "audience": ["human", "architect"],
+      "provides": ["os", "substrate"],
+      "consumes": ["pagladesign/tokens", "sanctum/runtime"]
+    },
+    {
+      "id": "paglaapi",
+      "displayName": "PaglaAPI",
+      "repo": "paglaai/paglaapi",
+      "url": "https://github.com/paglaai/paglaapi",
+      "role": "product",
+      "category": "api",
+      "status": "planned",
+      "audience": ["machine"],
+      "provides": ["api-endpoint"],
+      "consumes": ["pagladesign/machine-renderer"]
+    },
+    {
+      "id": "paglacpp",
+      "displayName": "PaglaCPP",
+      "repo": "paglaai/paglacpp",
+      "url": "https://github.com/paglaai/paglacpp",
+      "role": "product",
+      "category": "systems",
+      "status": "planned",
+      "audience": ["machine", "architect"],
+      "provides": ["systems-runtime"],
+      "consumes": ["pagladesign/tokens"]
+    },
+    {
+      "id": "paglamtp",
+      "displayName": "PaglaMTP",
+      "repo": "paglaai/paglamtp",
+      "url": "https://github.com/paglaai/paglamtp",
+      "role": "product",
+      "category": "inference",
+      "status": "planned",
+      "audience": ["machine"],
+      "provides": ["parallel-thought"],
+      "consumes": ["pagladesign/machine-renderer"]
+    },
+    {
+      "id": "paglaui",
+      "displayName": "PaglaUI",
+      "repo": "paglaai/paglaui",
+      "url": "https://github.com/paglaai/paglaui",
+      "role": "product",
+      "category": "ui-kit",
+      "status": "planned",
+      "audience": ["human", "machine"],
+      "provides": ["component-framework"],
+      "consumes": ["pagladesign/tokens", "pagladesign/components"]
+    },
+    {
+      "id": "paglabrand",
+      "displayName": "PaglaBRAND",
+      "repo": "paglaai/paglabrand",
+      "url": "https://github.com/paglaai/paglabrand",
+      "role": "product",
+      "category": "brand",
+      "status": "planned",
+      "audience": ["human"],
+      "provides": ["brand-assets"],
+      "consumes": ["pagladesign/brand"]
+    },
+    {
+      "id": "paglagpt",
+      "displayName": "PaglaGPT",
+      "repo": "paglaai/paglagpt",
+      "url": "https://github.com/paglaai/paglagpt",
+      "role": "product",
+      "category": "model",
+      "status": "planned",
+      "audience": ["human", "machine"],
+      "provides": ["model-interface"],
+      "consumes": ["pagladesign/tokens"]
+    }
+  ],
+  "documentation": {
+    "sources": [
+      {
+        "id": "pagladesign",
+        "repo": "paglaai/pagladesign",
+        "path": "/",
+        "role": "authority"
+      },
+      {
+        "id": "paglaai.space",
+        "repo": "paglaai/paglaai.space",
+        "path": "docs/",
+        "role": "surface"
+      },
+      {
+        "id": "paglaai-docs",
+        "repo": "paglaai/paglaai-docs",
+        "path": "/",
+        "role": "unified-docs"
+      }
+    ],
+    "rendererContract": "design-system/RENDERER_API.md",
+    "rendererSpec": "governance/AUDIENCE_RENDERER_SPEC.md",
+    "renderers": {
+      "fern": {
+        "audience": "human",
+        "output": "html",
+        "spec": "design-system/FERN_RENDERER.md",
+        "consumer": "paglaai.space"
+      },
+      "machine": {
+        "audience": "machine",
+        "output": ["json", "openapi", "mcp-bundle", "prompt-bundle"],
+        "spec": "design-system/MACHINE_RENDERER.md",
+        "consumer": "ci/mcp/static-site-generators"
+      },
+      "architect": {
+        "audience": "architect",
+        "output": ["rfc", "adr", "governance", "audit-ui"],
+        "spec": "design-system/ARCHITECT_RENDERER.md",
+        "consumer": "sanctum/governance-ui"
+      }
+    },
+    "frontmatter": {
+      "required": ["title", "audience"],
+      "optional": ["version", "status", "dependencies", "schema", "renderer"],
+      "validation": "design-system/RENDERER_API.md#validation-rules"
+    }
+  },
+  "pipelines": {
+    "githubToCloudflare": {
+      "description": "PaglaDESIGN → Cloudflare Pages CI/CD chain",
+      "trigger": {
+        "repo": "paglaai/pagladesign",
+        "event": "push to main",
+        "paths": ["design-system/**", "css/**", "ecosystem.json", "brand/**"]
+      },
+      "steps": [
+        {
+          "name": "validate-tokens",
+          "action": ".github/actions/build-tokens",
+          "inputs": {
+            "tokens_path": "design-system/DESIGN_TOKENS.md",
+            "css_output_path": "css/tokens.css"
+          }
+        },
+        {
+          "name": "validate-ecosystem",
+          "action": "validate-ecosystem",
+          "inputs": {
+            "registry": "ecosystem.json",
+            "schema": "ecosystem.schema.json"
+          }
+        },
+        {
+          "name": "validate-frontmatter",
+          "action": "validate-frontmatter",
+          "inputs": {
+            "contract": "design-system/RENDERER_API.md"
+          }
+        },
+        {
+          "name": "deploy-pages",
+          "provider": "cloudflare-pages",
+          "note": "PaglaDESIGN Pages preview (planned) — mirrors paglaai.space deploy.yml"
+        },
+        {
+          "name": "dispatch-downstream",
+          "event": "design.updated",
+          "targets": ["paglaai/paglaai.space", "paglaai/paglaai-docs", "paglaai/sanctum"],
+          "note": "repository_dispatch to trigger consumer rebuilds"
+        }
+      ]
+    },
+    "release": {
+      "description": "PaglaOS ecosystem release workflow",
+      "trigger": {
+        "event": "release published",
+        "workflow": ".github/workflows/release.yml"
+      },
+      "artifacts": ["pagladesign-assets.tar.gz", "ecosystem.json", "css/tokens.css"],
+      "publish": "softprops/action-gh-release@v2"
+    }
+  },
+  "roadmap": {
+    "issue": "https://github.com/paglaai/pagladesign/issues/3",
+    "phases": [
+      {
+        "phase": 1,
+        "title": "PaglaDESIGN v2.0 Foundation",
+        "status": "active",
+        "deliverables": [
+          "PaglaDESIGN v2.0 documentation (RENDERER_API.md, AUDIENCE_RENDERER_SPEC.md)",
+          "Human / Machine / Architect modes (FERN_RENDERER.md, MACHINE_RENDERER.md, ARCHITECT_RENDERER.md)",
+          "Ecosystem registry (ecosystem.json) — this file"
+        ]
+      },
+      {
+        "phase": 2,
+        "title": "SANCTUM + Shell + B3K4R",
+        "status": "planned",
+        "deliverables": [
+          "SANCTUM Runtime repository (public architecture repo)",
+          "PaglaSHELL CLI roadmap",
+          "B3K4R MVP documentation"
+        ]
+      },
+      {
+        "phase": 3,
+        "title": "Automation & Release",
+        "status": "planned",
+        "deliverables": [
+          "GitHub Actions automation (validate-tokens, validate-ecosystem, validate-frontmatter)",
+          "Cloudflare Pages deployment (PaglaDESIGN preview + paglaai-docs)",
+          "Release workflow for PaglaOS ecosystem (assets + ecosystem.json)",
+          "design.updated event pipeline to downstream repos"
+        ]
+      }
+    ]
+  }
+}

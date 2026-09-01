@@ -668,6 +668,40 @@ is generated from it. The previous competing manual is gone.
 
 ---
 
+# D-023 · Ecosystem Registry and Audit v2.0 Roadmap
+
+**Status:** Adopted · **Issue:** [`paglaai/pagladesign#3`](https://github.com/paglaai/pagladesign/issues/3) — PaglaAI Ecosystem Audit v2.0
+
+**Context**
+
+Audit v2.0 declares PaglaDESIGN the single source of truth and requires a machine-readable registry, unified documentation across three repos, a GitHub → Cloudflare CI/CD chain, and a public SANCTUM Runtime architecture repo. Until now the ecosystem had no `ecosystem.json`: product lists lived redundantly in `README.md:47` (10 entries, includes `PaglaGPT` but omits `PaglaAI`) and `.ai/AGENT_MANUAL.md:60` (10 entries, includes `PaglaAI` but omits `PaglaGPT`), with no status, no repo URLs, and no pipeline contract. Documentation unification had landed the renderer specs (`RENDERER_API.md`, `AUDIENCE_RENDERER_SPEC.md`, `FERN/MACHINE/ARCHITECT_RENDERER.md`) but no registry to bind consumers. CI validated only tokens and the MCP server; there was no registry or frontmatter validation and no `design.updated` dispatch to downstream surfaces.
+
+**Decision**
+
+1. Create `ecosystem.json` at the repository root as the **canonical, versioned SSOT** (`version: 2.0.0`, `status: canonical`, `updated: 2026-09-01`) and `ecosystem.schema.json` (JSON Schema draft 2020-12) for validation.
+2. Populate 16 ecosystem entries: authority `pagladesign`; surfaces `paglaai.space` (Cloudflare Pages `paglaai/production`) and `paglaai-docs` (unified-docs target); runtime `sanctum` (planned public architecture repo at `paglaai/sanctum`); products `PaglaSHELL` + `B3K4R` (Phase 2), `PaglaMLX`/`PaglaROUTER`/`PaglaCHAT`/`PaglaOS` (`KolponaOS` alias) active, and `PaglaAPI`/`PaglaCPP`/`PaglaMTP`/`PaglaUI`/`PaglaBRAND`/`PaglaGPT` planned — preserving every name from `README.md` while reconciling the `PaglaAI` alias from the manual.
+3. Encode the renderer authority in the registry: `documentation.rendererContract = design-system/RENDERER_API.md`, `rendererSpec = governance/AUDIENCE_RENDERER_SPEC.md`, and the three renderers with audiences/outputs/consumers. Require frontmatter `title` + `audience` per `RENDERER_API.md#validation-rules`.
+4. Encode pipelines: `pipelines.githubToCloudflare` (trigger `push: main` on `design-system/**`, `css/**`, `ecosystem.json`, `brand/**`; steps validate-tokens → validate-ecosystem → validate-frontmatter → deploy-pages → dispatch `design.updated` to `paglaai.space`/`paglaai-docs`/`sanctum`) and `pipelines.release` (`release.yml` publishing `pagladesign-assets.tar.gz` + `ecosystem.json` + `css/tokens.css`).
+5. Rewrite `governance/ROADMAP.md` from a free-form Now/Next/Later into the **three-phase Audit v2.0 roadmap** (Phase 1 Active: v2.0 docs + 3 renderers + registry; Phase 2 Planned: SANCTUM + PaglaSHELL roadmap + B3K4R MVP docs; Phase 3 Planned: Actions automation + Cloudflare Pages + PaglaOS release + `design.updated` pipeline), with explicit links to the issue and registry.
+6. Keep `DECISIONS.md` as history (this entry) and `ROADMAP.md` as direction; the registry is the machine-readable mirror of both.
+
+**Alternatives considered**
+
+- Keep product lists only in `README.md`. Rejected — Markdown is not machine-readable, drifts between documents, and cannot be validated in CI or consumed by `MACHINE` renderers/MCP.
+- Place the registry under `governance/` or `site/`. Rejected — the registry governs the entire ecosystem, not just governance or the website; root placement matches the `ecosystem.json` name in the issue and makes `MACHINE` discovery trivial (`GET /ecosystem.json`).
+- Enumerate only the 5 GitHub repos that currently exist. Rejected — Audit v2.0 phases explicitly name SANCTUM, PaglaSHELL, and B3K4R; planned entries with `status: planned` preserve intent without implying existence.
+- Defer the Cloudflare dispatch to Phase 3. Deferred — the pipeline is *specified* now in the registry (so consumers can plan), implementation lands in Phase 3; this avoids inventing workflow YAML prematurely while still documenting the contract.
+
+**Trade-offs**
+
+Adds a JSON artifact that must be kept in sync with `README.md` Ecosystem and org state; mitigated by schema validation in CI and by treating `ecosystem.json` as the canonical source that `README.md` references rather than duplicates. Registry version `2.0.0` intentionally diverges from `CHANGELOG.md` `v1.6` to signal the Audit v2.0 lineage; the next changelog entry will alias `v2.0`.
+
+**Result**
+
+The ecosystem has one machine-readable SSOT. `README.md` can point to it, `ROADMAP.md` phases map 1:1 to the issue, `MACHINE`/`MCP` consumers can resolve `audience`/`provides`/`consumes` without parsing Markdown, and Phase 3 automation has a declared contract to implement. `governance/CHANGELOG.md` will record this as `v2.0 — Ecosystem Registry`.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

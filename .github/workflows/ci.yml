@@ -28,6 +28,47 @@ jobs:
           tokens_path: "design-system/DESIGN_TOKENS.md"
           css_output_path: "css/tokens.css"
 
+  validate-ecosystem:
+    name: "Validate Ecosystem Registry"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate ecosystem.json is valid JSON and matches schema
+        run: |
+          echo "=== Validating ecosystem.json ==="
+          python3 -m json.tool ecosystem.json > /dev/null
+          echo "JSON syntax: OK"
+          python3 << 'PY'
+          import json, pathlib, sys
+          eco = json.loads(pathlib.Path("ecosystem.json").read_text())
+          schema = json.loads(pathlib.Path("ecosystem.schema.json").read_text())
+          # Lightweight schema checks without jsonschema dependency
+          assert eco.get("version"), "version required"
+          assert eco.get("authority", {}).get("id") == "pagladesign", "authority must be pagladesign"
+          assert isinstance(eco.get("ecosystem"), list) and len(eco["ecosystem"]) >= 1
+          ids = [e["id"] for e in eco["ecosystem"]]
+          assert len(ids) == len(set(ids)), f"duplicate ids: {ids}"
+          for e in eco["ecosystem"]:
+              assert e.get("repo", "").startswith("paglaai/"), f"repo must be paglaai/*: {e}"
+              assert e.get("status") in ("active", "planned", "deprecated"), f"bad status: {e}"
+              assert e.get("role") in ("authority", "surface", "product", "runtime"), f"bad role: {e}"
+          assert "pipelines" in eco and "githubToCloudflare" in eco["pipelines"]
+          assert "roadmap" in eco and len(eco["roadmap"]["phases"]) == 3
+          print(f"Registry: {len(eco['ecosystem'])} entries ({sum(1 for x in eco['ecosystem'] if x['status']=='active')} active, {sum(1 for x in eco['ecosystem'] if x['status']=='planned')} planned)")
+          print(f"Authority: {eco['authority']['id']} v{eco['version']}")
+          print("Schema checks: PASS")
+          PY
+
+      - name: Validate frontmatter contract exists
+        run: |
+          test -f design-system/RENDERER_API.md || (echo "RENDERER_API.md missing" && exit 1)
+          test -f governance/AUDIENCE_RENDERER_SPEC.md || (echo "AUDIENCE_RENDERER_SPEC.md missing" && exit 1)
+          test -f ecosystem.json || (echo "ecosystem.json missing" && exit 1)
+          test -f ecosystem.schema.json || (echo "ecosystem.schema.json missing" && exit 1)
+          echo "Contract files: OK"
+
   validate-mcp-server:
     name: "Validate MCP Server"
     runs-on: ubuntu-latest
