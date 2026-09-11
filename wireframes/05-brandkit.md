@@ -31,7 +31,7 @@
 │   PANEL — Logo                                                 │
 │   [Pagla Face, clearspace frame]  + usage List                 │
 │   PANEL — Typography                                          │
-│   Specimen: PaglaAI Sans  +  token Table                       │
+│   Specimen: Pagla Sans  +  token Table                         │
 │   PANEL — Colors                                               │
 │   swatch Table: token · value · usage                          │
 │   PANEL — Icons                                                │
@@ -68,7 +68,7 @@
 
 The BrandKit page reflects `../brand/BRAND.md` and nothing else. It is the
 consumer surface of the canonical brand — token values come from
-`../design-system/DESIGN_TOKENS.md`, never invented here.
+`../design-system/DESIGN_TOKENS.md`, never invented here. Typeface is **Pagla Sans**.
 
 ---
 
