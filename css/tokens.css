@@ -7,35 +7,35 @@
 
 /* ---- Brand typeface: Pagla Sans ---- */
 @font-face {
-  font-family: "PaglaAI Sans";
+  font-family: "Pagla Sans";
   src: url("/fonts/PaglaSans-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "PaglaAI Sans";
+  font-family: "Pagla Sans";
   src: url("/fonts/PaglaSans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "PaglaAI Sans";
+  font-family: "Pagla Sans";
   src: url("/fonts/PaglaSans-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "PaglaAI Sans";
+  font-family: "Pagla Sans";
   src: url("/fonts/PaglaSans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "PaglaAI Sans";
+  font-family: "Pagla Sans";
   src: url("/fonts/PaglaSans-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
@@ -76,14 +76,14 @@
   --font-weight-bold: 700;
 
   /* ---- Line heights ---- */
-  --font-line-height-body: 1.625;
+  --font-line-height-body: 1.5;
   --font-line-height-heading: 1.2;
   --font-line-height-display: 1.05;
 
   /* ---- Letter spacing ---- */
   --font-tracking-body: 0;
-  --font-tracking-heading: -0.03em;
-  --font-tracking-display: -0.075em;
+  --font-tracking-heading: -0.01em;
+  --font-tracking-display: -0.02em;
   --font-tracking-uppercase: 0.08em;
 
   /* ---- Reading measure ---- */
