@@ -54,9 +54,9 @@ Minimal but alive.
 
 # The Wordmark
 
-The wordmark is the name set in PaglaAI Sans Light, precisely spaced.
+The wordmark is the name set in **Pagla Sans** Light, precisely spaced.
 
-- PaglaAI Sans Light 300.
+- Pagla Sans Light 300.
 - Optical tracking.
 - No custom letters, no ligatures.
 - Mark and type lock on a shared x-height.
@@ -104,7 +104,7 @@ Reserved for meaning only. Never a background fill. Only a dot, an underline, or
 
 ## Typeface
 
-Pagla Sans — light, open, neutral.
+**Pagla Sans** — light, open, neutral. Canonical family name: `"Pagla Sans"`.
 
 ## Weights
 
@@ -167,7 +167,7 @@ Body measure: 65 characters maximum.
 
 One system across many surfaces.
 
-Every product inherits the same mark, type, and usage rules.
+Every product inherits the same mark, type, and usage rules from **PaglaDESIGN**.
 
 Each product expresses a unique purpose within a shared identity.
 

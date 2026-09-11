@@ -18,7 +18,7 @@
 | Page title | `font.size.h1`, `font.weight.medium` |
 | Tabs | `font.size.body`, selected `font.weight.semibold` |
 | Token names | `font.size.code`, `font.weight.semibold` |
-| Specimen | PaglaAI Sans — `font.size.display` specimen in light weight |
+| Specimen | Pagla Sans — `font.size.display` specimen in light weight |
 | Descriptions | `font.size.body`, muted where secondary |
 
 ---
@@ -37,7 +37,7 @@
 
 ## Typography
 
-- Type specimen: PaglaAI Sans wordmark at `font.size.display`,
+- Type specimen: **Pagla Sans** wordmark at `font.size.display`,
   `font.weight.light`
 - Token Table: token → value → role (rendered from `DESIGN_TOKENS.md`)
 

@@ -1,14 +1,14 @@
 {
   "$schema": "./ecosystem.schema.json",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "status": "canonical",
-  "issue": "https://github.com/paglaai/pagladesign/issues/3",
-  "updated": "2026-09-01",
+  "issue": "https://github.com/paglaai/PaglaDESIGN/issues/3",
+  "updated": "2026-09-11",
   "authority": {
     "id": "pagladesign",
     "displayName": "PaglaDESIGN",
-    "repo": "paglaai/pagladesign",
-    "url": "https://github.com/paglaai/pagladesign",
+    "repo": "paglaai/PaglaDESIGN",
+    "url": "https://github.com/paglaai/PaglaDESIGN",
     "role": "authority",
     "description": "Canonical design system, BrandKit, and UX foundation for the entire PaglaAI ecosystem. Single source of truth for tokens, typography, components, and renderer contracts.",
     "provides": ["tokens", "brand", "typography", "components", "templates", "renderers", "mcp"],
@@ -18,8 +18,8 @@
     {
       "id": "pagladesign",
       "displayName": "PaglaDESIGN",
-      "repo": "paglaai/pagladesign",
-      "url": "https://github.com/paglaai/pagladesign",
+      "repo": "paglaai/PaglaDESIGN",
+      "url": "https://github.com/paglaai/PaglaDESIGN",
       "role": "authority",
       "category": "design-system",
       "status": "active",
@@ -226,7 +226,7 @@
     "sources": [
       {
         "id": "pagladesign",
-        "repo": "paglaai/pagladesign",
+        "repo": "paglaai/PaglaDESIGN",
         "path": "/",
         "role": "authority"
       },
@@ -275,7 +275,7 @@
     "githubToCloudflare": {
       "description": "PaglaDESIGN → Cloudflare Pages CI/CD chain",
       "trigger": {
-        "repo": "paglaai/pagladesign",
+        "repo": "paglaai/PaglaDESIGN",
         "event": "push to main",
         "paths": ["design-system/**", "css/**", "ecosystem.json", "brand/**"]
       },
@@ -327,7 +327,7 @@
     }
   },
   "roadmap": {
-    "issue": "https://github.com/paglaai/pagladesign/issues/3",
+    "issue": "https://github.com/paglaai/PaglaDESIGN/issues/3",
     "phases": [
       {
         "phase": 1,
