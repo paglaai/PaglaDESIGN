@@ -1,0 +1,37 @@
+name: Dispatch design.updated
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'design-system/**'
+      - 'css/**'
+      - 'brand/**'
+      - 'ecosystem.json'
+      - 'design-system/DESIGN_DNA.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    name: Notify consumer surfaces
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dispatch to paglaai.space
+        env:
+          GH_TOKEN: ${{ secrets.PAGLAAI_GITHUB_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "PAGLAAI_GITHUB_TOKEN not set — skip dispatch"
+            exit 0
+          fi
+          curl -sS -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/paglaai/paglaai.space/dispatches \
+            -d '{"event_type":"design.updated","client_payload":{"source":"PaglaDESIGN","ref":"'
