@@ -8,7 +8,6 @@ on:
       - 'css/**'
       - 'brand/**'
       - 'ecosystem.json'
-      - 'design-system/DESIGN_DNA.md'
   workflow_dispatch:
 
 permissions:
@@ -34,4 +33,4 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $GH_TOKEN" \
             https://api.github.com/repos/paglaai/paglaai.space/dispatches \
-            -d '{"event_type":"design.updated","client_payload":{"source":"PaglaDESIGN","ref":"'
+            -d '{"event_type":"design.updated","client_payload":{"source":"PaglaDESIGN","sha":"'
