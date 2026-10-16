@@ -1,6 +1,6 @@
 {
   "$schema": "./ecosystem.schema.json",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "status": "canonical",
   "issue": "https://github.com/paglaai/PaglaDESIGN/issues/3",
   "updated": "2026-09-24",

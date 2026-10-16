@@ -1,6 +1,6 @@
 {
   "name": "@paglaai/pagladesign",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "The Canonical Design Authority, DesignDNA, and Design Tokens for the PaglaAI Ecosystem",
   "main": "css/tokens.css",
   "style": "css/tokens.css",
@@ -50,5 +50,5 @@
   "bugs": {
     "url": "https://github.com/paglaai/pagladesign/issues"
   },
-  "homepage": "https://github.com/paglaai/pagladesign#readme"
+  "homepage": "https://paglaai.github.io/pagladesign/"
 }

@@ -1652,7 +1652,7 @@ def generate_complete_html(pages: Dict[str, any], search_index: List[Dict[str, s
         <a href="#index" class="brand-link" onclick="switchPage('index', event)">
           <img src="brand/paglaai-wordmark.png" alt="PaglaAI" class="brand-logo">
         </a>
-        <span class="badge-version">v2.1.0</span>
+        <span class="badge-version">v2.2.0</span>
       </div>
 
       <div class="header-center">
