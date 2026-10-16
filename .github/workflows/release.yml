@@ -1,14 +1,17 @@
 name: "Release & Publish Artifacts"
 
 on:
+  push:
+    tags:
+      - "v*"
   release:
     types: [published]
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version tag to release (e.g. v1.3.0)'
+        description: 'Version tag to release (e.g. v2.1.0)'
         required: true
-        default: 'v1.3.0'
+        default: 'v2.1.0'
 
 permissions:
   contents: write
@@ -39,10 +42,10 @@ jobs:
           python3 -m json.tool ecosystem.schema.json > /dev/null
           echo "ecosystem.json + ecosystem.schema.json: valid JSON"
 
-      - name: Package BrandKit and Compiled Assets
+      - name: Package BrandKit, Fonts, and Compiled Assets
         run: |
-          echo "=== Packaging BrandKit & Production Assets ==="
-          mkdir -p dist/brandkit dist/css
+          echo "=== Packaging BrandKit, Fonts & Production Assets ==="
+          mkdir -p dist/brandkit dist/css dist/fonts
           
           # Copy BrandKit files
           if [ -d "brand" ]; then
@@ -54,16 +57,42 @@ jobs:
             cp -r css/* dist/css/
           fi
 
-          # Copy Ecosystem Registry (machine-readable SSOT)
-          cp ecosystem.json ecosystem.schema.json dist/
+          # Copy Typeface Binaries
+          if [ -d "fonts" ]; then
+            cp -r fonts/* dist/fonts/
+          fi
+
+          # Copy Ecosystem Registry, Schema, and Package Manifest
+          cp ecosystem.json ecosystem.schema.json package.json LICENSE README.md dist/
 
           # Create distributable archive
           tar -czvf pagladesign-assets.tar.gz -C dist .
 
+      - name: Set up Node.js for Package Publishing
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@paglaai"
+
+      - name: Publish to GitHub Packages
+        run: |
+          echo "=== Publishing @paglaai/pagladesign to GitHub Packages ==="
+          npm publish || echo "Package publish skipped or already exists."
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
         with:
-          files: pagladesign-assets.tar.gz
+          name: "PaglaDESIGN ${{ github.ref_name || inputs.version }}"
+          tag_name: ${{ github.ref_name || inputs.version }}
+          generate_release_notes: true
+          files: |
+            pagladesign-assets.tar.gz
+            css/tokens.css
+            ecosystem.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

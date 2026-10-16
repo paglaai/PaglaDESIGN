@@ -1,0 +1,54 @@
+{
+  "name": "@paglaai/pagladesign",
+  "version": "2.1.0",
+  "description": "The Canonical Design Authority, DesignDNA, and Design Tokens for the PaglaAI Ecosystem",
+  "main": "css/tokens.css",
+  "style": "css/tokens.css",
+  "exports": {
+    ".": "./css/tokens.css",
+    "./tokens": "./css/tokens.css",
+    "./tokens.css": "./css/tokens.css",
+    "./base": "./css/base.css",
+    "./base.css": "./css/base.css",
+    "./utilities": "./css/utilities.css",
+    "./utilities.css": "./css/utilities.css",
+    "./ecosystem.json": "./ecosystem.json",
+    "./fonts/*": "./fonts/*",
+    "./brand/*": "./brand/*"
+  },
+  "files": [
+    "css",
+    "fonts",
+    "brand",
+    "design-system",
+    "components",
+    "ecosystem.json",
+    "ecosystem.schema.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paglaai/pagladesign.git"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "paglaai",
+    "pagladesign",
+    "css",
+    "css-layers",
+    "typography",
+    "fastmcp",
+    "mcp"
+  ],
+  "author": "AYNAGHOR (https://github.com/paglaai)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paglaai/pagladesign/issues"
+  },
+  "homepage": "https://github.com/paglaai/pagladesign#readme"
+}
