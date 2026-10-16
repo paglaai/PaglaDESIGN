@@ -19,11 +19,20 @@ import os
 from pathlib import Path
 from typing import Any
 
-from mcp.server.mcpserver import MCPServer
+try:
+    from mcp.server.fastmcp import FastMCP
+except ImportError:
+    try:
+        from mcp.server.mcpserver import MCPServer as FastMCP
+    except ImportError:
+        try:
+            from mcp.server import Server as FastMCP
+        except ImportError:
+            FastMCP = None
 
 from rag import INDEX, Chunk, REPO_ROOT, RetrievalResult, tokenize
 
-SERVER_VERSION = "0.1.0"
+SERVER_VERSION = "0.2.0"
 
 
 def _format_result(r: RetrievalResult, include_text: bool = True) -> dict[str, Any]:
@@ -53,22 +62,51 @@ def _safe_read(path: str) -> str | None:
         return None
 
 
-mcp = MCPServer(
-    "pagladesign",
-    title="PaglaDESIGN",
-    description=(
-        "The PaglaAI design authority. Ground coding work in the canonical "
-        "design system: tokens, typography, color, components, decisions, "
-        "brand, sitemap, and content strategy."
-    ),
-    instructions=(
-        "Use the search tool to retrieve relevant design-system sections "
-        "before proposing UI work. Use lookup_token for exact token values "
-        "from css/tokens.css. Use get_doc to read a whole canonical document. "
-        "Values are locked; a change requires the decision workflow."
-    ),
-    version=SERVER_VERSION,
-)
+if FastMCP is not None:
+    try:
+        # FastMCP modern standard pattern (mcp>=2.0)
+        mcp = FastMCP(
+            "pagladesign",
+            instructions=(
+                "The PaglaAI design authority. Ground coding work in the canonical "
+                "design system: tokens, typography, color, components, decisions, "
+                "brand, sitemap, and content strategy. "
+                "Use the search tool to retrieve relevant design-system sections "
+                "before proposing UI work. Use lookup_token for exact token values "
+                "from css/tokens.css. Use get_doc to read a whole canonical document. "
+                "Values are locked; a change requires the decision workflow."
+            ),
+        )
+    except TypeError:
+        # Fallback for MCPServer legacy signature
+        mcp = FastMCP(
+            "pagladesign",
+            title="PaglaDESIGN",
+            description=(
+                "The PaglaAI design authority. Ground coding work in the canonical "
+                "design system: tokens, typography, color, components, decisions, "
+                "brand, sitemap, and content strategy."
+            ),
+            instructions=(
+                "Use the search tool to retrieve relevant design-system sections "
+                "before proposing UI work. Use lookup_token for exact token values "
+                "from css/tokens.css. Use get_doc to read a whole canonical document. "
+                "Values are locked; a change requires the decision workflow."
+            ),
+            version=SERVER_VERSION,
+        )
+else:
+    class _StubMCP:
+        def tool(self, *args, **kwargs):
+            def decorator(fn):
+                return fn
+            return decorator
+
+        def run(self, *args, **kwargs):
+            pass
+
+    mcp = _StubMCP()
+
 
 
 @mcp.tool(
@@ -166,6 +204,35 @@ def search_tokens(term: str) -> dict[str, Any]:
     return {"term": term, "tokens": sorted(hits)}
 
 
+def get_canonical_authority_files() -> list[str]:
+    """Dynamically compile canonical authority documents across the PaglaDESIGN repo."""
+    root = Path(REPO_ROOT)
+    authority = []
+    # Primary constitution & registry
+    primary = [
+        "README.md",
+        "VISION.md",
+        "DESIGN.md",
+        "PRINCIPLES.md",
+        "AGENTS.md",
+        "ecosystem.json",
+        "ecosystem.schema.json",
+    ]
+    for p in primary:
+        if (root / p).is_file():
+            authority.append(p)
+    # Core directories
+    core_dirs = ["design-system", "components", "brand", "governance", "site", "templates", "css"]
+    for d in core_dirs:
+        dir_path = root / d
+        if dir_path.is_dir():
+            for p in sorted(dir_path.rglob("*")):
+                if p.is_file() and p.suffix in (".md", ".css"):
+                    rel = p.relative_to(root).as_posix()
+                    authority.append(rel)
+    return sorted(set(authority))
+
+
 @mcp.tool(
     name="get_context",
     description=(
@@ -181,21 +248,14 @@ def get_context() -> dict[str, Any]:
         "version": SERVER_VERSION,
         "doc_count": INDEX.doc_count,
         "source_docs": INDEX.source_docs,
-        "authority": [
-            "DESIGN.md",
-            "PRINCIPLES.md",
-            "VISION.md",
-            "brand/BRAND.md",
-            "design-system/DESIGN_TOKENS.md",
-            "design-system/TYPOGRAPHY.md",
-            "design-system/COLOR_SYSTEM.md",
-            "design-system/CSS_ARCHITECTURE.md",
-            "components/COMPONENTS.md",
-            "governance/DECISIONS.md",
-            "site/SITEMAP.md",
-        ],
+        "authority": get_canonical_authority_files(),
     }
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    if mcp is not None:
+        try:
+            mcp.run(transport="stdio")
+        except TypeError:
+            mcp.run()
+

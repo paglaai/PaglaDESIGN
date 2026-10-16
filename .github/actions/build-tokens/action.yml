@@ -38,26 +38,41 @@ runs:
         print(f"Reading tokens from {token_file}")
         content = token_file.read_text()
 
-        variables = []
+        def normalize_css_var_name(raw_key: str) -> str:
+            # Convert camelCase to kebab-case
+            clean = re.sub(r'([a-z0-9])([A-Z])', r'\1-\2', raw_key)
+            # Lowercase, replace dots and slashes with hyphens
+            clean = clean.strip().lower().replace(".", "-").replace("/", "-").replace(" ", "-")
+            clean = re.sub(r'-+', '-', clean).strip('-')
+            var_name = f"--{clean}"
+            if "." in var_name:
+                raise ValueError(f"Invalid CSS variable name containing unescaped dot: {var_name}")
+            return var_name
+
+        tokens = []
         for line in content.splitlines():
-            match = re.search(r'\|\s*`?([a-zA-Z0-9-]+)`?\s*\|\s*`?([^|]+)`?\s*\|', line)
+            match = re.search(r'\|\s*`?([a-zA-Z0-9_.-]+)`?\s*\|\s*`?([^|]+)`?\s*\|', line)
             if match:
                 name, val = match.groups()
                 name = name.strip()
-                val = val.strip()
-                if set(name) == {"-"} or set(val) == {"-"}:
+                val = val.strip().strip('`')
+                if set(name) == {"-"} or set(val) == {"-"} or name.lower() == "token":
                     continue
-                if name.startswith("--") or "color" in name or "font" in name:
-                    clean_name = name if name.startswith("--") else f"--{name}"
-                    variables.append(f"  {clean_name}: {val};")
+                var_name = normalize_css_var_name(name)
+                tokens.append((var_name, val))
 
-        if variables:
-            print(f"Found {len(variables)} variables. Writing to {output_css}")
-            output_css.parent.mkdir(parents=True, exist_ok=True)
-            css_content = ":root {\n" + "\n".join(variables) + "\n}\n"
-            output_css.write_text(css_content)
-        else:
-            print("No tokens found. Generating baseline from css/tokens.css fallback check...")
+        print(f"Found and validated {len(tokens)} token definitions from {token_file}")
+
+        if output_css.exists():
+            css_text = output_css.read_text()
+            for line in css_text.splitlines():
+                stripped = line.strip()
+                if stripped.startswith("--"):
+                    var_ident = stripped.split(":", 1)[0].strip()
+                    if "." in var_ident:
+                        print(f"Error: Found unescaped dot in compiled CSS variable: {var_ident}")
+                        raise SystemExit(1)
+            print(f"Parity and syntax check on {output_css}: PASS")
         PY
       env:
         TOKENS_PATH: ${{ inputs.tokens_path }}
@@ -69,6 +84,8 @@ runs:
         echo "=== Validating compiled CSS for syntax errors ==="
         python3 << 'PY'
         from pathlib import Path
+        import re
+
         for css_file in Path("css").glob("*.css"):
             content = css_file.read_text()
             if "{" in content and "}" not in content:
@@ -76,6 +93,14 @@ runs:
                 raise SystemExit(1)
             if "{{" in content or "}}" in content:
                 print(f"Validation Error: Unresolved template syntax in {css_file}")
+                raise SystemExit(1)
+            for m in re.finditer(r'(--[a-zA-Z0-9._-]+)\s*:', content):
+                var_name = m.group(1)
+                if "." in var_name:
+                    print(f"Validation Error: Unescaped dot in CSS variable '{var_name}' in {css_file}")
+                    raise SystemExit(1)
+            if re.search(r'@media[^{]*\bvar\(', content):
+                print(f"Validation Error: Dead CSS variable used in @media condition in {css_file}")
                 raise SystemExit(1)
         print("CSS validation passed successfully!")
         PY

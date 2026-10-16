@@ -4,6 +4,7 @@
    Used deliberately, not everywhere. All values resolve from tokens.
    ========================================================================== */
 
+@layer utilities {
 /* ---- Layout ---- */
 .container {
   width: 100%;
@@ -59,6 +60,7 @@
 }
 
 /* ---- Motion ---- */
-.u-motion-safe:only-child {
+.u-motion-safe {
   transition-duration: var(--motion-duration-base);
+}
 }

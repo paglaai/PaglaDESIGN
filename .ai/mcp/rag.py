@@ -27,7 +27,18 @@ except NameError:  # pragma: no cover - interactive only
     REPO_ROOT = os.getcwd()
 
 # Files/folders we never index into agents.
-_EXCLUDED_DIRS = {".git", ".ai", "node_modules", "__pycache__", ".venv", "dist"}
+_EXCLUDED_DIRS = {
+    ".git",
+    ".ai",
+    ".kilo",
+    ".conductor",
+    ".opencode",
+    "node_modules",
+    "__pycache__",
+    ".venv",
+    "dist",
+    "DOC",
+}
 _EXCLUDED_FILES = {"AGENTS.md"}
 
 

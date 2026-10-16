@@ -700,6 +700,49 @@ Adds a JSON artifact that must be kept in sync with `README.md` Ecosystem and or
 
 The ecosystem has one machine-readable SSOT. `README.md` can point to it, `ROADMAP.md` phases map 1:1 to the issue, `MACHINE`/`MCP` consumers can resolve `audience`/`provides`/`consumes` without parsing Markdown, and Phase 3 automation has a declared contract to implement. `governance/CHANGELOG.md` will record this as `v2.0 — Ecosystem Registry`.
 
+
+---
+
+# D-024 · SSOT Parity, Token Compilation, MCP Modernization, and CI Gate Sealing
+
+**Status:** Adopted
+
+**Context**
+
+A forensic audit of the Design Authority stack (v1.3–v2.0) identified ten interrelated regressions threatening the Single Source of Truth contract:
+1. The token compiler in `.github/actions/build-tokens/action.yml` failed to parse dot-separated and fractional token keys, risking emission of unescaped dots in CSS custom property names.
+2. Token values in `DESIGN_TOKENS.md` drifted from `css/tokens.css` (line heights and tracking values updated in reference CSS without backporting to markdown, and `@font-face` declarations retaining legacy family names).
+3. The MCP server (`.ai/mcp/server.py`) retained legacy `MCPServer` imports instead of modern `FastMCP` (MCP v2.0+ pattern).
+4. The MCP/RAG index hardcoded a stale document list, omitting canonical additions (`COMPONENT_LIBRARY.md`, `ecosystem.json`, `RENDERER_API.md`).
+5. Link hover states in `css/base.css` had identical or low-contrast coloring on hover.
+6. Responsive breakpoints needed explicit literal values to eliminate risks of invalid CSS variable evaluation in `@media` queries.
+7. CI suffered from a potential pytest exit-code 5 trap due to missing automated token test suites.
+8. Utility specificity in `css/utilities.css` contained overly restrictive selectors (`:only-child`) and lacked explicit `@layer` declarations.
+9. Duplicate and unreferenced font binaries existed in `brand/fonts/`.
+10. Orphaned pre-v1.6 agent manual directories (`.ai/agent-manual/`) and stale root/`.ai` agent files duplicated canonical paths.
+
+**Decision**
+
+1. Normalize all token compiler identifiers to standard kebab-case CSS custom properties (`--category-role-modifier`), converting dots and camelCase to hyphens and rejecting unescaped dots.
+2. Synchronize `DESIGN_TOKENS.md` and `css/tokens.css` exactly, aligning `font.lineHeight.body: 1.625`, tracking scales, and setting canonical `@font-face` family name to `"Pagla Sans"` (D-021).
+3. Upgrade `.ai/mcp/server.py` to the modern FastMCP interface (`from mcp.server.fastmcp import FastMCP` with fallback) and dynamic authority file discovery across all canonical markdown and CSS documents.
+4. Establish CSS cascade layers (`@layer tokens, base, utilities;`) across reference stylesheets, ensure distinct link hover contrast, and eliminate brittle `:only-child` utility restrictions.
+5. Deduplicate font assets by purging `brand/fonts/` in favor of canonical `fonts/`, and purge orphaned `.ai/agent-manual/` directory and stale duplicate agent manuals.
+6. Introduce an automated pytest token parity suite (`tests/test_tokens_parity.py`) and wire it into the CI pipeline.
+
+**Alternatives considered**
+
+- Keep manual CSS token editing without automated parity tests. Rejected — drift inevitably recurs without automated CI assertions.
+- Retain duplicate font formats (`.otf`) in `brand/fonts/`. Rejected — bloats repository clone size and creates path ambiguity.
+
+**Trade-offs**
+
+Requires strict enforcement of token naming rules during CI and cleanup of legacy artifact directories.
+
+**Result**
+
+Single Source of Truth is fully restored. Tokens, CSS custom properties, MCP retrieval tools, and CI test suites operate in strict parity without drift.
+
 ---
 
 # Document-the-Decision Rule

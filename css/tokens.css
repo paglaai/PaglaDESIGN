@@ -5,6 +5,8 @@
    Values are locked. Change only through the decision workflow (D-010).
    ========================================================================== */
 
+@layer tokens, base, utilities;
+
 /* ---- Brand typeface: Pagla Sans ---- */
 @font-face {
   font-family: "Pagla Sans";
@@ -42,6 +44,7 @@
   font-display: swap;
 }
 
+@layer tokens {
 :root {
   /* ---- Spacing (base 0.25rem) ---- */
   --space-0: 0;
@@ -163,3 +166,5 @@
 
   /* accent and state resolve from the reassigned base tokens */
 }
+}
+

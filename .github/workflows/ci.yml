@@ -28,6 +28,16 @@ jobs:
           tokens_path: "design-system/DESIGN_TOKENS.md"
           css_output_path: "css/tokens.css"
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run Token Parity Test Suite
+        run: |
+          pip install pytest
+          pytest tests/test_tokens_parity.py -v
+
   validate-ecosystem:
     name: "Validate Ecosystem Registry"
     runs-on: ubuntu-latest
@@ -100,9 +110,10 @@ jobs:
       - name: Run MCP Server Tests
         run: |
           # Run pytest if test files exist, otherwise perform a dry-run syntax check
-          if [ -d "tests" ] || glob_tests=$(find . -name "test_*.py" | grep .); then
-            pytest
+          if [ -d "tests" ] && [ -n "$(find tests -name 'test_*.py' 2>/dev/null)" ]; then
+            pytest || [ $? -eq 5 ]
           else
             echo "No pytest suite found, executing server.py import sanity check."
             python -m py_compile server.py rag.py
           fi
+

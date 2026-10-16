@@ -23,6 +23,19 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v2.1 — SSOT Parity, Token Compilation, MCP Modernization & CI Gates
+
+- **Fixed** `.github/actions/build-tokens/action.yml` — normalized dot notation and camelCase token keys to valid kebab-case CSS custom property identifiers (e.g. `--space-1-5`), sanitizing tokens and eliminating unescaped dots.
+- **Fixed** `design-system/DESIGN_TOKENS.md` — synchronized drifted values with `css/tokens.css`: aligned `font.lineHeight.body: 1.625`, `font.tracking.heading: -0.03em`, and `font.tracking.display: -0.075em`.
+- **Fixed** `css/tokens.css` — normalized `@font-face` font-family name from `"PaglaAI Sans"` to canonical `"Pagla Sans"` (D-021) and defined cascade layer `@layer tokens`.
+- **Fixed** `.ai/mcp/server.py` — modernized server initialization to FastMCP pattern compatible with `mcp>=2.0` and made authority documentation discovery dynamic.
+- **Fixed** `css/base.css` — upgraded link hover state with explicit high-contrast accent token and scoped element rules into `@layer base`.
+- **Fixed** `css/utilities.css` — removed overly restrictive `:only-child` constraint on `.u-motion-safe` and scoped utility rules into `@layer utilities`.
+- **Added** `tests/test_tokens_parity.py` — automated regression test suite ensuring complete parity between markdown tokens and compiled CSS, checking identifier syntax, `@font-face` integrity, and contrast states.
+- **Updated** `.github/workflows/ci.yml` — wired token parity test suite into the CI gate to prevent token drift and resolve pytest exit code 5 traps.
+- **Purged** duplicate and orphaned files — removed redundant `brand/fonts/` directory, removed legacy `.ai/agent-manual/` directory and stale `.ai/AGENTS.md`.
+- **Updated** `governance/DECISIONS.md` — recorded D-024.
+
 ## v2.0 — Ecosystem Registry (Audit v2.0)
 
 - **Added** `ecosystem.json` — canonical registry for the PaglaAI ecosystem (16 entries: 9 active · 7 planned), single source of truth per [`paglaai/pagladesign#3`](https://github.com/paglaai/pagladesign/issues/3). Authority `paglaai/pagladesign`, surfaces `paglaai.space` + `paglaai-docs`, runtime `sanctum` (planned), products `PaglaSHELL`/`B3K4R`/`PaglaMLX`/`PaglaROUTER`/`PaglaCHAT`/`PaglaOS` + planned `PaglaAPI`/`PaglaCPP`/`PaglaMTP`/`PaglaUI`/`PaglaBRAND`/`PaglaGPT`.
