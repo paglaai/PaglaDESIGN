@@ -745,6 +745,37 @@ Single Source of Truth is fully restored. Tokens, CSS custom properties, MCP ret
 
 ---
 
+# D-025 · FERN Human-Facing Static Site Architecture and GitHub Pages Deployment
+
+**Status:** Adopted
+
+**Context**
+
+PaglaDESIGN v2.0 established the canonical Audience Renderer contract (`design-system/RENDERER_API.md` and `design-system/FERN_RENDERER.md`), defining how documentation is rendered into rich, accessible, themed HTML for human readers. However, the repository lacked a canonical static site generator to compile these documents and deploy them to GitHub Pages. Default Jekyll pipelines in GitHub Pages emitted raw unstyled Markdown without token integration, custom typefaces, or interactive components.
+
+**Decision**
+
+1. Introduce `bin/build_fern.py` as the canonical static site generator adhering strictly to `design-system/FERN_RENDERER.md` using zero external pip dependencies.
+2. Build outputs into `DOC/site/` (local generation) and `_site/` (CI/CD artifact), publishing to GitHub Pages (`https://paglaai.github.io/pagladesign/`).
+3. Embed token-referenced CSS (`css/tokens.css`, `css/base.css`, `css/utilities.css`, `css/fern.css`) and `"Pagla Sans"` web fonts, eliminating external framework lock-in.
+4. Provide interactive features: live visual Token Explorer, 14-component interactive library showcase, ecosystem registry directory, instant client-side search (`Cmd+K`), dark/light theme switching with local storage persistence, and deep-linking router.
+5. Create `.github/workflows/deploy-pages.yml` deploying to GitHub Pages via `actions/upload-pages-artifact@v3` and `actions/deploy-pages@v4`, replacing legacy default Jekyll deployment.
+
+**Alternatives considered**
+
+- Use heavy Node/Next.js/Docusaurus SSG. Rejected per D-013 — introduces substantial external runtime dependencies and maintenance surface inside the design authority.
+- Rely on default GitHub Pages Jekyll rendering. Rejected — ignores token custom properties, font face rules, and the FERN renderer contract.
+
+**Trade-offs**
+
+Requires maintaining `bin/build_fern.py` in the design authority's `bin/` directory, balanced by zero external package dependencies and deterministic byte-identical generation.
+
+**Result**
+
+PaglaDESIGN possesses a live, canonical human documentation portal on GitHub Pages faithfully rendering the design system tokens, components, and architecture in the FERN style.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

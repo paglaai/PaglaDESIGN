@@ -10,3 +10,5 @@ __pycache__/
 
 # Generated artifacts (source of truth is the Markdown)
 .ai/agent-manual/DOC/
+DOC/site/
+_site/

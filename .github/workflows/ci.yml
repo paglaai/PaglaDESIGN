@@ -61,7 +61,7 @@ jobs:
           ids = [e["id"] for e in eco["ecosystem"]]
           assert len(ids) == len(set(ids)), f"duplicate ids: {ids}"
           for e in eco["ecosystem"]:
-              assert e.get("repo", "").startswith("paglaai/"), f"repo must be paglaai/*: {e}"
+              assert (e.get("repo") or "").startswith("paglaai/"), f"repo must be paglaai/*: {e}"
               assert e.get("status") in ("active", "planned", "deprecated"), f"bad status: {e}"
               assert e.get("role") in ("authority", "surface", "product", "runtime"), f"bad role: {e}"
           assert "pipelines" in eco and "githubToCloudflare" in eco["pipelines"]

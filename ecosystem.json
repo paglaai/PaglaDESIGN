@@ -49,8 +49,8 @@
     {
       "id": "apphole.store",
       "displayName": "apphole.store",
-      "repo": null,
-      "url": null,
+      "repo": "paglaai/apphole.store",
+      "url": "https://github.com/paglaai/apphole.store",
       "homepage": "https://apphole.store",
       "role": "surface",
       "category": "storefront",
@@ -304,5 +304,28 @@
       "targets": ["paglaai.space product grid", "apphole.store catalog"],
       "rule": "Never hand-edit product lists that the generator owns"
     }
+  },
+  "roadmap": {
+    "issue": "https://github.com/paglaai/pagladesign/issues/3",
+    "phases": [
+      {
+        "phase": 1,
+        "name": "PaglaDESIGN v2.0 Foundation",
+        "status": "active",
+        "deliverables": ["v2.0 documentation", "Human / Machine / Architect modes", "Ecosystem registry"]
+      },
+      {
+        "phase": 2,
+        "name": "SANCTUM + Shell + B3K4R",
+        "status": "planned",
+        "deliverables": ["SANCTUM Runtime repository", "PaglaSHELL CLI roadmap", "B3K4R MVP documentation"]
+      },
+      {
+        "phase": 3,
+        "name": "Automation & Release",
+        "status": "planned",
+        "deliverables": ["GitHub Actions automation", "Cloudflare Pages deployment", "Release workflow for PaglaOS", "design.updated event pipeline"]
+      }
+    ]
   }
 }

@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://paglaai.github.io/pagladesign/"><img src="https://img.shields.io/badge/Docs_Portal-FERN_Style-6B7EFF?style=flat-square&logo=githubpages" alt="Docs Portal"></a>
   <a href="https://github.com/paglaai/pagladesign/actions/workflows/ci.yml"><img src="https://github.com/paglaai/pagladesign/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
   <a href="https://github.com/paglaai/pagladesign/releases"><img src="https://img.shields.io/badge/version-2.1.0-0A0A0B?style=flat-square" alt="Version 2.1.0"></a>
   <a href="./design-system/DESIGN_DNA.md"><img src="https://img.shields.io/badge/DesignDNA-Locked_(D--024)-0A0A0B?style=flat-square" alt="DesignDNA Locked"></a>

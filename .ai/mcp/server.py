@@ -96,17 +96,18 @@ if FastMCP is not None:
             version=SERVER_VERSION,
         )
 else:
+
     class _StubMCP:
         def tool(self, *args, **kwargs):
             def decorator(fn):
                 return fn
+
             return decorator
 
         def run(self, *args, **kwargs):
             pass
 
     mcp = _StubMCP()
-
 
 
 @mcp.tool(
@@ -222,7 +223,15 @@ def get_canonical_authority_files() -> list[str]:
         if (root / p).is_file():
             authority.append(p)
     # Core directories
-    core_dirs = ["design-system", "components", "brand", "governance", "site", "templates", "css"]
+    core_dirs = [
+        "design-system",
+        "components",
+        "brand",
+        "governance",
+        "site",
+        "templates",
+        "css",
+    ]
     for d in core_dirs:
         dir_path = root / d
         if dir_path.is_dir():
@@ -258,4 +267,3 @@ if __name__ == "__main__":
             mcp.run(transport="stdio")
         except TypeError:
             mcp.run()
-

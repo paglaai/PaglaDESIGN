@@ -34,7 +34,9 @@ Entries are grouped by phase and ordered newest first within a phase.
 - **Added** `tests/test_tokens_parity.py` — automated regression test suite ensuring complete parity between markdown tokens and compiled CSS, checking identifier syntax, `@font-face` integrity, and contrast states.
 - **Updated** `.github/workflows/ci.yml` — wired token parity test suite into the CI gate to prevent token drift and resolve pytest exit code 5 traps.
 - **Purged** duplicate and orphaned files — removed redundant `brand/fonts/` directory, removed legacy `.ai/agent-manual/` directory and stale `.ai/AGENTS.md`.
-- **Updated** `governance/DECISIONS.md` — recorded D-024.
+- **Added** `bin/build_fern.py` — canonical zero-dependency static site generator implementing the FERN human renderer specification (`design-system/FERN_RENDERER.md`), compiling token-driven documentation, visual token explorer, and interactive component library (D-025).
+- **Added** `.github/workflows/deploy-pages.yml` — continuous deployment pipeline building and deploying the FERN site to GitHub Pages (`https://paglaai.github.io/pagladesign/`).
+- **Updated** `governance/DECISIONS.md` — recorded D-025.
 
 ## v2.0 — Ecosystem Registry (Audit v2.0)
 
