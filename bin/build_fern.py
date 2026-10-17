@@ -137,6 +137,125 @@ def slugify(text: str) -> str:
     return re.sub(r"[-\s]+", "-", text)
 
 
+# ---------------------------------------------------------------------------
+# Inline Markdown
+#
+# Kept at module level so it can be unit-tested (tests/test_fern_renderer.py).
+# Code spans, images and links are set aside first, so the emphasis rules can
+# never touch file names, URLs or badge addresses that contain "_" or "*".
+# ---------------------------------------------------------------------------
+
+REPO_URL = "https://github.com/paglaai/pagladesign"
+
+# Documents that become pages of the site: repo path (lower-case) -> page slug.
+_SLUG_BY_PATH = {
+    item["path"].lower(): item["slug"]
+    for section in DOC_SECTIONS
+    for item in section["items"]
+}
+_SLUG_BY_NAME = {path.rsplit("/", 1)[-1]: slug for path, slug in _SLUG_BY_PATH.items()}
+
+# Folders copied into the published site (see build_fern_site).
+_PUBLISHED_PREFIXES = ("css/", "fonts/")
+
+# "(url)": no spaces, and one level of nested parentheses such as "(D--024)".
+_URL_PART = r"\(((?:[^()\s]|\([^()]*\))+)\)"
+_SLOT = re.compile(r"\x00(\d+)\x00")
+
+
+def github_url(path: str, fragment: str = "") -> str:
+    """Link to a repo file or folder on GitHub (for things the site does not publish)."""
+    kind = "tree" if (REPO_ROOT / path).is_dir() else "blob"
+    return f"{REPO_URL}/{kind}/main/{path}" + (f"#{fragment}" if fragment else "")
+
+
+def resolve_link(url: str) -> str:
+    """Turn a link target found in a repo document into one that works on the site."""
+    if re.match(r"^([a-z][a-z0-9+.-]*:|#|//)", url, re.I):
+        return url  # external address, mailto: or in-page anchor
+    path, _, fragment = url.partition("#")
+    while path.startswith(("./", "../")):
+        path = path.split("/", 1)[1]
+    if not path:
+        return url
+    key = path.lower()
+    slug = _SLUG_BY_PATH.get(key)
+    if slug is None and key.endswith(".md"):
+        slug = _SLUG_BY_NAME.get(key.rsplit("/", 1)[-1])
+    if slug:
+        return f"#{slug}"
+    if path.startswith(_PUBLISHED_PREFIXES) or (path.startswith("brand/") and key.endswith(".png")):
+        return f"./{path}"
+    return github_url(path, fragment)
+
+
+def _emphasis(text: str) -> str:
+    """Bold, italic and strikethrough. Underscores only count at word edges."""
+    text = re.sub(r"~~(?=\S)([^~\n]+?)(?<=\S)~~", r"<del>\1</del>", text)
+    text = re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"(?<!\w)__(?=\S)(.+?)(?<=\S)__(?!\w)", r"<strong>\1</strong>", text)
+    text = re.sub(r"(?<!\*)\*(?=[^\s*])([^*\n]+?)(?<=[^\s*])\*(?!\*)", r"<em>\1</em>", text)
+    text = re.sub(r"(?<!\w)_(?=[^\s_])([^_\n]+?)(?<=[^\s_])_(?!\w)", r"<em>\1</em>", text)
+    return text
+
+
+def format_inline(text: str) -> str:
+    """Render inline Markdown (code, images, links, emphasis) to HTML."""
+    slots: List[str] = []
+
+    def stash(fragment: str) -> str:
+        slots.append(fragment)
+        return f"\x00{len(slots) - 1}\x00"
+
+    # 1. Code spans: nothing inside them is ever reformatted.
+    text = re.sub(
+        r"`([^`]+)`",
+        lambda m: stash(f'<code class="doc-code">{m.group(1)}</code>'),
+        text,
+    )
+
+    # 1b. Raw HTML tags (e.g. the README badge row): keep attributes untouched,
+    #     but make <a href> targets work on the published site.
+    def raw_tag(m):
+        tag = m.group(0)
+        if re.match(r"<a\s", tag, re.I):
+            tag = re.sub(
+                r'(\bhref=)(["\'])([^"\']*)\2',
+                lambda h: f'{h.group(1)}"{html.escape(resolve_link(html.unescape(h.group(3))), quote=True)}"',
+                tag,
+                flags=re.I,
+            )
+        return stash(tag)
+
+    text = re.sub(r"</?[A-Za-z][^<>]*>", raw_tag, text)
+
+    # 2. Images: ![alt](src)
+    def image(m):
+        alt = html.escape(m.group(1), quote=True)
+        src = html.escape(m.group(2), quote=True)
+        return stash(
+            f'<figure class="doc-figure"><img src="{src}" alt="{alt}" class="doc-img" loading="lazy">'
+            f'<figcaption class="doc-caption">{alt}</figcaption></figure>'
+        )
+
+    text = re.sub(r"!\[([^\]]*)\]" + _URL_PART, image, text)
+
+    # 3. Links: [text](url). The label may hold emphasis; the address is never touched.
+    def link(m):
+        href = html.escape(resolve_link(m.group(2)), quote=True)
+        return stash(f'<a href="{href}" class="doc-link">{_emphasis(m.group(1))}</a>')
+
+    text = re.sub(r"\[([^\]]+)\]" + _URL_PART, link, text)
+
+    # 4. Emphasis on whatever plain text is left.
+    text = _emphasis(text)
+
+    # 5. Put the set-aside pieces back (a link label can contain other pieces).
+    while _SLOT.search(text):
+        text = _SLOT.sub(lambda m: slots[int(m.group(1))], text)
+    return text
+
+
 def render_markdown_to_html(raw_markdown: str) -> Tuple[str, List[Dict[str, str]]]:
     """Convert Markdown to semantic FERN-compliant HTML with headings and TOC."""
     toc = []
@@ -182,39 +301,6 @@ def render_markdown_to_html(raw_markdown: str) -> Tuple[str, List[Dict[str, str]
         in_list = False
         list_type = ""
         return f"</{tag}>"
-
-    def format_inline(text: str) -> str:
-        # Images: ![alt](src)
-        text = re.sub(
-            r'!\[([^\]]*)\]\(([^)]+)\)',
-            r'<figure class="doc-figure"><img src="\2" alt="\1" class="doc-img" loading="lazy"><figcaption class="doc-caption">\1</figcaption></figure>',
-            text,
-        )
-        # Inline code: `code`
-        text = re.sub(r'`([^`]+)`', r'<code class="doc-code">\1</code>', text)
-        # Strong: **text** or __text__
-        text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
-        text = re.sub(r'__([^_]+)__', r'<strong>\1</strong>', text)
-        # Em: *text* or _text_
-        text = re.sub(r'\*([^*]+)\*', r'<em>\1</em>', text)
-        text = re.sub(r'_([^_]+)_', r'<em>\1</em>', text)
-        # Strikethrough: ~~text~~
-        text = re.sub(r'~~([^~]+)~~', r'<del>\1</del>', text)
-        # Links: [text](url)
-        def replace_link(m):
-            txt, url = m.group(1), m.group(2)
-            # Rewrite relative internal markdown links to hash or page
-            if url.endswith(".md"):
-                url = url[:-3]
-                if "/" in url:
-                    url = url.split("/")[-1]
-                url = f"#{url.lower()}"
-            elif url.startswith("./") and url.endswith(".md"):
-                url = f"#{url[2:-3].lower()}"
-            return f'<a href="{url}" class="doc-link">{txt}</a>'
-
-        text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', replace_link, text)
-        return text
 
     i = 0
     while i < len(lines):

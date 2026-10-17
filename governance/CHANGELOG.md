@@ -23,6 +23,15 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v2.2 — FERN Portal Rendering Fixes
+
+- **Fixed** `bin/build_fern.py` — inline Markdown no longer applies italics to underscores inside file names, code, links, image URLs or badge addresses (e.g. `DESIGN_TOKENS.md`, `Docs_Portal`). Code spans, images and links are now set aside before the emphasis rules run, which also removes stray `**` marks and the corrupted page links.
+- **Fixed** `bin/build_fern.py` — links between documents now resolve through the page registry (e.g. `design-system/DESIGN_TOKENS.md` → `#tokens`). Files the site does not publish (`.ai/`, `.github/`, `tests/`, `LICENSE`, …) link to GitHub instead of a dead relative path, including links written as raw HTML in the README badge row. Badge URLs containing parentheses (e.g. `(D--024)`) are no longer cut short.
+- **Changed** `bin/build_fern.py` — moved `format_inline` to module level so it can be unit-tested.
+- **Added** `tests/test_fern_renderer.py` — regression tests for inline Markdown, link resolution and a full site build.
+- **Fixed** `.opencode/opencode.json` — replaced machine-specific Windows paths with repo-relative paths.
+- **Updated** `.gitignore` — ignore `.conductor/`.
+
 ## v2.1 — SSOT Parity, Token Compilation, MCP Modernization & CI Gates
 
 - **Fixed** `.github/actions/build-tokens/action.yml` — normalized dot notation and camelCase token keys to valid kebab-case CSS custom property identifiers (e.g. `--space-1-5`), sanitizing tokens and eliminating unescaped dots.

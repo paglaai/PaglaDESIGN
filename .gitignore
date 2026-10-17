@@ -12,3 +12,6 @@ __pycache__/
 .ai/agent-manual/DOC/
 DOC/site/
 _site/
+
+# Agent tooling
+.conductor/
