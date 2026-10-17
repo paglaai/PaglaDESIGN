@@ -31,6 +31,7 @@ Entries are grouped by phase and ordered newest first within a phase.
 - **Added** `tests/test_fern_renderer.py` — regression tests for inline Markdown, link resolution and a full site build.
 - **Fixed** `.opencode/opencode.json` — replaced machine-specific Windows paths with repo-relative paths.
 - **Updated** `.gitignore` — ignore `.conductor/`.
+- **Updated** `.github/workflows/ci.yml` — the token job now runs every test in `tests/`, so the renderer tests gate CI too.
 
 ## v2.1 — SSOT Parity, Token Compilation, MCP Modernization & CI Gates
 
