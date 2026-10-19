@@ -23,8 +23,16 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
-## v2.2 — FERN Portal Rendering Fixes
+## v2.2.0 — FERN Portal, Security Hardening & Package Release
 
+- **Hardened** `.ai/mcp/server.py` — `get_doc` now reads only canonical authority files and approved design-system directories; traversal, absolute paths, hidden paths, secrets, unsupported extensions and symlinks are denied.
+- **Added** `.ai/mcp/tests/test_server_security.py` — adversarial coverage for traversal, hidden files, symlinks, allowlist enforcement and search behavior.
+- **Changed** `.github/actions/build-tokens/action.yml` — token compilation now deterministically generates `css/tokens.css` from `design-system/DESIGN_TOKENS.md`, validates the generated declaration set and rejects drift or malformed CSS.
+- **Updated** `.github/workflows/ci.yml` — validates `ecosystem.json` against `ecosystem.schema.json` with `jsonschema`, checks generated token drift, runs the full test suite, and no longer treats an empty pytest collection as success.
+- **Fixed** `.github/workflows/release.yml` — package publishing now fails on real registry, authentication or packaging errors and skips only verified duplicate-version responses; action references are pinned to immutable commits.
+- **Fixed** `.github/workflows/dispatch-downstream.yml` — downstream dispatches now check curl exit status and HTTP 2xx responses instead of suppressing failures.
+- **Normalized** `ecosystem.json` — canonical authority references now use the lowercase repository identity `paglaai/pagladesign`.
+- **Published** `@paglaai/pagladesign@2.2.0` to GitHub Packages with the canonical CSS, design-system documentation, BrandKit assets, fonts, registry and schema.
 - **Fixed** `bin/build_fern.py` — inline Markdown no longer applies italics to underscores inside file names, code, links, image URLs or badge addresses (e.g. `DESIGN_TOKENS.md`, `Docs_Portal`). Code spans, images and links are now set aside before the emphasis rules run, which also removes stray `**` marks and the corrupted page links.
 - **Fixed** `bin/build_fern.py` — links between documents now resolve through the page registry (e.g. `design-system/DESIGN_TOKENS.md` → `#tokens`). Files the site does not publish (`.ai/`, `.github/`, `tests/`, `LICENSE`, …) link to GitHub instead of a dead relative path, including links written as raw HTML in the README badge row. Badge URLs containing parentheses (e.g. `(D--024)`) are no longer cut short.
 - **Changed** `bin/build_fern.py` — moved `format_inline` to module level so it can be unit-tested.
