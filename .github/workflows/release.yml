@@ -69,7 +69,7 @@ jobs:
           tar -czvf pagladesign-assets.tar.gz -C dist .
 
       - name: Set up Node.js for Package Publishing
-        uses: actions/setup-node@49933ea5288caefa30b9c2f0e662b7b5c3f9f4b
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: "20"
           registry-url: "https://npm.pkg.github.com"
