@@ -34,6 +34,30 @@ from rag import INDEX, Chunk, REPO_ROOT, RetrievalResult, tokenize
 
 SERVER_VERSION = "0.2.0"
 
+_APPROVED_DIRECTORIES = {
+    "design-system",
+    "brand",
+    "components",
+    "governance",
+    "css",
+    "templates",
+    "site",
+    "DOC",
+}
+_ALLOWED_EXTENSIONS = {".md", ".css", ".json"}
+_BLOCKED_NAMES = {
+    ".git",
+    ".opencode",
+    "__pycache__",
+    "node_modules",
+    ".venv",
+    ".env",
+    ".env.local",
+    ".env.production",
+    "secrets.json",
+    ".DS_Store",
+}
+
 
 def _format_result(r: RetrievalResult, include_text: bool = True) -> dict[str, Any]:
     chunk = r.chunk
@@ -49,9 +73,43 @@ def _format_result(r: RetrievalResult, include_text: bool = True) -> dict[str, A
 
 
 def _safe_read(path: str) -> str | None:
-    """Read a repo-relative text file, guarding against path traversal."""
+    """Read only an explicitly approved, non-hidden repository text file."""
     root = Path(REPO_ROOT).resolve()
-    target = (root / path).resolve()
+    requested = Path(path)
+    # Reject absolute paths and both POSIX and Windows traversal forms before
+    # normalizing anything. Backslashes are rejected to avoid platform
+    # dependent interpretation when this code is moved to Windows.
+    if (
+        requested.is_absolute()
+        or "\\" in path
+        or any(part == ".." for part in requested.parts)
+    ):
+        return None
+    parts = requested.parts
+    if not parts or any(
+        part.startswith(".") or part in _BLOCKED_NAMES for part in parts
+    ):
+        return None
+    if len(parts) == 1:
+        if path not in get_canonical_authority_files():
+            return None
+    elif parts[0] not in _APPROVED_DIRECTORIES:
+        return None
+    if requested.suffix.lower() not in _ALLOWED_EXTENSIONS:
+        return None
+
+    # Check every path component before resolving so a symlink cannot escape
+    # the repository or expose an otherwise disallowed target.
+    current = root
+    for part in parts:
+        current = current / part
+        try:
+            if current.is_symlink():
+                return None
+        except OSError:
+            return None
+
+    target = (root / requested).resolve()
     if root not in target.parents and target != root:
         return None
     if not target.is_file():

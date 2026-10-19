@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: Build and Validate Design Tokens
         uses: ./.github/actions/build-tokens
@@ -28,8 +28,11 @@ jobs:
           tokens_path: "design-system/DESIGN_TOKENS.md"
           css_output_path: "css/tokens.css"
 
+      - name: Verify generated token stylesheet is committed
+        run: git diff --exit-code -- css/tokens.css
+
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.11"
 
@@ -43,32 +46,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
-      - name: Validate ecosystem.json is valid JSON and matches schema
+      - name: Validate ecosystem.json against its JSON Schema
         run: |
-          echo "=== Validating ecosystem.json ==="
           python3 -m json.tool ecosystem.json > /dev/null
-          echo "JSON syntax: OK"
-          python3 << 'PY'
-          import json, pathlib, sys
-          eco = json.loads(pathlib.Path("ecosystem.json").read_text())
-          schema = json.loads(pathlib.Path("ecosystem.schema.json").read_text())
-          # Lightweight schema checks without jsonschema dependency
-          assert eco.get("version"), "version required"
-          assert eco.get("authority", {}).get("id") == "pagladesign", "authority must be pagladesign"
-          assert isinstance(eco.get("ecosystem"), list) and len(eco["ecosystem"]) >= 1
-          ids = [e["id"] for e in eco["ecosystem"]]
-          assert len(ids) == len(set(ids)), f"duplicate ids: {ids}"
-          for e in eco["ecosystem"]:
-              assert (e.get("repo") or "").startswith("paglaai/"), f"repo must be paglaai/*: {e}"
-              assert e.get("status") in ("active", "planned", "deprecated"), f"bad status: {e}"
-              assert e.get("role") in ("authority", "surface", "product", "runtime"), f"bad role: {e}"
-          assert "pipelines" in eco and "githubToCloudflare" in eco["pipelines"]
-          assert "roadmap" in eco and len(eco["roadmap"]["phases"]) == 3
-          print(f"Registry: {len(eco['ecosystem'])} entries ({sum(1 for x in eco['ecosystem'] if x['status']=='active')} active, {sum(1 for x in eco['ecosystem'] if x['status']=='planned')} planned)")
+          python3 -m pip install --quiet jsonschema
+          python3 <<'PY'
+          import json
+          import pathlib
+          import jsonschema
+
+          eco = json.loads(pathlib.Path("ecosystem.json").read_text(encoding="utf-8"))
+          schema = json.loads(pathlib.Path("ecosystem.schema.json").read_text(encoding="utf-8"))
+          jsonschema.validate(instance=eco, schema=schema)
+          for entry in eco["ecosystem"]:
+              repo = entry.get("repo", "")
+              if repo.startswith("paglaai/") and repo != repo.lower():
+                  print(f"Warning: ecosystem entry uses uppercase repository name: {repo}")
+          active = sum(1 for entry in eco["ecosystem"] if entry["status"] == "active")
+          planned = sum(1 for entry in eco["ecosystem"] if entry["status"] == "planned")
+          print(f"Registry: {len(eco['ecosystem'])} entries ({active} active, {planned} planned)")
           print(f"Authority: {eco['authority']['id']} v{eco['version']}")
-          print("Schema checks: PASS")
+          print("JSON Schema validation: PASS")
           PY
 
       - name: Validate frontmatter contract exists
@@ -87,10 +87,10 @@ jobs:
         working-directory: .ai/mcp
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.11"
           cache: "pip"
@@ -108,12 +108,4 @@ jobs:
         run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
       - name: Run MCP Server Tests
-        run: |
-          # Run pytest if test files exist, otherwise perform a dry-run syntax check
-          if [ -d "tests" ] && [ -n "$(find tests -name 'test_*.py' 2>/dev/null)" ]; then
-            pytest || [ $? -eq 5 ]
-          else
-            echo "No pytest suite found, executing server.py import sanity check."
-            python -m py_compile server.py rag.py
-          fi
-
+        run: pytest -q

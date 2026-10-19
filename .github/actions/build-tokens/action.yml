@@ -15,92 +15,118 @@ runs:
   using: "composite"
   steps:
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
       with:
         python-version: "3.11"
 
-    - name: Parse Design Tokens and Compile CSS Variables
+    - name: Generate CSS custom properties from design tokens
       shell: bash
-      run: |
-        echo "=== Compiling Design Tokens to CSS custom properties ==="
-        python3 << 'PY'
-        import re
-        from pathlib import Path
-        import os
-
-        token_file = Path(os.environ.get("TOKENS_PATH", "design-system/DESIGN_TOKENS.md"))
-        output_css = Path(os.environ.get("CSS_OUTPUT_PATH", "css/tokens.css"))
-
-        if not token_file.exists():
-            print(f"Error: Token file {token_file} does not exist!")
-            raise SystemExit(1)
-
-        print(f"Reading tokens from {token_file}")
-        content = token_file.read_text()
-
-        def normalize_css_var_name(raw_key: str) -> str:
-            # Convert camelCase to kebab-case
-            clean = re.sub(r'([a-z0-9])([A-Z])', r'\1-\2', raw_key)
-            # Lowercase, replace dots and slashes with hyphens
-            clean = clean.strip().lower().replace(".", "-").replace("/", "-").replace(" ", "-")
-            clean = re.sub(r'-+', '-', clean).strip('-')
-            var_name = f"--{clean}"
-            if "." in var_name:
-                raise ValueError(f"Invalid CSS variable name containing unescaped dot: {var_name}")
-            return var_name
-
-        tokens = []
-        for line in content.splitlines():
-            match = re.search(r'\|\s*`?([a-zA-Z0-9_.-]+)`?\s*\|\s*`?([^|]+)`?\s*\|', line)
-            if match:
-                name, val = match.groups()
-                name = name.strip()
-                val = val.strip().strip('`')
-                if set(name) == {"-"} or set(val) == {"-"} or name.lower() == "token":
-                    continue
-                var_name = normalize_css_var_name(name)
-                tokens.append((var_name, val))
-
-        print(f"Found and validated {len(tokens)} token definitions from {token_file}")
-
-        if output_css.exists():
-            css_text = output_css.read_text()
-            for line in css_text.splitlines():
-                stripped = line.strip()
-                if stripped.startswith("--"):
-                    var_ident = stripped.split(":", 1)[0].strip()
-                    if "." in var_ident:
-                        print(f"Error: Found unescaped dot in compiled CSS variable: {var_ident}")
-                        raise SystemExit(1)
-            print(f"Parity and syntax check on {output_css}: PASS")
-        PY
       env:
         TOKENS_PATH: ${{ inputs.tokens_path }}
         CSS_OUTPUT_PATH: ${{ inputs.css_output_path }}
+      run: |
+        python3 <<'PY'
+        import os
+        import re
+        from pathlib import Path
 
-    - name: Validate CSS Structure
+        token_file = Path(os.environ["TOKENS_PATH"])
+        output_css = Path(os.environ["CSS_OUTPUT_PATH"])
+        if not token_file.is_file():
+            raise SystemExit(f"Error: token file does not exist: {token_file}")
+
+        def normalize(raw_key):
+            clean = re.sub(r"([a-z0-9])([A-Z])", r"\1-\2", raw_key)
+            clean = clean.strip().lower().replace(".", "-").replace("/", "-").replace(" ", "-")
+            clean = re.sub(r"-+", "-", clean).strip("-")
+            if not clean:
+                raise ValueError(f"Invalid empty token name: {raw_key!r}")
+            return f"--{clean}"
+
+        def css_value(raw):
+            value = raw.strip().replace("`", "")
+            value = re.sub(r"\s+\(full\)$", "", value)
+            overlay = re.fullmatch(r"([\w.]+) at ([0-9]+%) (overlay|opacity)", value)
+            if overlay:
+                token, amount, _ = overlay.groups()
+                return f"color-mix(in srgb, var({normalize(token)}) {amount}, transparent)"
+            if re.fullmatch(r"[a-zA-Z][a-zA-Z0-9_.-]*", value) and "." in value:
+                return f"var({normalize(value)})"
+            return value
+
+        current_section = ""
+        light = []
+        dark = []
+        for line in token_file.read_text(encoding="utf-8").splitlines():
+            heading = re.match(r"^##\s+(.+)$", line)
+            if heading:
+                current_section = heading.group(1).lower()
+            match = re.search(r"\|\s*`?([a-zA-Z0-9_.-]+)`?\s*\|\s*`?([^|]+)`?\s*\|", line)
+            if not match:
+                continue
+            name, raw_value = (part.strip() for part in match.groups())
+            if name.lower() == "token" or set(name) == {"-"} or set(raw_value) == {"-"}:
+                continue
+            item = (normalize(name), css_value(raw_value))
+            target = dark if "dark theme" in current_section else light
+            if item[0] in {key for key, _ in target}:
+                raise SystemExit(f"Duplicate token in {current_section}: {name}")
+            target.append(item)
+
+        if not light:
+            raise SystemExit("No token definitions found")
+
+        existing = output_css.read_text(encoding="utf-8") if output_css.exists() else ""
+        font_block = ""
+        font_match = re.search(r"((?:@font-face\s*\{.*?\}\s*)+)", existing, re.DOTALL)
+        if font_match:
+            font_block = "\n" + font_match.group(1).rstrip() + "\n"
+
+        def emit_block(selector, entries):
+            lines = [f"{selector} {{"]
+            lines.extend(f"  {key}: {value};" for key, value in entries)
+            lines.append("}")
+            return "\n".join(lines)
+
+        generated = "/* AUTO-GENERATED from DESIGN_TOKENS.md */\n"
+        generated += "@layer tokens, base, utilities;\n"
+        generated += font_block
+        generated += "\n@layer tokens {\n"
+        generated += emit_block(":root", light) + "\n"
+        if dark:
+            generated += "\n" + emit_block('[data-theme="dark"]', dark) + "\n"
+        generated += "}\n"
+        output_css.parent.mkdir(parents=True, exist_ok=True)
+        output_css.write_text(generated, encoding="utf-8")
+        print(f"Generated {len(light) + len(dark)} token declarations in {output_css}")
+
+        declared = set(re.findall(r"^\s*(--[a-zA-Z0-9_-]+)\s*:", generated, re.MULTILINE))
+        expected = {key for key, _ in light + dark}
+        if declared != expected:
+            raise SystemExit(f"Generated token set mismatch: missing={expected - declared}, extra={declared - expected}")
+        if "." in "\n".join(declared):
+            raise SystemExit("Generated CSS contains a dot in a custom-property name")
+        if "{{" in generated or "}}" in generated:
+            raise SystemExit("Generated CSS contains unresolved template syntax")
+        PY
+
+    - name: Validate CSS structure
       shell: bash
       run: |
-        echo "=== Validating compiled CSS for syntax errors ==="
-        python3 << 'PY'
+        python3 <<'PY'
         from pathlib import Path
         import re
 
         for css_file in Path("css").glob("*.css"):
-            content = css_file.read_text()
-            if "{" in content and "}" not in content:
-                print(f"Validation Error: Unmatched bracket in {css_file}")
-                raise SystemExit(1)
+            content = css_file.read_text(encoding="utf-8")
+            if content.count("{") != content.count("}"):
+                raise SystemExit(f"Validation Error: unmatched braces in {css_file}")
             if "{{" in content or "}}" in content:
-                print(f"Validation Error: Unresolved template syntax in {css_file}")
-                raise SystemExit(1)
-            for m in re.finditer(r'(--[a-zA-Z0-9._-]+)\s*:', content):
-                var_name = m.group(1)
-                if "." in var_name:
-                    print(f"Validation Error: Unescaped dot in CSS variable '{var_name}' in {css_file}")
-                    raise SystemExit(1)
-            if re.search(r'@media[^{]*\bvar\(', content):
-                print(f"Validation Error: Dead CSS variable used in @media condition in {css_file}")
-                raise SystemExit(1)
+                raise SystemExit(f"Validation Error: unresolved template syntax in {css_file}")
+            for match in re.finditer(r"(--[a-zA-Z0-9._-]+)\s*:", content):
+                if "." in match.group(1):
+                    raise SystemExit(f"Validation Error: dot in CSS variable {match.group(1)}")
+            if re.search(r"@media[^{]*\bvar\(", content):
+                raise SystemExit(f"Validation Error: dead CSS variable in @media condition in {css_file}")
         print("CSS validation passed successfully!")
         PY
