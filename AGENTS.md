@@ -28,7 +28,7 @@ Root constitution: `README.md VISION.md DESIGN.md PRINCIPLES.md AGENTS.md LICENS
 
 - CI (`.github/workflows/ci.yml`, ubuntu + Python 3.11) triggers on push to `main` / PR, but **skips on `**.md`-only or `LICENSE`-only pushes**. Token/CSS/ecosystem/MCP changes always run.
 - Ecosystem: `python3 -m json.tool ecosystem.json > /dev/null && python3 -m json.tool ecosystem.schema.json > /dev/null` — full duplicate-ID / `paglaai/*` / status / role checks live in the `validate-ecosystem` job; mirror them, don't shortcut.
-- MCP server (`.ai/mcp/`, deps `mcp>=2.0` via `.ai/mcp/requirements.txt`): `python3 -m py_compile .ai/mcp/server.py .ai/mcp/rag.py`; if editing it, from `.ai/mcp/`: `black --check .`, `flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics`, `pytest` (falls back to the py_compile check when no tests exist).
+- MCP server (`.ai/mcp/`, deps `mcp>=2.0` via `.ai/mcp/requirements.txt`): `python3 -m py_compile .ai/mcp/server.py .ai/mcp/rag.py`; if editing it, from `.ai/mcp/`: `black --check .`, `flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics`, `python -m pytest` (falls back to the py_compile check when no tests exist).
 - DOCX is generated: `python3 bin/build_docx.py` (needs `python-docx`) rebuilds `DOC/AGENT_MANUAL.docx` from `.ai/AGENT_MANUAL.md` — never hand-edit `DOC/`.
 - Release (`.github/workflows/release.yml`, on release-published): rebuilds tokens via `.github/actions/build-tokens` and publishes `pagladesign-assets.tar.gz` + `ecosystem.json` + `css/tokens.css`.
 

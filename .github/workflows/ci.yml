@@ -39,7 +39,7 @@ jobs:
       - name: Run Token Parity Test Suite
         run: |
           pip install pytest
-          pytest tests/ -v
+          python -m pytest tests/ -v
 
   validate-ecosystem:
     name: "Validate Ecosystem Registry"
