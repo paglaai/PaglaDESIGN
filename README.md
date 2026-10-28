@@ -168,13 +168,13 @@ PaglaDESIGN serves as the registry authority for the entire ecosystem. Rather th
 | :--- | :--- | :--- | :--- | :--- |
 | **PaglaDESIGN** | `authority` | Design System | `active` | [`paglaai/PaglaDESIGN`](https://github.com/paglaai/PaglaDESIGN) |
 | **PaglaAI.space** | `surface` | Web Surface | `active` | [`paglaai/paglaai.space`](https://github.com/paglaai/paglaai.space) |
-| **paglaai-docs** | `surface` | Documentation | `active` | [`paglaai/paglaai-docs`](https://github.com/paglaai/paglaai-docs) |
+| **paglaai-docs** | `surface` | Documentation | `active` | [PaglaAI.space](https://www.paglaai.space/) |
 | **PaglaMLX** | `product` | AI Runtime | `active` | [`paglaai/PaglaMLX`](https://github.com/paglaai/PaglaMLX) |
 | **PaglaROUTER** | `product` | LLM Gateway | `active` | [`paglaai/PaglaROUTER`](https://github.com/paglaai/PaglaROUTER) |
 | **PaglaSHELL** | `product` | Terminal CLI | `active` | [`paglaai/PaglaSHELL`](https://github.com/paglaai/PaglaSHELL) |
 | **B3K4R** | `product` | Productivity | `active` | [`paglaai/B3K4R`](https://github.com/paglaai/B3K4R) |
-| **PaglaCHAT** | `product` | Chat Interface | `active` | [`paglaai/PaglaCHAT`](https://github.com/paglaai/PaglaCHAT) |
-| **PaglaOS** | `product` | Desktop OS | `active` | [`paglaai/KolponaOS`](https://github.com/paglaai/KolponaOS) |
+| **PaglaCHAT** | `product` | Chat Interface | `active` | [Product directory](https://www.paglaai.space/#products) |
+| **PaglaOS** | `product` | Desktop OS | `active` | [Product directory](https://www.paglaai.space/#products) |
 | **apphole.store** | `surface` | App Storefront | `planned` | `https://apphole.store` |
 | **SANCTUM** | `runtime` | Sandboxed Engine | `planned` | `paglaai/sanctum` |
 

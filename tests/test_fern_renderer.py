@@ -111,6 +111,9 @@ def test_full_build_has_no_mangled_or_unpublished_links(tmp_path):
     build_fern.build_fern_site(tmp_path)
     pages = list(tmp_path.glob("*.html"))
     assert len(pages) >= 30
+    home_html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    for item in build_fern.EXTERNAL_NAVIGATION:
+        assert f'href="{item["url"]}"' in home_html
     hrefs = []
     for page in pages:
         hrefs += re.findall(r'href=\\?"([^"\\]*)\\?"', page.read_text(encoding="utf-8"))

@@ -106,6 +106,13 @@ DOC_SECTIONS = [
 ]
 
 
+EXTERNAL_NAVIGATION = [
+    {"title": "Products", "url": "https://www.paglaai.space/#products"},
+    {"title": "Brand", "url": "https://www.paglaai.space/brand/"},
+    {"title": "Blog", "url": "https://www.paglaai.space/blog/"},
+]
+
+
 def parse_frontmatter(content: str) -> Tuple[Dict[str, any], str]:
     """Parse YAML-like frontmatter if present."""
     frontmatter = {}
@@ -1694,6 +1701,19 @@ def generate_complete_html(pages: Dict[str, any], search_index: List[Dict[str, s
             f'<ul class="nav-list">{"".join(items_html)}</ul>'
             f'</div>'
         )
+
+    external_items_html = "".join(
+        f'<li class="nav-item"><a href="{item["url"]}" class="nav-link external-nav-link" '
+        f'target="_blank" rel="noopener">{item["title"]} ↗</a></li>'
+        for item in EXTERNAL_NAVIGATION
+    )
+    nav_sections_html.insert(
+        0,
+        f'<div class="nav-section external-nav-section">'
+        f'<div class="nav-section-title">PaglaAI.space</div>'
+        f'<ul class="nav-list">{external_items_html}</ul>'
+        f'</div>',
+    )
 
     # Build bundled pages JSON for instant client-side switching
     pages_bundle_json = json.dumps(
