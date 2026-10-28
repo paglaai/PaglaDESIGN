@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/paglaai/pagladesign">
-    <img src="https://raw.githubusercontent.com/paglaai/pagladesign/main/brand/paglaai-wordmark.png" alt="PaglaAI Wordmark" width="460">
+    <img src="https://raw.githubusercontent.com/paglaai/pagladesign/main/brand/pagladesign-wordmark.svg" alt="PaglaDESIGN Wordmark" width="460">
   </a>
 </p>
 
