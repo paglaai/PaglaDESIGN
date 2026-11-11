@@ -15,3 +15,5 @@ _site/
 
 # Agent tooling
 .conductor/
+.kilo/
+agent.md

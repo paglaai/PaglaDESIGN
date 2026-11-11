@@ -18,7 +18,7 @@ import math
 import os
 import re
 import unicodedata
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 # Root of the PaglaDESIGN repository (parent of this package's parent dir).
 try:
@@ -38,6 +38,7 @@ _EXCLUDED_DIRS = {
     ".venv",
     "dist",
     "DOC",
+    "references",
 }
 _EXCLUDED_FILES = {"AGENTS.md"}
 
@@ -61,7 +62,9 @@ class RetrievalResult:
     chunk: Chunk
 
     def __lt__(self, other: "RetrievalResult") -> bool:
-        return self.score > other.score  # descending
+        return (
+            self.score < other.score
+        )  # ascending order standard for Python comparison
 
 
 _TOKEN_RE = re.compile(r"[\w]+", re.UNICODE)
@@ -183,7 +186,7 @@ class RetrievalIndex:
                     score += 2.0 * idf
             if score > 0:
                 results.append(RetrievalResult(score, self.docs[idx]))
-        results.sort(reverse=True)
+        results.sort(key=lambda r: r.score, reverse=True)
         return results[:k]
 
     def get_chunk(self, doc: str, line: int) -> Chunk | None:
@@ -205,11 +208,14 @@ class RetrievalIndex:
                 text = fh.read()
         except (OSError, UnicodeDecodeError):
             return []
-        return [
-            line
-            for line in text.splitlines()
-            if ":" in line and line.strip().startswith(want)
-        ]
+        matching = []
+        for line in text.splitlines():
+            if ":" not in line:
+                continue
+            prop, _ = line.split(":", 1)
+            if prop.strip() == want:
+                matching.append(line)
+        return matching
 
     @property
     def doc_count(self) -> int:

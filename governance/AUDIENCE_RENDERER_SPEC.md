@@ -89,7 +89,7 @@ It does not replace any existing document.
 |---|---|
 | `design-system/DESIGN_TOKENS.md` | Locked values. FERN references these tokens; it never redefines them. |
 | `css/tokens.css` | Canonical CSS custom property translation. FERN renders with these classes. |
-| `design-system/COMPONENTS.md` | Component language. FERN maps Markdown elements to these components. |
+| `components/COMPONENTS.md` | Component language. FERN maps Markdown elements to these components. |
 | `components/COMPONENT_LIBRARY.md` | Registered components. FERN uses only Active components from this registry. |
 | `design-system/CSS_ARCHITECTURE.md` | Implementation guidance. FERN follows the naming conventions defined here. |
 | `design-system/ACCESSIBILITY.md` | Baseline requirements. All renderers must meet the accessibility gates defined here. |
@@ -189,7 +189,7 @@ This specification defines the renderer contract. It does not cover:
 
 - Token values — `design-system/DESIGN_TOKENS.md`
 - Token CSS — `css/tokens.css`
-- Component language — `design-system/COMPONENTS.md`
+- Component language — `components/COMPONENTS.md`
 - Component registry — `components/COMPONENT_LIBRARY.md`
 - CSS implementation — `design-system/CSS_ARCHITECTURE.md`
 - Accessibility baseline — `design-system/ACCESSIBILITY.md`

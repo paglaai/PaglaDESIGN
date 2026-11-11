@@ -23,6 +23,21 @@ Entries are grouped by phase and ordered newest first within a phase.
 
 ---
 
+## v2.2.1 — MCP Retrieval Ranking, Token Isolation & Reference Hardening
+
+- **Fixed** `.ai/mcp/rag.py` — corrected BM25 search ranking inversion; scores now strictly sort descending with top results first.
+- **Fixed** `.ai/mcp/rag.py` — isolated token lookup to exact property name matches (`prop.strip() == want`), eliminating partial prefix false positives (e.g. `--space-12` when requesting `space.1`).
+- **Fixed** `.ai/mcp/rag.py` — excluded `references/` from the RAG index (`_EXCLUDED_DIRS`), guaranteeing non-canonical research captures are not surfaced as design authority.
+- **Fixed** `bin/build_docx.py` — guarded header cell paragraph runs to prevent `IndexError` on empty table cells.
+- **Fixed** `ecosystem.schema.json` & `.github/workflows/ci.yml` — added `uniqueItems: true` to schema and enforced strict duplicate ID rejection in CI assertions.
+- **Fixed** `governance/AUDIENCE_RENDERER_SPEC.md` & `design-system/FERN_RENDERER.md` — corrected invalid path references from `design-system/COMPONENTS.md` to `components/COMPONENTS.md`.
+- **Fixed** `references/README.md` — removed non-existent `github/` folder entry and repaired relative paths (`../brand/`, `../design-system/`).
+- **Fixed** `RELEASE_NOTES_v2.2.0.md` — added explicit GitHub Packages registry configuration (`--registry=https://npm.pkg.github.com`).
+- **Fixed** `.ai/AGENT_MANUAL.md` — synchronized drifted principles (14), components (14), and canonical typography token values; removed machine-specific Windows paths.
+- **Normalized** `.ai/mcp/server.py` — `get_context()` returns repository identity `"PaglaDESIGN"` instead of local filesystem absolute paths.
+- **Purged** `.kilo/` — removed tracked scratch plan directory and added `.kilo/` and `agent.md` to `.gitignore`.
+- **Updated** `governance/DECISIONS.md` — recorded D-026.
+
 ## v2.2.0 — FERN Portal, Security Hardening & Package Release
 
 - **Hardened** `.ai/mcp/server.py` — `get_doc` now reads only canonical authority files and approved design-system directories; traversal, absolute paths, hidden paths, secrets, unsupported extensions and symlinks are denied.

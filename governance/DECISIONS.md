@@ -776,6 +776,45 @@ PaglaDESIGN possesses a live, canonical human documentation portal on GitHub Pag
 
 ---
 
+# D-026 · MCP Retrieval Ranking Inversion, Exact Token Isolation, DOCX Edge-Cases, and Documentation Reference Hardening
+
+**Status:** Adopted
+
+**Context**
+
+A forensic audit of the v2.2.0 release identified concrete defects in the MCP retrieval tools, DOCX document renderer, schema validation, and documentation references:
+1. `rag.py` inverted BM25 search rankings due to a reversed `RetrievalResult.__lt__` operator combined with `sort(reverse=True)`, causing queries to return the lowest-scoring chunks first.
+2. `lookup_token` used prefix matching (`startswith`), returning extraneous matches (e.g. `--space-12` when requesting `space.1`).
+3. `bin/build_docx.py` threw `IndexError` when empty table header cells produced no paragraph runs.
+4. `ecosystem.schema.json` lacked `uniqueItems` validation on array entries, and CI omitted uniqueness assertions on entry IDs.
+5. `references/` non-canonical research captures were indexed by RAG, risking confusion between non-binding inspiration and canonical authority.
+6. Documentation referenced `design-system/COMPONENTS.md` instead of `components/COMPONENTS.md`, `references/README.md` listed a non-existent `github/` folder and broken relative paths, `RELEASE_NOTES_v2.2.0.md` lacked GitHub Packages registry guidance, and `.ai/AGENT_MANUAL.md` drifted on principle count (13 vs 14), component count (11 vs 14), typography tokens, and machine-specific Windows paths.
+
+**Decision**
+
+1. Restore canonical descending score ranking in `.ai/mcp/rag.py` using standard `self.score < other.score` and explicit `key=lambda r: r.score, reverse=True`.
+2. Enforce exact property matching (`prop.strip() == want`) in `lookup_token()`.
+3. Guard run access in `bin/build_docx.py` with `if p.runs: for run in p.runs: run.bold = True`.
+4. Enforce ecosystem entry uniqueness in `ecosystem.schema.json` (`uniqueItems: true`) and CI assertions (`assert not dupes`).
+5. Exclude `references/` from the RAG indexing pipeline (`_EXCLUDED_DIRS`).
+6. Update broken documentation references to `components/COMPONENTS.md`, clean up `references/README.md`, add GitHub Packages `.npmrc` / `--registry` instructions to `RELEASE_NOTES_v2.2.0.md`, harmonize `.ai/AGENT_MANUAL.md` with 14 principles, 14 components, canonical typography tokens, and remove machine-specific paths across `.ai/mcp/README.md`, `run.cmd`, and `server.py` (`repo: "PaglaDESIGN"`).
+7. Purge tracked `.kilo/` plan directory.
+
+**Alternatives considered**
+
+- Leave `references/` in RAG search with post-filtering. Rejected — research captures should never enter the knowledge retrieval index.
+- Keep loose token prefix search. Rejected — tokens have strict contracts; partial prefixes violate exact lookup guarantees.
+
+**Trade-offs**
+
+None. All changes resolve regressions, eliminate path ambiguity, and enforce strict correctness.
+
+**Result**
+
+Agent retrieval returns mathematically ranked canonical authority chunks, token lookups are exact, document compilation is crash-proof, and documentation cross-references resolve without drift.
+
+---
+
 # Document-the-Decision Rule
 
 If a change significantly affects the design system, document it here before implementing — describe what changed, why, the alternatives, trade-offs, and the intended benefit.

@@ -54,8 +54,15 @@ PaglaDESIGN v2.2.0 introduces the FERN human documentation portal, hardens the M
 
 ## Upgrade
 
+Published to **GitHub Packages** (`@paglaai` scope). Install using either:
+
 ```bash
+# Configure registry for @paglaai scope:
+echo "@paglaai:registry=https://npm.pkg.github.com" >> .npmrc
 npm install @paglaai/pagladesign@2.2.0
+
+# Or install directly with the registry flag:
+npm install @paglaai/pagladesign@2.2.0 --registry=https://npm.pkg.github.com
 ```
 
 The package includes the canonical CSS token layers, design-system documentation, component documentation, BrandKit assets, fonts, ecosystem registry, and schema.

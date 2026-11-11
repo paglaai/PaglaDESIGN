@@ -12,7 +12,6 @@ Each reference is kept under its source:
 - `anthropic/`
 - `cloudflare/`
 - `fern/`
-- `github/`
 - `linear/`
 - `openai/`
 - `pagla-mlx/` — in-ecosystem study of the PaglaMLX README
@@ -25,12 +24,12 @@ Each source folder carries a `NOTES.md` capturing what was studied and what was 
 
 `INSPIRATION.md` is the distilled bridge: it records the **principles** extracted
 from the research. Principles become authority only when they restate or extend
-the canonical documents (`../DESIGN.md`, `../PRINCIPLES.md`, `brand/`,
-`design-system/`). The captures themselves never do.
+the canonical documents (`../DESIGN.md`, `../PRINCIPLES.md`, `../brand/`,
+`../design-system/`). The captures themselves never do.
 
 ## Contract
 
 Reference material is excluded from the canonical design authority and never
-cited as authority in `brand/` or `design-system/`.
+cited as authority in `../brand/` or `../design-system/`.
 
 We extract principles, not visual assets.

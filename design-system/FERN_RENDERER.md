@@ -259,7 +259,7 @@ Both states use `--color-accent-error` for emphasis.
 - Token values — `design-system/DESIGN_TOKENS.md`
 - Token CSS — `css/tokens.css`
 - Component library — `components/COMPONENT_LIBRARY.md`
-- Component language — `design-system/COMPONENTS.md`
+- Component language — `components/COMPONENTS.md`
 - CSS implementation — `design-system/CSS_ARCHITECTURE.md`
 - Accessibility baseline — `design-system/ACCESSIBILITY.md`
 - Motion principles — `design-system/MOTION.md`

@@ -30,7 +30,7 @@ except ImportError:
         except ImportError:
             FastMCP = None
 
-from rag import INDEX, Chunk, REPO_ROOT, RetrievalResult, tokenize
+from rag import INDEX, REPO_ROOT, RetrievalResult, tokenize
 
 SERVER_VERSION = "0.2.0"
 
@@ -311,7 +311,7 @@ def get_canonical_authority_files() -> list[str]:
 def get_context() -> dict[str, Any]:
     """One-call orientation over the design authority."""
     return {
-        "repo": REPO_ROOT,
+        "repo": "PaglaDESIGN",
         "version": SERVER_VERSION,
         "doc_count": INDEX.doc_count,
         "source_docs": INDEX.source_docs,

@@ -38,7 +38,7 @@ You are expected to act like a design engineer, not an autocomplete engine.
 - Wireframes & Mockups (`wireframes/`, `mockups/`)
 - Reference CSS (`css/tokens.css`, `css/base.css`, `css/utilities.css`)
 
-### 2.2 The 13 PRINCIPLES
+### 2.2 The 14 PRINCIPLES
 
 From `PRINCIPLES.md` — these are non-negotiable:
 
@@ -47,14 +47,15 @@ From `PRINCIPLES.md` — these are non-negotiable:
 3. Purpose Before Aesthetics
 4. Typography Is the Primary Interface
 5. Whitespace Is Content
-6. Consistency Builds Trust
-7. Performance Is Part of User Experience
-8. Accessibility Is Non-Negotiable
-9. Motion Must Communicate
-10. Documentation Before Implementation
-11. Think in Ecosystems
-12. Timeless Over Trendy
-13. Question Everything
+6. Audience Rendering
+7. Consistency Builds Trust
+8. Performance Is Part of User Experience
+9. Accessibility Is Non-Negotiable
+10. Motion Must Communicate
+11. Documentation Before Implementation
+12. Think in Ecosystems
+13. Timeless Over Trendy
+14. Question Everything
 
 ### 2.3 Ecosystem
 
@@ -124,15 +125,15 @@ Base unit `space.base` = `0.25rem`. All spacing distances are multiples of the b
 
 | Token | Value |
 |---|---|
-| `font.lineHeight.body` | `1.625` |
+| `font.lineHeight.body` | `1.5` |
 | `font.lineHeight.heading` | `1.2` |
 | `font.lineHeight.display` | `1.05` |
 
 | Token | Value |
 |---|---|
 | `font.tracking.body` | `0` |
-| `font.tracking.heading` | `-0.03em` |
-| `font.tracking.display` | `-0.075em` |
+| `font.tracking.heading` | `-0.01em` |
+| `font.tracking.display` | `-0.02em` |
 | `font.tracking.uppercase` | `0.08em` |
 
 | Token | Value |
@@ -243,7 +244,7 @@ Never invent values inline. Every number must come from this file or `css/tokens
 
 ### 4.1 Registry
 
-11 registered components in `components/COMPONENT_LIBRARY.md`:
+14 registered components in `components/COMPONENT_LIBRARY.md`:
 
 | Component | Role |
 |---|---|
@@ -258,6 +259,9 @@ Never invent values inline. Every number must come from this file or `css/tokens
 | Toast | Ephemeral notification |
 | Menu | Contextual actions |
 | Skeleton | Loading placeholder |
+| Breadcrumbs | Hierarchical navigation trail |
+| Code Block | Formatted syntax-highlighted code |
+| Terminal | Command-line execution and output |
 
 ### 4.2 Component Anatomy
 
@@ -343,7 +347,7 @@ The PaglaDESIGN MCP server (`.ai/mcp/server.py`) exposes the design authority to
 
 **Registered in:** `.opencode/opencode.json`
 
-**Launched with:** `D:\PaglaAI\.venv\Scripts\python.exe .ai\mcp\server.py`
+**Launched with:** `python3 .ai/mcp/server.py`
 
 ### 6.2 Usage Pattern
 

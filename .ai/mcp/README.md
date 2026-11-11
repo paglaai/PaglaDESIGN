@@ -33,36 +33,34 @@ python -m pip install -r requirements.txt     # mcp>=2.0
 python server.py                              # stdio transport (default)
 ```
 
-On Windows, `run.cmd` resolves the PaglaAI shared venv (`D:\PaglaAI\.venv`)
-automatically.
+On Windows, `run.cmd` launches the server in stdio mode using the active
+virtual environment or python from PATH.
 
 ## Register with a coding agent
 
 ### opencode
 
-Project config `.opencode/opencode.json` already registers it as a local MCP
-server. Restart opencode after changing config. The server is launched with the
-shared venv Python; `REPO_ROOT` is derived from the server file, so it works
-from any working directory.
+Project config `.opencode/opencode.json` registers it as a local MCP
+server using `["python3", ".ai/mcp/server.py"]`. Restart opencode after changing config.
+`REPO_ROOT` is derived from the server file, so it works from any working directory.
 
 ### Claude Code / Cursor / other
 
 Register as a local MCP server pointing at:
 
 ```bash
-D:\PaglaAI\.venv\Scripts\python.exe D:\PaglaAI\pagladesign\.ai\mcp\server.py
+python3 .ai/mcp/server.py
 ```
 
 ## Layout
 
-- `server.py` — MCP server (`MCPServer`, MCP SDK 2.x), stdio transport
-- `rag.py` — BM25 retrieval index over `**/*.md` and `css/tokens.css`
-- `run.cmd` — Windows launcher resolving the shared venv
+- `server.py` — MCP server (`FastMCP`, MCP SDK 2.x), stdio transport
+- `rag.py` — BM25 retrieval index over canonical Markdown and `css/tokens.css`
+- `run.cmd` — Windows launcher
 - `requirements.txt` — `mcp>=2.0`
 
-The `mcp` package is installed in the shared PaglaAI venv
-(`D:\PaglaAI\.venv`). If you prefer an isolated venv, create one here and
-`pip install -r requirements.txt`, then point `run.cmd` at it.
+The `mcp` package requires Python 3.10+ (`mcp>=2.0`). Install dependencies via:
+`pip install -r requirements.txt`.
 
 ## Versioning
 

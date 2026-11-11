@@ -60,6 +60,9 @@ jobs:
           eco = json.loads(pathlib.Path("ecosystem.json").read_text(encoding="utf-8"))
           schema = json.loads(pathlib.Path("ecosystem.schema.json").read_text(encoding="utf-8"))
           jsonschema.validate(instance=eco, schema=schema)
+          ids = [entry["id"] for entry in eco["ecosystem"]]
+          dupes = [x for x in ids if ids.count(x) > 1]
+          assert not dupes, f"Duplicate ecosystem entry IDs found: {set(dupes)}"
           for entry in eco["ecosystem"]:
               repo = entry.get("repo", "")
               if repo.startswith("paglaai/") and repo != repo.lower():

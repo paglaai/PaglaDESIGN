@@ -263,7 +263,9 @@ def render_table(doc: Document, lines: list[str]) -> None:
         cell.text = ""
         p = cell.paragraphs[0]
         add_inline_text(p, cell_text)
-        p.runs[0].bold = True if p.runs else None
+        if p.runs:
+            for run in p.runs:
+                run.bold = True
         # Header background
         shading = cell._element.get_or_add_tcPr()
         shd = shading.makeelement(qn("w:shd"), {

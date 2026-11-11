@@ -1,6 +1,6 @@
 # PaglaMLX — In-Ecosystem Research Notes
 
-> Non-canonical capture. Studied from the local `D:\PaglaAI\PaglaMLX\README.md`
+> Non-canonical capture. Studied from the local PaglaMLX repository (`PaglaMLX/README.md`)
 > (the closest in-ecosystem example of a shipped PaglaAI surface).
 
 ---

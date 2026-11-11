@@ -1,6 +1,6 @@
 {
   "name": "@paglaai/pagladesign",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "The Canonical Design Authority, DesignDNA, and Design Tokens for the PaglaAI Ecosystem",
   "main": "css/tokens.css",
   "style": "css/tokens.css",

@@ -170,3 +170,34 @@ def test_mcp_dynamic_authority_discovery():
     assert "components/COMPONENT_LIBRARY.md" in authority
     assert "design-system/RENDERER_API.md" in authority
     assert len(authority) >= 40
+
+
+def test_ecosystem_registry_unique_ids():
+    """Verify ecosystem.json entries have strictly unique IDs."""
+    import json
+    eco = json.loads((REPO_ROOT / "ecosystem.json").read_text(encoding="utf-8"))
+    ids = [entry["id"] for entry in eco["ecosystem"]]
+    dupes = [x for x in ids if ids.count(x) > 1]
+    assert not dupes, f"Duplicate ecosystem entry IDs found: {set(dupes)}"
+
+
+def test_mcp_rag_ranking_and_exact_tokens():
+    """Verify RAG query sorts descending and token lookup matches exactly."""
+    sys.path.insert(0, str(REPO_ROOT / ".ai" / "mcp"))
+    from rag import RetrievalIndex
+
+    idx = RetrievalIndex().index()
+    res = idx.query("color accent primary", k=5)
+    assert len(res) >= 1
+    scores = [r.score for r in res]
+    assert scores == sorted(scores, reverse=True), "RAG search results must be descending by score"
+
+    # Exact token lookup: space.1 must match ONLY --space-1
+    matches = idx.lookup_token("space.1")
+    assert len(matches) == 1, f"Expected 1 exact match for space.1, got {matches}"
+    assert "--space-1:" in matches[0]
+
+    # Non-canonical references must never be indexed
+    for doc in idx.source_docs:
+        assert not doc.startswith("references/"), f"Non-canonical references/ indexed: {doc}"
+
