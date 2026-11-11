@@ -38,7 +38,7 @@ Designed as a **production-ready GitHub template**, this repository establishes 
 ┌──────────────────┐           ┌──────────────────┐           ┌──────────────────┐
 │   Human Surface  │           │   Machine / MCP  │           │   Architecture   │
 │ (FERN Renderer)  │           │ (FastMCP Server) │           │ (ADR Governance) │
-│ HTML · CSS · Web │           │ Cursor · Claude  │           │ D-001 ... D-024  │
+│ HTML · CSS · Web │           │ Cursor · Claude  │           │ D-001 ... D-026  │
 └──────────────────┘           └──────────────────┘           └──────────────────┘
 ```
 
@@ -79,8 +79,11 @@ cd my-design-authority
 ### 3. Verify Local Health & Parity
 
 ```bash
-# Verify all token parity tests pass
-python3 -m pytest tests/test_tokens_parity.py -v
+# Run the complete automated test suite (token parity + FERN portal tests)
+python3 -m pytest tests/ -v
+
+# Build the 30-page FERN documentation portal locally
+python3 bin/build_fern.py --out-dir _site
 
 # Validate machine-readable ecosystem registry
 python3 -m json.tool ecosystem.json > /dev/null
@@ -88,6 +91,32 @@ python3 -m json.tool ecosystem.schema.json > /dev/null
 
 # Compile MCP server and RAG indexer
 python3 -m py_compile .ai/mcp/server.py .ai/mcp/rag.py
+```
+
+---
+
+## Installation & Package Consumption
+
+Downstream applications and surfaces can consume the compiled tokens, CSS cascade layers, BrandKit assets, and font binaries directly via **GitHub Packages** (`@paglaai` scope):
+
+```bash
+# Configure the GitHub Packages registry for the @paglaai scope:
+echo "@paglaai:registry=https://npm.pkg.github.com" >> .npmrc
+
+# Install the canonical package:
+npm install @paglaai/pagladesign@2.2.1
+
+# Or install directly with the explicit registry flag:
+npm install @paglaai/pagladesign@2.2.1 --registry=https://npm.pkg.github.com
+```
+
+### Importing into Your Stylesheet
+
+```css
+/* Import canonical CSS cascade layers */
+@import "@paglaai/pagladesign/css/tokens.css";
+@import "@paglaai/pagladesign/css/base.css";
+@import "@paglaai/pagladesign/css/utilities.css";
 ```
 
 ---
@@ -162,7 +191,7 @@ Registered natively as an active design authority sidecar.
 
 ## Ecosystem Registry (`ecosystem.json`)
 
-PaglaDESIGN serves as the registry authority for the entire ecosystem. Rather than duplicating lists across markdown files, all surfaces, products, and pipelines are recorded in [`ecosystem.json`](./ecosystem.json) and validated against [`ecosystem.schema.json`](./ecosystem.schema.json):
+PaglaDESIGN serves as the registry authority for the entire ecosystem. Rather than duplicating lists across markdown files, all surfaces, products, and pipelines are recorded in [`ecosystem.json`](./ecosystem.json) (17 repositories: 10 active, 7 planned) and validated against [`ecosystem.schema.json`](./ecosystem.schema.json):
 
 | Surface / Product | Role | Category | Status | Target / Repository |
 | :--- | :--- | :--- | :--- | :--- |
@@ -177,6 +206,8 @@ PaglaDESIGN serves as the registry authority for the entire ecosystem. Rather th
 | **PaglaOS** | `product` | Desktop OS | `active` | [Product directory](https://www.paglaai.space/#products) |
 | **apphole.store** | `surface` | App Storefront | `planned` | `https://apphole.store` |
 | **SANCTUM** | `runtime` | Sandboxed Engine | `planned` | `paglaai/sanctum` |
+
+> *Table displays representative ecosystem members. The complete 17-entry catalog is defined in [`ecosystem.json`](./ecosystem.json).*
 
 ### Automation Pipeline: `design.updated`
 
@@ -236,9 +267,9 @@ pagladesign/
 │   └── PaglaSans-VF.woff2              # Variable font format
 │
 ├── governance/                         # Immutable architectural governance
-│   ├── DECISIONS.md                    # Architectural Decision Records (D-001..D-024)
+│   ├── DECISIONS.md                    # Architectural Decision Records (D-001..D-026)
 │   ├── ROADMAP.md                      # Three-phase ecosystem roadmap
-│   ├── CHANGELOG.md                    # Historical release log (v1.0..v2.1)
+│   ├── CHANGELOG.md                    # Historical release log (v1.0..v2.2.1)
 │   └── DOCUMENTATION_STYLE.md          # Technical prose guidelines
 │
 ├── site/                               # Web information architecture
@@ -251,7 +282,8 @@ pagladesign/
 ├── wireframes/                         # Low-fidelity layout references
 │
 ├── tests/                              # Automated CI quality gates
-│   └── test_tokens_parity.py           # 10-point SSOT token parity test suite
+│   ├── test_tokens_parity.py           # 12-point SSOT token parity & regression test suite
+│   └── test_fern_renderer.py           # 16-point FERN portal markdown & link test suite
 │
 ├── .ai/                                # Agent infrastructure (Excluded from RAG)
 │   ├── AGENT_MANUAL.md                 # 12-section agent operational procedure
@@ -262,10 +294,11 @@ pagladesign/
 │
 ├── .github/                            # GitHub Actions CI/CD workflows
 │   ├── actions/build-tokens/           # Token compiler & validator composite action
-│   └── workflows/                      # ci.yml, release.yml, dispatch-downstream.yml
+│   └── workflows/                      # ci.yml, deploy-pages.yml, dispatch-downstream.yml, release.yml
 │
 ├── bin/                                # Build utilities
-│   └── build_docx.py                   # Regenerate DOC/AGENT_MANUAL.docx
+│   ├── build_docx.py                   # Regenerate DOC/AGENT_MANUAL.docx
+│   └── build_fern.py                   # Compile the 30-page FERN documentation portal
 └── DOC/                                # Compiled binary output documents
 ```
 
@@ -291,6 +324,8 @@ Problem Identified → Research & Alternatives → Document in DECISIONS.md → 
 - [`D-021`](./governance/DECISIONS.md#d-021-font-naming-normalization-and-surface-effect-tokens) — Canonical `"Pagla Sans"` Typeface Naming.
 - [`D-023`](./governance/DECISIONS.md#d-023-ecosystem-registry-and-audit-v20-roadmap) — Canonical Ecosystem Registry (`ecosystem.json`).
 - [`D-024`](./governance/DECISIONS.md#d-024-ssot-parity-token-compilation-mcp-modernization-and-ci-gate-sealing) — SSOT Parity, Token Compilation, FastMCP Modernization, and CI Quality Gates.
+- [`D-025`](./governance/DECISIONS.md#d-025-fern-human-facing-static-site-architecture-and-github-pages-deployment) — Multi-Audience Markdown Frontmatter & FERN Documentation Portal.
+- [`D-026`](./governance/DECISIONS.md#d-026-mcp-retrieval-ranking-inversion-exact-token-isolation-docx-edge-cases-and-documentation-reference-hardening) — MCP Retrieval Ranking Inversion, Exact Token Isolation, and Documentation Hardening.
 
 ---
 
@@ -299,14 +334,18 @@ Problem Identified → Research & Alternatives → Document in DECISIONS.md → 
 Continuous Integration ([`.github/workflows/ci.yml`](./.github/workflows/ci.yml)) runs on Ubuntu with Python 3.11 to validate:
 
 1. **Tokens Parity & Structure:** Compiles `DESIGN_TOKENS.md`, validates against unescaped dots, asserts `@font-face` rules, and executes `tests/test_tokens_parity.py`.
-2. **Ecosystem Registry:** Validates `ecosystem.json` syntax and schema conformance, preventing duplicate IDs or untyped repositories.
-3. **MCP Server Health:** Verifies syntax and compilation of the FastMCP 2.0 server and indexing engine with `py_compile`, `black`, and `flake8`.
+2. **FERN Documentation Suite:** Asserts link resolution, Markdown parsing, and page rendering via `tests/test_fern_renderer.py`.
+3. **Ecosystem Registry:** Validates `ecosystem.json` syntax and schema conformance, preventing duplicate IDs or untyped repositories.
+4. **MCP Server Health:** Verifies syntax and compilation of the FastMCP 2.0 server and indexing engine with `py_compile`, `black`, and `flake8`.
 
 Run the entire verification suite locally:
 
 ```bash
-# Run pytest parity suite
-pytest tests/test_tokens_parity.py -v
+# Run pytest parity and regression suites
+pytest tests/ -v
+
+# Build the 30-page FERN documentation portal
+python3 bin/build_fern.py --out-dir _site
 
 # Validate CSS syntax and layers
 python3 -c "
