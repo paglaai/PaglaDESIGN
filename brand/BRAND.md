@@ -20,6 +20,26 @@ This document governs identity and usage.
 
 ---
 
+# Naming System
+
+PaglaAI is written as one word with a capitalized `AI` suffix. The merged form is the canonical brand spelling because intelligence is part of the entity's identity, not a separate feature or division.
+
+## Canonical forms
+
+- `PaglaAI` — the ecosystem and sovereign entity.
+- `PaglaDESIGN`, `PaglaAPI`, `PaglaMLX`, and `PaglaROUTER` — ecosystem names whose suffix identifies a system, protocol, or technical capability.
+- Suffixes that are acronyms or protocol names remain fully capitalized. Do not use forms such as `PaglaAi`, `PaglaApi`, or `PaglaMlx`.
+
+## Usage rules
+
+Use the canonical spelling in prose, headings, UI copy, metadata, documentation, source comments, generated artifacts, and public communications. Do not insert a space between `Pagla` and an approved technical suffix.
+
+Machine identifiers are a deliberate exception. Repository slugs, package scopes, URLs, DNS names, and other tooling-constrained values may use lowercase forms such as `paglaai/pagladesign` and `@paglaai/pagladesign`. This is an implementation constraint, not an alternate brand spelling.
+
+Not every product must use the `Pagla{SUFFIX}` pattern. World, persona, and narrative identities such as `B3K4R` and `KolponaOS` retain their independent names. Any other exception requires a recorded design-authority decision.
+
+---
+
 # Identity Philosophy
 
 The PaglaAI identity is intentionally restrained.
