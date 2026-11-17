@@ -17,9 +17,12 @@ jobs:
   dispatch:
     name: Notify consumer surfaces
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
 
       - name: Dispatch design.updated events
         env:
@@ -28,7 +31,7 @@ jobs:
           if [ -z "$GH_TOKEN" ]; then
             echo "PAGLAAI_GITHUB_TOKEN is not configured; downstream dispatches were not attempted."
             echo "::warning::Configure PAGLAAI_GITHUB_TOKEN to synchronize consumer repositories."
-            exit 0
+            exit 1
           fi
 
           PAYLOAD=$(printf '{"event_type":"design.updated","client_payload":{"source":"PaglaDESIGN","sha":"%s"}}' "$GITHUB_SHA")
