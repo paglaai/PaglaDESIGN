@@ -814,6 +814,36 @@ None. All changes resolve regressions, eliminate path ambiguity, and enforce str
 Agent retrieval returns mathematically ranked canonical authority chunks, token lookups are exact, document compilation is crash-proof, and documentation cross-references resolve without drift.
 
 ---
+# D-027 · Canonical Ecosystem Naming and Machine-Identifier Exceptions
+**Status:** Adopted
+
+**Context**
+
+The ecosystem needed one enforceable rule for the distinction between `PaglaAI`, separated forms such as `Pagla AI`, and technical product names with acronym suffixes. Existing agent guidance captured the intended pattern but mixed brand rules with a quantified cognitive-science claim and did not clearly distinguish human-facing names from lowercase repository and package identifiers.
+
+**Decision**
+1. Use `PaglaAI` as the canonical human-facing spelling of the ecosystem name. Do not separate `Pagla` from `AI` or alter the acronym casing.
+2. Use `Pagla{SUFFIX}` for ecosystem names whose suffix identifies a technical system, protocol, or capability. Keep approved acronym and protocol suffixes fully capitalized, as in `PaglaDESIGN`, `PaglaAPI`, `PaglaMLX`, and `PaglaROUTER`.
+3. Apply the naming rule consistently in prose, UI copy, metadata, documentation, source comments, generated artifacts, and public communications.
+4. Permit lowercase machine identifiers where required by tooling or infrastructure, including `paglaai/pagladesign`, `@paglaai/pagladesign`, URLs, DNS names, and registry paths. These are not alternate brand spellings.
+5. Preserve independent names for worlds, personas, and narrative identities, including `B3K4R` and `KolponaOS`. Any additional exception requires a recorded design-authority decision.
+6. Treat the visual distinction created by intercapitalization as a brand rationale only. Do not encode unverified numerical claims about reading time or cognitive response as a design-system requirement.
+
+**Alternatives considered**
+- Permit both `PaglaAI` and `Pagla AI`. Rejected — two forms create avoidable identity drift.
+- Force every ecosystem identity into the `Pagla{SUFFIX}` pattern. Rejected — narrative and persona identities need independent names.
+- Prohibit lowercase repository and package identifiers. Rejected — GitHub, package registries, URLs, and DNS systems impose machine-format or canonicalization constraints.
+- Preserve a quantified reading-time claim as policy. Rejected — the naming rule should not depend on an unverified numerical assertion.
+
+**Trade-offs**
+
+The rule adds a small review burden for new names and requires writers and implementers to distinguish brand spelling from machine identifiers. In return, it reduces naming drift across the ecosystem while preserving valid infrastructure conventions and meaningful exceptions.
+
+**Result**
+
+`brand/BRAND.md`, `AGENTS.md`, and future product documentation share one naming contract. Human-facing Pagla names are merged and acronym-aware; infrastructure identifiers remain interoperable; exceptions are explicit and auditable.
+
+---
 
 # Document-the-Decision Rule
 

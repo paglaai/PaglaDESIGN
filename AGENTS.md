@@ -10,10 +10,10 @@ Every agent initializing a session in this repository must immediately enforce t
 
 ### A. The Sovereign Naming Law
 * **Structure:** `Pagla + ALL_CAPS_SUFFIX` (`PaglaAI`, `PaglaDESIGN`, `PaglaSPACE`, `PaglaROUTER`, `PaglaWRITER`, `PaglaMLX`, `PaglaAPI`).
-* **The Cognitive Architecture (The Bouma Bump):** Intercapitalization (PascalCase + screaming acronym) forces a 12ms reading fixation where brand recognition occurs.
-* **Prohibited Forms:** Never write `Pagla AI`, `pagla ai`, `pagladesign`, `pagla-design`, or `PaglaAi`.
-* **The Suffix Protocol:** Suffixes must strictly be technical acronyms or protocols (AI, API, MLX, ROUTER, AGI, GPT, MTP, CPP, DESIGN).
-* **Exceptions:** Only world/persona entities (`B3K4R`, `KolponaOS`) are exempt under `governance/DECISIONS.md`.
+* **Identity rationale:** Intercapitalization creates a distinct, memorable word shape. Treat this as a brand principle, not as a quantified scientific claim.
+* **Prohibited Brand Forms:** Never write `Pagla AI`, `pagla ai`, `PaglaAi`, or `Pagla-<SUFFIX>` in human-facing content and canonical source documents. Lowercase repository slugs, package scopes, URLs, DNS names, and other tooling-required identifiers are allowed (`paglaai/pagladesign`, `@paglaai/pagladesign`).
+* **The Suffix Protocol:** Approved suffixes identify technical systems, protocols, or capabilities (for example: AI, API, MLX, ROUTER, AGI, GPT, MTP, CPP, DESIGN). New suffixes require design-authority review.
+* **Exceptions:** World/persona entities (`B3K4R`, `KolponaOS`) retain independent names. Machine identifiers use the infrastructure exception above. Any other human-facing exception requires a recorded decision in `governance/DECISIONS.md`.
 
 ### B. The Typography Law
 * **Display & Wordmarks:** `Pagla Sans Light` (300 weight) with `-0.01em` optical tracking (`-0.02em` for large hero display).
