@@ -13,17 +13,26 @@ on:
         required: true
         default: 'v2.1.0'
 
-permissions:
-  contents: write
-  packages: write
+permissions: {}
+concurrency:
+  group: "release-publish-${{ github.ref }}"
+  cancel-in-progress: false
 
 jobs:
   publish-assets:
     name: "Compile & Publish Release Assets"
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write # Required to create/update the GitHub release.
+      packages: write # Required to publish @paglaai/pagladesign.
     steps:
       - name: Checkout Code
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Build Design Tokens and CSS Artifacts
         uses: ./.github/actions/build-tokens
@@ -74,7 +83,38 @@ jobs:
           node-version: "20"
           registry-url: "https://npm.pkg.github.com"
           scope: "@paglaai"
+          package-manager-cache: false
 
+      - name: Validate release tag and package version
+        env:
+          RELEASE_EVENT: ${{ github.event_name }}
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          if [ "$RELEASE_EVENT" = "workflow_dispatch" ]; then
+            release_tag="$RELEASE_VERSION"
+          else
+            release_tag="${GITHUB_REF_NAME}"
+          fi
+          case "$release_tag" in
+            v[0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "Invalid release tag: $release_tag" >&2; exit 1 ;;
+          esac
+          expected_ref="refs/tags/$release_tag"
+          if [ "$GITHUB_REF" != "$expected_ref" ]; then
+            echo "Release must run on the selected tag ref $expected_ref, not $GITHUB_REF" >&2
+            exit 1
+          fi
+          tag_sha="$(git rev-parse "$expected_ref^{commit}")"
+          checked_out_sha="$(git rev-parse HEAD)"
+          if [ "$tag_sha" != "$checked_out_sha" ]; then
+            echo "Checked-out commit $checked_out_sha does not match tag $release_tag at $tag_sha" >&2
+            exit 1
+          fi
+          package_version="$(node -p "require('./package.json').version")"
+          if [ "${release_tag#v}" != "$package_version" ]; then
+            echo "Release tag $release_tag does not match package version $package_version" >&2
+            exit 1
+          fi
       - name: Publish to GitHub Packages
         run: |
           echo "=== Publishing @paglaai/pagladesign to GitHub Packages ==="
